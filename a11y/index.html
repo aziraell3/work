@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>a11y module sample</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="ko">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.5,minimum-scale=1.0,user-scalable=yes">
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" />
+<script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
+<style>
+*{margin: 0;padding: 0;box-sizing:border-box}
+*:focus{border: 2px dashed red !important;}
+html,body{height:100%}
+h1,h2,h3,h4,h5,h6{font-weight:600}
+h1{font-size:26px}
+h2{font-size:20px}
+h3{font-size:16px}
+body {
+	background-size: 10px, 30px, 10px 10px, 30px 30px;
+	background-image: linear-gradient(90deg, #00000004 1px, transparent 1px), linear-gradient(90deg, #00000004 1px, transparent 1px), linear-gradient(#00000004 1px, transparent 1px), linear-gradient(#00000004 1px, transparent 1px);
+}
+li{list-style:none;}
+button{background-color: transparent;border: 0;}
+.for-a11y,
+caption,
+legend{overflow:hidden;position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;clip:rect(0 0 0 0)}
+#wrap{max-width: 1000px;margin: 0 auto;padding: 40px;}
+.box + .box{padding-top: 20px;margin-top: 30px;border-top: 1px solid #000;}
+
+.guide{padding-left: 20px;}
+.guide dt{font-weight: bold;color: #333;}
+.guide dt::after{content:' : '}
+.guide dd{margin-bottom: 10px;padding-left: 20px;color: #666;}
+
+.dom{border: 1px solid #999;padding: 20px;}
+
+.grid{display: flex;justify-content: space-evenly;}
+.grid > *{}
+.sc{display: block;}
+.rq,
+.op{display: block;font-family: verdana;font-size: 12px;margin: 3px 0;font-weight: bold;letter-spacing: -.3px;}
+.ch::after,
+.rq::before,
+.op::before{content:'';font-family: verdana;display: inline-block;width: 48px;text-align: center;vertical-align: middle;padding: 1px 4px 2px;margin-right: 3px;font-size: 10px;color: #fff;letter-spacing: -.5px;background-color: gray;border-radius: 4px;font-weight: normal;}
+.rq::before{content:'Required';background-color: #F63832;}
+.op::before{content:'Optional';background-color: #319D5A;}
+.ch::after{content:'LINKED';width: auto;margin-left: 4px;background-color: #FAB000;letter-spacing: 0;}
+
+.box__form--select{position:relative;min-height:50px;vertical-align:top}
+.box__form--select .box__select{overflow:hidden;position:absolute;left:0;top:0;z-index:1;width:240px;border:1px solid #ccc;border-radius:5px;box-sizing:border-box}
+.box__form--select .box__select .button__select{position:relative;width:238px;height:48px;padding:0 53px 0 20px;font-size:16px;color:#9e9e9e;text-align:left;box-sizing:border-box}
+.box__form--select .box__select .button__select:disabled{color:#ccc}
+.box__form--select .box__select .button__select:after{content:'';position:absolute;right:10px;top:50%;transform:translateY(-50%);width:33px;height:33px;background-position:-102px -315px}
+.box__form--select .box__select .button__select .text__condition{position: relative;z-index: -1;}
+.box__form--select .box__select .list__select{display:none;width:100%}
+.box__form--select .box__select .list__select .list-item{height:50px}
+.box__form--select .box__select .list__select .list-item .button{display:block;width:100%;height:50px;padding-left:20px;font-size:16px;color:#000;line-height:50px;text-align:left}
+.box__form--select .box__select .list__select .list-item .button:hover{background:#f7f7f7}
+.box__form--select .box__select .list__select .list-item .button[aria-selected=true]{color: red;}
+.box__form--select.form--active{z-index:10}
+.box__form--select.form--active .box__select{border-color:#222}
+.box__form--select.form--active .box__select .button__select,
+.box__form--select.form--active .box__select .button__select .text__condition{color:#000}
+.box__form--select.form--active .box__select .button__select:after{background-position:-137px -315px}
+.box__form--select.form--active .list__select{display:block;background:#fff}
+
+
+
+/* ********************************************** */
+/* box__layer
+/* ********************************************** */
+.box__layer{display:none}
+.box__layer.box__layer--active{display:block}
+.box__layer .button__layer-close{position:absolute;right:8px;top:8px;width:32px;height:32px;z-index: 10;overflow: hidden;}
+.box__layer .button__layer-close .text__icon{font-family:serif;font-size: 24px;font-weight: normal;font-style: normal;color: #000;opacity: .3;}
+.box__layer .button__layer-close:after{display: block;width: 32px;height: 32px;margin: 0 auto;background-position: 0 0;}
+.box__layer-container{overflow:hidden;position:fixed;top:0;left:0;right:0;bottom:0;z-index:351;min-width:280px;background-color:#fff;outline-offset: 1px;}
+.box__layer-container .box__layer-header{width: auto;height: auto;padding: 16px;background-color: #fff;border-bottom:1px solid #eee}
+.box__layer-container .box__layer-header .text__layer-title{display:block;font-size:18px;font-weight:bold;line-height:22px;color:#222;text-align:left}
+.box__layer-container .box__layer-body{overflow:hidden;margin-top:48px;padding: 16px;height:calc(100% - 48px);box-sizing:border-box}
+.box__layer-container .box__layer-body .box__layer-scroll{overflow-x:hidden;overflow-y:auto;position:relative;height:100%;padding-bottom: 24px;box-sizing:border-box}
+.box__layer .box__step-wrap{max-width: 768px;margin: 0 auto;padding: 0 16px;}
+.box__layer .box__step-wrap.has-fixed{padding: 0 16px 40px 16px;}
+.box__layer .box__section.section-title{margin-top: 32px;}
+
+/* ********************************************** */
+/* box__dimmed-layer
+/* ********************************************** */
+.box__dimmed-layer .dimmed{content:'';display:none;position:fixed;top:0;left:0;z-index:350;width:100%;height:100%;background:#000;opacity: .5;}
+.box__dimmed-layer{overflow:hidden;display:none;position:fixed;left:0;top:0;right:0;bottom:0;z-index:371;width:100%;box-sizing:border-box;background-color:transparent;}
+.box__dimmed-layer .box__layer-container{display: none;position: absolute;top: 50%;left: 50%;right: initial;bottom: initial;width:300px;min-height: min-content;margin-top: 0;padding:0;background:#fff;height:auto;-webkit-transform: translate(-50%, -50%);transform: translate(-50%, -50%);-webkit-border-radius: 2px;border-radius:2px;}
+.box__dimmed-layer .box__layer-container .box__layer-body{margin-top: 0;height: auto;}
+.box__dimmed-layer.box__layer--active .dimmed{display:block;z-index: 370;}
+.box__dimmed-layer.box__layer--active .box__layer-container{display:block;z-index: 371;}
+.box__dimmed-layer .box__layer-container .box__layer-body .box__text-dimmed{padding: 16px 0 32px;text-align: left;}
+.box__dimmed-layer .box__layer-container .box__layer-body .box__text-dimmed .text__title{display: block;font-size: 16px;line-height: 22px;color: #222;font-weight: 700;}
+.box__dimmed-layer .box__layer-container .box__layer-body .box__text-dimmed .text__emphasis{}
+.box__dimmed-layer .box__layer-container .box__layer-body .box__text-dimmed .text__desc{display: block;padding-top: 8px;font-size: 14px;line-height: 20px;color: #222;}
+.box__dimmed-layer .box__layer-container .box__layer-body .button__exit,
+.box__dimmed-layer .box__layer-container .box__layer-body .button__cancel{width: 100%;height: 44px;font-size: 14px;line-height: 44px;color: #067dfd;text-align: center;border-top: 1px solid #eee;overflow: hidden;}
+.box__dimmed-layer .box__layer-container .box__layer-body .button__cancel{color: #222;}
+.box__dimmed-layer .box__layer-container .box__layer-body .box__button-wrap{margin: 0 -16px -16px;}
+
+</style>
+</head>
+<body>
+<div id="wrap">
+	<div class="box">
+		<h2>Web 접근성 측정</h2>
+		<dl class="guide">
+			<dt>Open WAX (Open WAX (Open Web Accesiblilty eXtension)</dt>
+			<dd>
+IE, 구글크롬, 파이어폭스 브라우저에서 원하는 사이트에 대해 접근성 진단을 제공합니다.<br>
+버튼만 클릭하면 1~21번까지의 접근성 지표에 따른 진단결과를 바로 확인 할 수 있습니다.<br>
+오류는 붉은색, 의심은 노란색, 정상은 흰색바탕으로 표시됩니다.<br>
+로컬 파일은 체크할수 없지만 iis셋팅을 하면 체크가능 합니다.<br>
+http://openwax.miya.pe.kr/ 
+			</dd>
+			<dt>N-WAX (NHN Web Accessibility eXtension)</dt>
+			<dd>
+엔왁스는 오픈왁스와 거의 유사한 프로그램입니다. <br>
+로컬 html 파일을 체크 할수 있지만, 점수는 표시되지 않습니다.<br>
+http://html.nhncorp.com/markup_tools/nwax
+			</dd>
+			<dt>웹 접근성 진단 서비스</dt>
+			<dd>
+https://accessibility.kr/
+			</dd>
+		</dl>
+	</div><!--// .box -->
+	<div class="box">
+		<h2>UI식별자 요청 가이드</h2>
+		<dl class="guide">
+			<dt>요청배경</dt>
+			<dd>
+UI/UX 개선을 위한 최신 스펙 기술도입 제약<br>
+스타일 코드의 중복 선언<br>
+셀렉터의 전역 선언(잠재적 UI 장애 요소)<br>
+퍼블리싱 QA 이슈 증가 요인
+			</dd>
+			<dt>도입 효과</dt>
+			<dd>
+스타일 코드 상속 및 재사용 용이<br>
+식별자 네임스페이스를 통하여 모듈화된 스타일 작성 가능<br>
+다양한 Client 환경 타겟팅하여 이슈 대응가능<br>
+UI/UX 개선을 위한 최신 명세 점진적 도입 가능<br>
+퍼블리싱 QA 이슈 감소
+			</dd>
+		</dl>
+	</div><!--// .box -->
+
+	<div class="box">
+		<h2>dimmed layer(modal)</h2>
+		<h3>defalut setting</h3>
+		<dl class="guide">
+			<dt>function(함수 호출형)</dt>
+			<dd>
+				<span class="sc">App.layerFunc('layerID', true) //레이어 오픈</span>
+				<span class="sc">App.layerFunc('layerID', false) //레이어 클로즈</span>
+			</dd>
+			<dt>button</dt>
+			<dd>
+				<span class="rq">[aria-haspopup="dialog | alertdialog | alert"]</span>
+				<span class="rq ch">[aria-controls="layerID"]</span>
+				<span class="op">.js-layer--button</span>
+			</dd>
+			<dt>layer</dt>
+			<dd>
+				<span class="rq ch">[id="layerID"]</span>
+				<span class="rq">[role="dialog | alertdialog | alert"]</span>
+				<span class="rq">[aria-hidden="true"]</span>
+				<span class="rq">[aria-modal="true"]</span>
+				<span class="op">.box__layer</span>
+			</dd>
+			<dt>layer close</dt>
+			<dd>
+				<span class="rq">[data-dismiss=modal]</span>
+				<span class="op">.js-layer--closed</span>
+			</dd>
+
+		</dl>
+		<div class="dom">
+			<button type="button" class="js-layer--button" aria-haspopup="alertdialog" aria-controls="layer01">open button</button>
+		</div><!--// .dom -->
+	</div><!--// .box -->
+	<div class="box">
+		<h2>selectbox</h2>
+		<h3>defalut setting</h3>
+		<dl class="guide">
+			<dt>wrap</dt>
+			<dd>.js-form--select</dd>
+
+			<dt>button</dt>
+			<dd>.js-list--button, [aria-expanded="false"], [aria-controls="listboxID"]</dd>
+
+			<dt>listbox</dt>
+			<dd>#listboxID, [role="listbox"], [aria-hidden="true"]</dd>
+			<dt>listbox child middle dom element</dt>
+			<dd>[role="none"]</dd>
+			<dt>listbox child last dom element</dt>
+			<dd>[role="option"], [aria-selected="false"]</dd>
+		</dl>
+		<div class="dom">
+			<ul class="grid">
+				<li>
+					<div class="box__form--select js-form--select">
+						<div class="box__select">
+							<button type="button" aria-expanded="false" aria-controls="faqTypePrimary" class="button__select sprite__help--after">
+								<span class="text__condition">문의유형 선택</span>
+							</button>
+							<ul id="faqTypePrimary" class="list__select" role="listbox" aria-hidden="true">
+								<!-- To Dev : 선택한 요소 or 선택되어 있는 요소는 aria-selected="true" 추가 -->
+								<li role="none" class="list-item"><button type="button" role="option" class="button">회원</button></li>
+								<li role="none" class="list-item"><button type="button" role="option" class="button">주문/결제</button></li>
+								<li role="none" class="list-item"><button type="button" role="option" class="button">쿠폰/혜택/이벤트</button></li>
+								<li role="none" class="list-item"><button type="button" role="option" class="button">반품/교환</button></li>
+								<li role="none" class="list-item"><button type="button" role="option" class="button">취소/환불</button></li>
+							</ul>
+						</div>
+					</div>
+				</li>
+			</ul>
+		</div><!--// .dom -->
+	</div><!--// .box -->
+
+	<div id="popup">
+		<div id="layer01" class="box__layer box__dimmed-layer" role="alertdialog" aria-hidden="true" aria-modal="true">
+			<div class="box__layer-container">
+				<div class="box__layer-header">
+					<h2 class="text__layer-title">untitled</h2>
+				</div>
+				<div class="box__layer-body">
+					layer content<br>
+					content<br>
+					content<br>
+					content<br>
+					content<br>
+					content<br>
+					<div class="box__button-group">
+						<button class="button__default" data-dismiss="modal">Cancel</button>
+						<button class="button__default" data-dismiss="modal">Submit</button>
+					</div>
+					
+				</div>
+				<!-- To : 닫기버튼은 레이어내 focus동선 마지막에 위치시킴 -->
+				<button class="button__layer-close" data-dismiss="modal"><i class="text__icon" role="none">&times;</i><span class="for-a11y">Close</span></button>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+</body>
+<script>
+$(function() {
+	App.init();
+
+});
+
+// role=button
+$('[role=button]').on('keydown', function(e){
+	if (e.keyCode == 32) {
+		e.preventDefault();
+		$(this).trigger('click');
+	}
+})
+
+// SelectBox
+var App = (function () {
+	var method = {};
+	var el = {};
+	method.init = function () {
+		method.setElement();
+		method.bindEvents();
+		method.layerFuncInit();
+	},
+	method.setElement = function () {
+		el.body = $('body');
+		el.extendLink = $('.button__select');
+		el.selectbox = el.extendLink.parents('.box__form--select');
+		el.selectboxActiveClass = 'form--active';
+		el.extendList = el.selectbox.find('.list__select');
+		el.extendListItem = el.extendList.find('.list-item .button');
+		el.extendList.find('.button').attr({'tabindex':'-1'}).removeAttr('aria-selected');
+	},
+	method.bindEvents = function (){
+		method.extendSelect();
+		el.extendListItem.on('click', $.proxy(method.optionSelect, this));
+		$(document).on('click', function(e){
+			if(!$(e.target).is('.box__form--select .box__select button')) {
+				$('.box__form--select').removeClass('form--active').find('.button__select').attr('aria-expanded', false).next().attr('aria-hidden', true);
+			}
+		});
+	},
+	method.extendSelect = function (){
+		el.extendLink.on('click', function(e){
+			el.extendLink = $(e.currentTarget);
+			el.targetBox = $(e.currentTarget).parents('.box__form--select');
+			el.targetContent = $(e.currentTarget).attr('aria-controls');
+			$('.box__form--select').removeClass('form--active').find('.button__select').attr('aria-expanded', false).next().attr('aria-hidden', true);
+			if (el.targetBox.hasClass('form--active')) {
+				el.targetBox.removeClass('form--active');
+				el.extendLink.attr('aria-expanded', false);
+				$('#'+el.targetContent).attr('aria-hidden', true);
+				
+			} else {
+				el.targetBox.addClass('form--active');
+				el.extendLink.attr('aria-expanded', true);
+				$('#'+el.targetContent).attr('aria-hidden', false);
+				method.optionAction($('#'+el.targetContent));
+			}
+			
+		})
+	},
+	method.optionAction = function ($target){
+		$target.find('[role=option]:not([disabled])').each(function(index){
+			var $option = $target.find('[role=option]:not([disabled])');
+			$option.attr('tabindex', '-1');
+			if ($target.find('[role=option]').is('[aria-selected=true]')) {
+				$target.find('[role=option][aria-selected=true]').attr('tabindex', '0').focus();
+			} else {
+				$($option[0]).attr('tabindex', '0').focus();
+			}
+			$(this).on('keydown',  function(e){
+				if (e.keyCode == 38) { // up arrow
+					if (index !== 0) {
+						$($option[index - 1]).attr('tabindex', '0').focus();
+					}
+					e.preventDefault();
+				}
+				if(e.keyCode == 40){ // down arrow
+					$($option[index + 1]).attr('tabindex', '0').focus();
+					e.preventDefault();
+				}
+				if(e.keyCode == 13){ // enter
+					$($option[index]).trigger('click');
+					e.preventDefault();
+					e.stopPropagation();
+				}
+				if (e.keyCode === 27 || e.keyCode === 9) { // tab & esc
+					$('.box__form--select').removeClass('form--active').find('.button__select').attr({'aria-expanded':false, 'tabindex': '0'}).next().attr('aria-hidden', true);
+					$target.prev().focus();
+					e.preventDefault();
+				}
+			})
+		})
+
+	},
+	method.optionSelect = function (e){
+		e.preventDefault();
+		var _thisOption = $(e.currentTarget);
+		var targetValue = _thisOption.text();
+		var targetBox = _thisOption.parents('.box__form--select');
+		targetBox.find('.box__select').addClass('text__active');
+		_thisOption.parents('.list__select').find('.button').removeAttr('aria-selected');
+		_thisOption.attr('aria-selected', true).parents('.list__select').attr('aria-hidden', true).end().parents('.box__select').find('.button__select').attr('tabindex', '0').focus();
+		if(_thisOption.hasClass('button__value-self')){
+			targetBox.find('.box__input').show().find('.form__input')
+				.on('focus', function(){
+					targetBox.addClass('form--focus');
+				})
+				.on('blur', function(){
+					targetBox.removeClass('form--focus');
+				});
+			targetBox.find('.box__input').show().find('.form__input').focus();
+		}else{
+			targetBox.find('.box__input').hide();
+			targetBox.find('.text__condition').text(targetValue);
+		}
+		targetBox.removeClass(el.selectboxActiveClass);
+	}
+
+	method.layerFuncInit = function(){
+		$('[aria-haspopup][aria-controls]').on('click', function(e){
+			e.preventDefault();
+			var $target = $(this).attr('aria-controls');
+			if ($('#'+$target).find('.dimmed').get(0) == undefined) {
+				$('#'+$target).append('<div class="dimmed" role="none"></div>');
+				method.layerFuncClose();
+			}
+			if ($('#'+$target).get(0) !== undefined) {
+				method.layerFunc($target, true);
+			}
+		})
+	};
+	method.layerFuncClose = function(){
+		$('[data-dismiss=modal], .dimmed').on('click', function(e){
+			e.preventDefault();
+			var $target = $(this).parents('[role=dialog], [role=alertdialog]').attr('id');
+			var $button = $('[aria-haspopup][aria-controls='+$target+']');
+			if ($button.is('.js-input-focus')) {
+				$button.siblings('.form__input-text').focus();
+			} else {
+				$button.focus();
+			}
+			method.layerFunc($target, false);
+		})
+	};
+	method.layerFunc = function($target, $boolean){
+		if ($('#'+$target).get(0) !== undefined) {
+			var $targetPopup = $('#'+$target);
+			var firstTabStop = 0;
+			var lastTabStop = 0;
+			if ($boolean) {
+				if (!$targetPopup.is('.box__layer--active')) {
+					$targetPopup.addClass('box__layer--active').attr({'aria-hidden':false}).find('.box__layer-container').attr({'tabindex':'0'});
+				}
+				var focusableElementsString = $targetPopup.find('a[href], area[href], input:not([disabled], [aria-hidden=true]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), iframe, object, embed, [tabindex="0"], [contenteditable]');
+				var firstTabStop = focusableElementsString[0];
+				var lastTabStop = focusableElementsString[focusableElementsString.length - 1];
+				firstTabStop.focus();
+				if ($('#'+$target).find('.dimmed').get(0) == undefined) {
+					$('#'+$target).append('<div class="dimmed" role="none"></div>');
+					method.layerFuncClose();
+				}
+				$targetPopup.bind('keydown', trapTabKey);
+			} else {
+				$targetPopup.unbind('keydown', trapTabKey, false);
+				$targetPopup.removeClass('box__layer--active').attr({'aria-hidden':true}).find('.box__layer-container').removeAttr('tabindex');
+				if ($('[aria-haspopup][aria-controls='+$target+']').length > 0) {
+					$('[aria-haspopup][aria-controls='+$target+']').focus();
+				} else if($('.box__layer--active').get(0) !== undefined) {
+					$('.box__layer--active').find('[data-dismiss=modal]').focus();
+				}
+			}
+			method.fixedViewPort($boolean);
+			function trapTabKey(e) {
+				// Check for TAB key press
+				if (e.keyCode === 9) {
+					// SHIFT + TAB
+					if (e.shiftKey) {
+						if (document.activeElement === firstTabStop) {
+							e.preventDefault();
+							lastTabStop.focus();
+						}
+					// TAB
+					} else {
+						if (document.activeElement === lastTabStop) {
+							e.preventDefault();
+							firstTabStop.focus();
+						}
+					}
+				}
+				// ESCAPE
+				if (e.keyCode === 27) {
+					$targetPopup.find('[data-dismiss=modal], .dimmed').click();
+				}
+			}
+		}
+	};
+	method.fixedViewPort = function(fixedView){ //화면 잠금(딤드 레이어시 호출 true/false)
+		(fixedView) ? el.body.addClass('js-scroll-lock') : el.body.removeClass('js-scroll-lock');
+	};
+	return {
+		init : method.init,
+		bindEvents : method.bindEvents,
+		extendSelect : method.extendSelect,
+		optionAction : method.optionAction,
+		optionSelect : method.optionSelect,
+		fixedViewPort : method.fixedViewPort,
+		layerFuncInit : method.layerFuncInit,
+		layerFunc : method.layerFunc
+	}
+})();
+</script>
+</html>

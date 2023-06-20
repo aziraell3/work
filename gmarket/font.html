@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>G마켓 - 쇼핑을 바꾸는 쇼핑</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.5,minimum-scale=1.0,user-scalable=yes">
+<meta name="keywords" content="##keywords, HTML, CSS, XML, XHTML, JavaScript">
+<meta name="description" content="##description, The MDN Learning Area aims to provide.">
+<meta name="format-detection" content="telephone=no">
+<style>
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 700;
+	src: local('Gmarket Sans Bold'), local('GmarketSans-Bold'),
+	url('https://script.gmarket.com/fonts/GmarketSansBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 500;
+	src: local('Gmarket Sans Medium'), local('GmarketSans-Medium'),
+	url('https://script.gmarket.com/fonts/GmarketSansMedium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansMedium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 300;
+	src: local('Gmarket Sans Light'), local('GmarketSans-Light'),
+	url('https://script.gmarket.com/fonts/GmarketSansLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face{
+	font-family:'Noto Sans Korean';font-style:normal;font-weight:400;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot),
+		url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot?#iefix) format('embedded-opentype');
+	src:local('Noto Sans DemiLight'),local('NotoSans-DemiLight'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.woff) format('woff'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.otf) format('opentype');
+}
+@font-face{
+	font-family:'Noto Sans Korean';font-style:normal;font-weight:bold;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot?#iefix) format('embedded-opentype');
+	src:local('Noto Sans Medium'),local('NotoSans-Medium'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.woff) format('woff'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.otf) format('opentype');
+}
+@font-face{
+	font-family:'Noto Sans Korean';font-style:normal;font-weight:800;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot?#iefix) format('embedded-opentype');
+	src:local('Noto Sans Bold'),local('NotoSans-Bold'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.woff) format('woff'),
+		url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.otf) format('opentype');
+}
+*{margin:0;padding:0}
+ul,ol{list-style:none}
+button{-webkit-border-radius:0;border-radius:0;background-color:transparent;cursor:pointer}
+a,a:hover,a:active,a:focus{text-decoration:none}
+button{border:0 none;background-color:transparent;cursor:pointer}
+em,address{font-style:normal}
+table{border-collapse:collapse;border-spacing:0}
+iframe,fieldset,img{border:0 none}
+textarea{resize:none}
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{display:block}
+img{vertical-align:top}
+hr{display:none}
+.for-a11y{ position: absolute;width: 1px;height: 1px;margin: -1px;padding: 0;border: 0;clip: rect(0 0 0 0);overflow: hidden;text-indent: -5000em;}
+/* font rule 
+body,table,input,textarea,select,button,th,td,input,select,textarea,th,td,p,dl,dt,dd,li,pre{
+	font-family: -apple-system, BlinkMacSystemFont, Apple SD Gothic Neo, Roboto, Noto Sans CJK KR, Tahoma, 'Noto Sans KR', 'Gmarket Sans', sans-serif;
+}
+*/
+.box__guide{}
+.box__guide + .box__guide{margin-top: 20px;padding-top: 20px;border-top: 1px solid #dbdbdb;}
+.box__guide .title__guide{margin: 0;padding: 0;font-size: 20px;font-weight: bold;}
+.box__guide .subtitle__guide{margin-top: 10px;font-size: 14px;}
+.box__guide .desc__guide{margin: 0;padding: 5px 0 8px;font-size: 12px;color: #666;font-weight: normal;}
+.box__guide .desc__guide::before{content:'(';}
+.box__guide .desc__guide::after{content:')';}
+.box__guide .desc__guide.info::before,
+.box__guide .desc__guide.info::after{content:'';display: none;}
+.box__guide .list__guide{display: flex;flex-wrap: wrap;justify-content: space-between;align-items: stretch;margin-top: -10px;}
+.box__guide .list__guide li{width: 32%;margin-top: 10px;}
+.box__guide .list__guide button{position: relative;width: 100%;height: 100%;padding: 10px;font-size: 14px;background-color: #f5f5f5;border: 1px solid transparent;border-radius:6px;word-break: break-word;line-height: 1.3;}
+.box__guide .list__guide button.web-font{border: 1px solid #999;}
+.box__guide .list__guide button.web-font::before{content:'eot';position: absolute;top: 2px;left: 4px;font-size: 11px;opacity: .5;}
+.box__guide .list__guide button.active{background-color: #ddd;color: #000;}
+#testArea{font-family: dotum;max-height:430px;overflow-y: auto;padding: 10px;font-size: 14px;font-weight: normal;line-height: 1.5;border: 1px solid #000;word-break: break-all;}
+.box__form{position: relative;padding-right: 100px;}
+.box__form #fontFamilyinput{}
+.box__form button{position: absolute;top: 0;right: 0;width: 95px;}
+#slider{margin: 10px 15px;border: 0;}
+#slider:before{content:'';display: block;height: 12px;margin: 0 -15px;border: 1px solid #c5c5c5;border-radius:4px;}
+#custom-handle{width: 30px;height: 20px;top: 50%;margin-top: -10px;text-align: center;line-height: 1.6em;font-size: 12px;margin-left: -15px;}
+
+
+.info pre{margin: 0;font-size: 14px;}
+.ff,
+.fz,
+.fw{color: red;}
+
+.browser{position: fixed;top: 5px;width: 100%;font-size: 12px;z-index: 100;}
+.box__bw{position: relative;padding-left: 10px;}
+.box__bw .btn-warning{position: relative;padding: 5px 10px;color: #000;border-radius:5px;z-index: 100;}
+.box__bw .list__bw-info{display: none;position: absolute;padding: 15px;background-color: #fff;border: 1px solid #ddd;background-color: #fafafa;border-radius:5px;z-index: 100;}
+.box__bw .list__bw-info li{font-size: 14px;}
+.box__bw #bwCheck{}
+.box__bw label{}
+.box__bw label::after{content:'[∨]';display: inline-block;margin-left: 4px;}
+.box__bw #bwCheck:checked + label::after{content:'[∧]';}
+.box__bw #bwCheck:checked + label + .list__bw-info{display: block;}
+.box__bw #bwCheck:checked + label + .list__bw-info + .dimmed{content:'';position: fixed;display: block;top: 0;right: 0;left: 0;bottom: 0;background-color: #000;opacity: .3;z-index: 50;}
+
+
+.guide{display:flex;align-items: flex-start;justify-content: center;padding: 40px;margin: 0 auto;}
+.section{width: 500px;margin-right: 40px;}
+.section + .section{width: 350px;margin-right: 0;}
+
+.font-gmkt-pc{}
+.font-gmkt-mo{}
+.font-iac-pc{}
+.font-iac-mo{}
+@media screen and (max-width:660px) {
+	.section{width: 100%;}
+	.section + .section{margin-top: 20px;}
+	.guide{flex-direction: column;}
+}
+
+.box__tab{position: relative;margin-top: 20px;}
+.box__tab > ul{padding-top: 35px;}
+.box__tab > ul > li{}
+.box__tab > ul > li input{}
+.box__tab > ul > li label{position: absolute;top: 0;width: calc(50% + 1px);margin: 0;padding: 5px 0;text-align: center;border: 1px solid #000;background-color: #ddd;color: #000;opacity: .2;}
+.box__tab > ul > li:first-child label{left: 0;border-radius:8px 0 0 8px;}
+.box__tab > ul > li:last-child label{right: 0;border-radius:0 8px 8px 0;}
+.box__tab > ul > li .box__tab-cont{display: none;}
+.box__tab > ul > li input:checked + label{z-index: 10;opacity: 1;}
+.box__tab > ul > li input:checked + label + .box__tab-cont{display: block;padding-top: 10px;}
+
+</style>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+</head>
+<body>
+	<div class="desc__guide browser">
+		<div class="box__bw">
+			<input type="checkbox" id="bwCheck" class="for-a11y">
+			<label for="bwCheck" class="btn-warning">웹 브라우저 정보 확인</label>
+			<ul class="list__bw-info">
+				<li>접속환경 : <strong class="bw0"></strong></li>
+				<li>브라우저 이름 : <strong class="bw1"></strong></li>
+				<li>브라우저 코드명 : <strong class="bw2"></strong></li>
+				<li>플랫폼 정보 : <strong class="bw3"></strong></li>
+				<li>사용자 정보 : <strong class="bw4"></strong></li>
+				<li>브라우저 버전 : <strong class="bw5"></strong></li>
+			</ul>
+			<div class="dimmed"></div>
+		</div>
+	</div>
+	<div class="guide">
+		<div class="section">
+			<div class="box__guide">
+				<h2 class="title__guide">result area</h2>
+				
+				<div class="desc__guide info">
+					<pre class="">#testArea {
+  font-family: <strong id="ff" class="ff">dotum</strong>;
+  font-size: <strong id="fz" class="fz">14px</strong>;
+  font-weight: <strong id="fw" class="fw">normal</strong>;
+  line-height: 1.5;
+}</pre>
+				</div>
+				<div id="testArea">
+					가나다라마바사아자차카타파하<br>
+					!@#$%^&*()_+\|~&gt;&lt;?:"<br>
+					0123456789<br>
+					ABCDEFGHIJKLMNOPQRSTUWXYZ<br>
+					abcdefghijklmnopqrstuwxyz
+				</div>
+				<div id="day"></div>
+				<div id="day2"></div>
+			</div>
+		</div>
+		<div class="section">
+			<div class="box__guide">
+				<h2 class="title__guide">font-size</h2>
+				<p class="desc__guide">&larr;, 	&rarr;, &uarr;, &darr; OR 드래그 로 사이즈 조절</p>
+				<div id="slider">
+					<div id="custom-handle" class="ui-slider-handle"></div>
+				</div>
+			</div>
+			<div class="box__guide">
+				<h2 class="title__guide">font-family</h2>
+				<div class="box__tab">
+					<ul>
+						<li>
+							<input type="radio" id="tab1" class="for-a11y" name="tab" checked="checked">
+							<label for="tab1">샘플선택</label>
+							<div class="box__tab-cont">
+
+			<div class="box__guide">
+				<p class="desc__guide">eot = 웹 폰트</p>
+				<ul class="list__guide button__font-family">
+					<li><button>-apple-system</button></li>
+					<li><button>AppleSDGothicNeo</button></li>
+					<li><button>Apple SD Gothic Neo</button></li>
+					<li><button>BlinkMacSystemFont</button></li>
+					<li><button>Roboto</button></li>
+					<li><button>Tahoma</button></li>
+					<li><button>sans-serif</button></li>
+					<li><button class="web-font">Noto Sans Korean</button></li>
+					<li><button class="web-font">Gmarket Sans</button></li>
+				</ul>
+			</div>
+							</div>
+						</li>
+						<li>
+							<input type="radio" id="tab2" class="for-a11y" name="tab">
+							<label for="tab2">직접입력</label>
+							<div class="box__tab-cont">
+				<p class="desc__guide">테스트 하고 싶은 font-family를 <u>정확히</u> 입력</p>
+				<div class="box__form">
+					<input type="text" id="fontFamilyinput" class="form-control" value="" placeholder="ex) Gmarket Sans">
+					<button id="fontFamilySubmit" class="js-button btn btn-success">Confirm</button>
+				</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="box__guide">
+				<h2 class="title__guide">font-weight</h2>
+				<p class="desc__guide">일반적으로 normal=400 / bold=700</p>
+				<ul class="list__guide button__font-weight">
+					<li><button class="active">normal</button></li>
+					<li><button>bold</button></li>
+					<li><button>bolder</button></li>
+					<li><button>100</button></li>
+					<li><button>200</button></li>
+					<li><button>300</button></li>
+					<li><button>400</button></li>
+					<li><button>500</button></li>
+					<li><button>600</button></li>
+					<li><button>700</button></li>
+					<li><button>800</button></li>
+					<li><button>900</button></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
+
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+<script>
+$( function() {
+	var $fontFamily = $('#ff');
+	var $fontSize = $('#fz');
+	var $fontWeight = $('#fw');
+	var $test = $('#testArea');
+
+	$('.bw1').text(navigator.appName);
+	$('.bw2').text(navigator.appCodeName );
+	$('.bw3').text(navigator.platform );
+	$('.bw4').text(navigator.userAgent );
+	$('.bw5').text(navigator.appVersion );
+	//$('.bw6').text(navigator.appName);
+
+	$('.list__guide li').each(function(idx) {
+		var $btn = $(this).find('button');
+		$btn.on('click', function() {
+			var $val = $(this).text();
+				$(this).parents('.list__guide').find('li button').removeClass('active');
+				$(this).addClass('active');
+			if ($(this).parents('.list__guide').is('.button__font-family')) {
+				//console.log('ff');
+				$test.css('font-family', $val);
+				$fontFamily.text($val);
+			} else if($(this).parents('.list__guide').is('.button__font-weight')) {
+				//console.log('fw');
+				$test.css('font-weight', $val);
+				$fontWeight.text($val);
+			}
+		})
+	})
+	$('#fontFamilySubmit').on('click', function() {
+		var $val = $('#fontFamilyinput').val();
+		if ($val == ''){
+			alert('font-family 명 입력!');
+		} else {
+			$test.css('font-family', $val);
+			$fontFamily.text($val);
+			$('.button__font-family li button').removeClass('active');
+		}
+	})
+	var handle = $( "#custom-handle" );
+	$( "#slider" ).slider({
+		value: 16,
+		min:10,
+		max:60,
+		step: 1,
+		create: function() {
+			handle.text( $( this ).slider( "value" ) );
+		},
+		slide: function( event, ui ) {
+			handle.text( ui.value );
+			$test.css('font-size', ui.value+'px');
+			$fontSize.text(ui.value+'px');
+		}
+	});
+
+	function isMobile() {
+		var user = navigator.userAgent;
+		var is_mobile = false;
+		if( user.indexOf("iPhone") > -1 || user.indexOf("Android") > -1 || user.indexOf("iPad") > -1 || user.indexOf("iPod") > -1 ) {
+			is_mobile = true;
+		} 
+		return is_mobile;
+	}
+	var is_mobile = isMobile();
+	( is_mobile ) ? $('.bw0').text("모바일로 접속") : $('.bw0').text("PC로 접속");
+
+
+	setInterval(function() {
+		var today = new Date();
+		var year = today.getFullYear(); // 년도
+		var month = today.getMonth() + 1;  // 월(1월은 0으로 표현)
+		var date = today.getDate();  // 날짜
+		var day = today.getDay();  // 요일 (일요일이 0, 월요일이1, 토요일이 6)
+		var hours = today.getHours(); // 시
+		var minutes = today.getMinutes();  // 분
+		var seconds = today.getSeconds();  // 초
+		var monthUs;
+		var dayKo;
+		switch (month){
+			case 1:
+				monthUs = 'jan'
+				break;
+			case 2:
+				monthUs = 'feb'
+				break;
+			case 3:
+				monthUs = 'mar'
+				break;
+			case 4:
+				monthUs = 'apr'
+				break;
+			case 5:
+				monthUs = 'may'
+				break;
+			case 6:
+				monthUs = 'jun'
+				break;
+			case 7:
+				monthUs = 'jul'
+				break;
+			case 8:
+				monthUs = 'aug'
+				break;
+			case 9:
+				monthUs = 'sep'
+				break;
+			case 10:
+				monthUs = 'oct'
+				break;
+			case 11:
+				monthUs = 'nov'
+				break;
+			case 12:
+				monthUs = 'dec'
+				break;
+			default:
+				break;
+		}
+		switch (day){
+			case 0:
+				dayKo = '일'
+				break;
+			case 1:
+				dayKo = '월'
+				break;
+			case 2:
+				dayKo = '화'
+				break;
+			case 3:
+				dayKo = '수'
+				break;
+			case 4:
+				dayKo = '목'
+				break;
+			case 5:
+				dayKo = '금'
+				break;
+			case 6:
+				dayKo = '토'
+				break;
+			default:
+				break;
+		}
+		$('#day').html(year+ '/' +month+ '/' +date+ '(' +day+ ') '+hours+':'+minutes+':'+seconds+ '<br>' +year+ '/' +monthUs+ '/' +date+ '(' +dayKo+ ') ' +hours+ ':' +minutes+ ':' +seconds)
+		$('#day2').html(today.toLocaleDateString() + '<br>'+today.toLocaleTimeString())
+	}, 1000);
+
+});
+</script>
+</html>
