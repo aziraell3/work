@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>issue check</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="content-language" content="ko">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.5,minimum-scale=1.0,user-scalable=yes">
+<link rel="stylesheet" href="../css/common.css">
+<style>
+#container{max-width:640px;margin: 40px auto 0;}
+.list__number{list-style: auto;}
+.list__number > li{border: 1px solid #999;border-radius:12px;overflow: hidden;}
+.list__number > li + li{margin-top: 10px;}
+.list__number > li::marker{font-size: 14px;}
+.button__open{display: block;width: 100%;padding: 10px 20px;font-size: 16px;text-align: left;}
+.box-list{display: none;padding: 10px 20px;background-color: #f3f3f3;}
+.box-list[aria-hidden=false]{}
+.box-list ul > li{position: relative;padding-left: 20px;margin-top: 5px;}
+.box-list ul > li::before{content:'';font-size: 14px;position: absolute;top: 0;left: 0;font-weight: bold;}
+.box-list ul > li.question::before{content:'Q';color: blue;}
+.box-list ul > li.answer::before{content:'A';color: orange;}
+</style>
+</head>
+<body>
+<div id="wrap">
+	<section id="container">
+		<div class="box__acd">
+			<ol class="list__number">
+				<li>
+					<button type="button" class="button__open" aria-expanded="false">auto focus 이슈</button>
+					<div class="box-list" aria-hidden="true">
+						<ul>
+							<li class="list-item question">
+								$('input').focus() 처리시 자동으로 focus되면서 키패드가 올라와야함
+							</li>
+							<li class="list-item answer">
+								ios, and에서는 사용자의 행위(터치, 클릭 등)가 아닌 자동화로 입력키패드를 발생시킬 수 없음.
+							</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<button type="button" class="button__open" aria-expanded="false">input focus시 화면이 올라가면서 키패드 올라오는 이슈</button>
+					<div class="box-list" aria-hidden="true">
+						<ul>
+							<li class="list-item question">
+								블라
+							</li>
+							<li class="list-item answer">
+								시스템적인 기능은 변경하기도 힘들지만 그쪽은 건들지 않는게 좋음.<br>
+								OS업데이트로 인해 더 큰 문제 발송소지가 있고 bug report가 어려움
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ol>
+			
+		</div>
+	</section>
+</div>
+</body>
+<script src="../plugin/jquery-1.8.2.js"></script>
+<script src="../js/common.js"></script>
+<script>
+</script>
+</html>
