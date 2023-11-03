@@ -1,0 +1,96 @@
+@charset "utf-8";
+
+/* typography */
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:300;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot), url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans DemiLight"), local("NotoSans-DemiLight"), url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.woff) format("woff"), url(https://script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:400;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.eot), url(https://script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Regular"), local("NotoSans-Regular"), url(https://script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.woff) format("woff"), url(https://script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:500;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot), url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Medium"), local("NotoSans-Medium"), url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.woff) format("woff"), url(https://script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:700;
+	src:url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot), url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Bold"), local("NotoSans-Bold"), url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.woff) format("woff"), url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Gmarket Sans";
+	font-style:normal;
+	font-weight:700;
+	src:local("Gmarket Sans Bold"), local("GmarketSans-Bold"), url(https://script.gmarket.com/fonts/GmarketSansBold.woff2) format("woff2"), url(https://script.gmarket.com/fonts/GmarketSansBold.woff) format("woff");
+}
+@font-face{
+	font-family:"Gmarket Sans";
+	font-style:normal;
+	font-weight:500;
+	src:local("Gmarket Sans Medium"), local("GmarketSans-Medium"), url(https://script.gmarket.com/fonts/GmarketSansMedium.woff2) format("woff2"), url(https://script.gmarket.com/fonts/GmarketSansMedium.woff) format("woff");
+}
+@font-face{
+	font-family:"Gmarket Sans";
+	font-style:normal;
+	font-weight:300;
+	src:local("Gmarket Sans Light"), local("GmarketSans-Light"), url(https://script.gmarket.com/fonts/GmarketSansLight.woff2) format("woff2"), url(https://script.gmarket.com/fonts/GmarketSansLight.woff) format("woff");
+}
+
+*{font-family: 'Noto Sans KR', sans-serif;font-weight: 400;line-height: 1.5;box-sizing:border-box}
+html,body{height:100%}
+h1,h2,h3,h4,h5,h6{font-weight:600}
+h1{font-size:26px}
+h2{font-size:20px}
+h3{font-size:16px}
+label{margin:0;display:inline-block;vertical-align:middle;}
+button{display:inline-block;vertical-align:middle;border:0;margin:0;padding:0;border-radius:3px !important}
+button[disabled]{cursor:not-allowed}
+input.form-control{display:inline-block;vertical-align:middle;width:200px;border-radius:3px !important}
+input.form-control.simple{color: #0056b3;padding: 2px 0 !important;height: calc(1em + 0.95rem + 2px);border: 0;}
+pre{position:relative;display:inline-block;max-width:85%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
+pre a{display:block;width:100%;overflow:hidden;text-overflow:ellipsis}
+.hide, hr{display:none}
+.link__desabled:visited,
+.link__desabled:hover,
+.link__desabled:focus,
+.link__desabled:link{font-size:16px;color:#777;text-decoration:line-through}
+.hide_input{position:absolute;top:0;left:-20px;width:10px;border:0}
+#wrap{height:100%}
+#header{position:absolute;top:0;width:100%;height:180px;padding:15px 0;background-color:#FAFAFA;z-index:100}
+#header .box__item{padding:0}
+#header .header-title{padding-bottom:15px}
+#header .form-control{width:150px}
+#header h2 span{font-size:14px}
+#header h2 span{font-size:14px}
+#container{position:relative;height:100%;padding:190px 0 50px}
+#container .box__item{margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5}
+#container .box__item:first-child{margin-top:0;padding-top:0;border-top:0}
+#container .box__item .form-control{width:350px}
+#aside{position:absolute;left:0;width:200px;background-color:#FFF}
+#aside input.form-control + input.form-control{margin-top:10px}
+#aside .type_trigger{margin-top:10px;width:200px;height:50px}
+#contents{padding:0 10px 0 240px}
+#header .box__item,
+#container{width:1200px;margin:0 auto;}
+
+.text__sub-title{font-size: 18px;}
+.list__item .list-item{display: flex;margin: 5px 0;}
+.list__item .list-item .text__title{display: block;width: 120px;}
+.list__item .list-item .box__data{display: block;}
+
+.box__form{}
+.box__form + .box__form{margin-top: 10px;}
+.box__form .link__button{display: inline-block;vertical-align: middle;border: 1px solid #999;padding: 5px 10px;font-size: 12px;border-radius: 8px;}
+.box__form .link__button.fav{color: #fff;background-color: #3182F6;border-color: #3182F6;}
