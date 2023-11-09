@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>업무 편의</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.5,minimum-scale=1.0,user-scalable=yes" />
+<meta name="theme-color" content="#000000" />
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<style type="text/css">
+	*{margin: 0;padding: 0;box-sizing:border-box}
+	*:focus{outline:0}
+	.for-a11y, .forA11y {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		margin: -1px;
+		padding: 0;
+		border: 0;
+		clip: rect(0 0 0 0);
+		overflow: hidden;
+	}
+	.box__tab-section{width: 400px;margin: 50px auto;}
+	.box{margin-top: 10px;}
+	.button__op{border: 1px solid #666;margin-right: 10px;}
+	.button__op[aria-expanded=false]{}
+	.button__op[aria-expanded=false] + div{display: none;}
+	.button__op[aria-expanded=true]{border: 1px solid red;background-color: red;}
+	.button__op[aria-expanded=true] + div{display: block;}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div class="box__tab-section">
+	<button id="add">add</button>
+
+	<div class="bbb">
+		<div class="box box__delivery-install">
+			<button class="button__op button__delivery-install--info" aria-expanded="false">오픈</button><div><button class="button-expand-close">닫기</button></div>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+<script language="JavaScript">
+$('#add').on('click', function(){
+	$('.bbb').append('<div class="box box__delivery-install"><button class="button__op button__delivery-install--info" aria-expanded="false" aria-controls="aa">오픈</button><div><button class="button-expand-close">닫기</button></div></div>')
+})
+/*
+$('.button__delivery-install--info[aria-expanded][aria-controls]').live('click', function(e){
+	e.preventDefault();
+	var $btn = $(this);
+	var $activeClass = 'active';
+	var $target = $('#'+$(this).attr('aria-controls'));
+	if ($(this).is('[aria-expanded=true]')) {
+		$(this).removeClass($activeClass).attr('aria-expanded', false);
+		$target.attr('aria-hidden', true);
+	} else {
+		$(this).addClass($activeClass).attr('aria-expanded', true);
+		$target.attr('aria-hidden', false);
+	}
+	$('.button-expand-close').live('click', function(){
+		$(this).parents('[aria-hidden]').attr('aria-hidden', true);
+		$('[aria-controls='+$(this).parents('[aria-hidden]').attr('id')+']').removeClass('expend').attr('aria-expanded', false);
+		$btn.focus();
+	})
+})
+*/
+
+document.addEventListener("click", function(event) {
+	if (event.target.matches('.button__delivery-install--info[aria-expanded][aria-controls]')) {
+		if (!event.target.classList.contains("active")) {
+			event.target.classList.add("active");
+			event.target.setAttribute("aria-expanded", true);
+		} else {
+			event.target.classList.remove("active");
+			event.target.setAttribute("aria-expanded", false);
+		}
+	}
+});
+document.addEventListener("click", function(event) {
+	if (event.target.matches('.button-expand-close')) {
+		event.target.closest(".box__delivery-install").querySelector(".button__delivery-install--info").classList.remove("active");
+		event.target.closest(".box__delivery-install").querySelector(".button__delivery-install--info").setAttribute("aria-expanded", false);
+	}
+});
+
+</script>
+</html>

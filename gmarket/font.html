@@ -50,6 +50,35 @@
 		url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.woff) format('woff'),
 		url(https://script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.otf) format('opentype');
 }
+
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:300;
+	src:url(//script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot), url(//script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans DemiLight"), local("NotoSans-DemiLight"), url(//script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.woff) format("woff"), url(//script.gmarket.com/fonts/NotoSansKR-DemiLight-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:400;
+	src:url(//script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.eot), url(//script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Regular"), local("NotoSans-Regular"), url(//script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.woff) format("woff"), url(//script.gmarket.com/fonts/NotoSansKR-Regular-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:500;
+	src:url(//script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot), url(//script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Medium"), local("NotoSans-Medium"), url(//script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.woff) format("woff"), url(//script.gmarket.com/fonts/NotoSansKR-Medium-Hestia.otf) format("opentype");
+}
+@font-face{
+	font-family:"Noto Sans KR";
+	font-style:normal;
+	font-weight:700;
+	src:url(//script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot), url(//script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.eot?#iefix) format("embedded-opentype");
+	src:local("Noto Sans Bold"), local("NotoSans-Bold"), url(//script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.woff) format("woff"), url(//script.gmarket.com/fonts/NotoSansKR-Bold-Hestia.otf) format("opentype");
+}
 *{margin:0;padding:0}
 ul,ol{list-style:none}
 button{-webkit-border-radius:0;border-radius:0;background-color:transparent;cursor:pointer}
@@ -83,6 +112,7 @@ body,table,input,textarea,select,button,th,td,input,select,textarea,th,td,p,dl,d
 .box__guide .list__guide button.web-font{border: 1px solid #999;}
 .box__guide .list__guide button.web-font::before{content:'eot';position: absolute;top: 2px;left: 4px;font-size: 11px;opacity: .5;}
 .box__guide .list__guide button.active{background-color: #ddd;color: #000;}
+.box__guide .list__guide button[disabled]{text-decoration: line-through;}
 #testArea{font-family: dotum;max-height:430px;overflow-y: auto;padding: 10px;font-size: 14px;font-weight: normal;line-height: 1.5;border: 1px solid #000;word-break: break-all;}
 .box__form{position: relative;padding-right: 100px;}
 .box__form #fontFamilyinput{}
@@ -205,9 +235,9 @@ body,table,input,textarea,select,button,th,td,input,select,textarea,th,td,p,dl,d
 					<li><button>BlinkMacSystemFont</button></li>
 					<li><button>Roboto</button></li>
 					<li><button>Tahoma</button></li>
-					<li><button>sans-serif</button></li>
-					<li><button class="web-font">Noto Sans Korean</button></li>
-					<li><button class="web-font">Gmarket Sans</button></li>
+					<li><button class="web-font noto-sans-kr">Noto Sans KR</button></li>
+					<li><button class="web-font noto-sans-korean">Noto Sans Korean</button></li>
+					<li><button class="web-font gmarket-sans">Gmarket Sans</button></li>
 				</ul>
 			</div>
 							</div>
@@ -230,18 +260,18 @@ body,table,input,textarea,select,button,th,td,input,select,textarea,th,td,p,dl,d
 				<h2 class="title__guide">font-weight</h2>
 				<p class="desc__guide">일반적으로 normal=400 / bold=700</p>
 				<ul class="list__guide button__font-weight">
-					<li><button class="active">normal</button></li>
-					<li><button>bold</button></li>
-					<li><button>bolder</button></li>
-					<li><button>100</button></li>
-					<li><button>200</button></li>
-					<li><button>300</button></li>
-					<li><button>400</button></li>
-					<li><button>500</button></li>
-					<li><button>600</button></li>
-					<li><button>700</button></li>
-					<li><button>800</button></li>
-					<li><button>900</button></li>
+					<li><button value="normal" class="active">normal</button></li>
+					<li><button value="bold">bold</button></li>
+					<li><button value="bolder">bolder</button></li>
+					<li><button value="100">100</button></li>
+					<li><button value="200">200</button></li>
+					<li><button value="300">300</button></li>
+					<li><button value="400">400</button></li>
+					<li><button value="500">500</button></li>
+					<li><button value="600">600</button></li>
+					<li><button value="700">700</button></li>
+					<li><button value="800">800</button></li>
+					<li><button value="900">900</button></li>
 				</ul>
 			</div>
 		</div>
@@ -268,12 +298,41 @@ $( function() {
 		var $btn = $(this).find('button');
 		$btn.on('click', function() {
 			var $val = $(this).text();
-				$(this).parents('.list__guide').find('li button').removeClass('active');
-				$(this).addClass('active');
+			$(this).parents('.list__guide').find('li button').removeClass('active');
+			$(this).addClass('active');
+
 			if ($(this).parents('.list__guide').is('.button__font-family')) {
 				//console.log('ff');
+				$('.button__font-weight button[value]').prop('disabled', false);
 				$test.css('font-family', $val);
 				$fontFamily.text($val);
+				if ($(this).is('.noto-sans-kr')) {
+					$('button[value=100]').prop('disabled', true);
+					$('button[value=200]').prop('disabled', true);
+					$('button[value=600]').prop('disabled', true);
+					$('button[value=800]').prop('disabled', true);
+					$('button[value=900]').prop('disabled', true);
+					$('button[value=bolder]').prop('disabled', true);
+				} else if ($(this).is('.noto-sans-korean')) {
+					$('button[value=100]').prop('disabled', true);
+					$('button[value=200]').prop('disabled', true);
+					$('button[value=300]').prop('disabled', true);
+					$('button[value=500]').prop('disabled', true);
+					$('button[value=600]').prop('disabled', true);
+					$('button[value=700]').prop('disabled', true);
+					$('button[value=800]').prop('disabled', true);
+					$('button[value=900]').prop('disabled', true);
+					$('button[value=bolder]').prop('disabled', true);
+				} else if ($(this).is('.gmarket-sans')) {
+					$('button[value=100]').prop('disabled', true);
+					$('button[value=200]').prop('disabled', true);
+					$('button[value=400]').prop('disabled', true);
+					$('button[value=600]').prop('disabled', true);
+					$('button[value=800]').prop('disabled', true);
+					$('button[value=900]').prop('disabled', true);
+					$('button[value=bolder]').prop('disabled', true);
+				}
+
 			} else if($(this).parents('.list__guide').is('.button__font-weight')) {
 				//console.log('fw');
 				$test.css('font-weight', $val);
