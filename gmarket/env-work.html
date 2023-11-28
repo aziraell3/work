@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>업무 편의</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"crossorigin="anonymous">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
+<link href="git.css" rel="stylesheet" />
+</head>
+<body>
+<div id="wrap">
+	<hr>
+
+	<div id="container">
+		<div id="aside">
+			<h2>OPTION</h2>
+			<form name="frm1">
+				<div class="box__input-option">
+					<h3>BRANCH NAME</h3>
+					<input class="form-control" name="branch_no" type="text" placeholder="Branch Name" value="feature/GPP-1234-test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+				</div>
+				<div class="box__option-select">
+					<dl>
+						<dt><h3>SERVER</h3></dt>
+						<dd><input type="radio" id="mockup" class="custom-control-input" name="sever" value="mockup" checked="checked"> <label for="mockup" class="custom-control-label">MOCKUP</label></dd>
+						<dd><input type="radio" id="dev" class="custom-control-input" name="sever" value="dev"> <label for="dev" class="custom-control-label">DEV</label></dd>
+						<dd class="clear"><input type="radio" id="master" class="custom-control-input" name="sever" value="master"> <label for="master" class="custom-control-label">MASTER (MAIN)</label></dd>
+						<dt><h3>DOMAIN</h3></dt>
+						<dd><input type="radio" id="gmkt" class="custom-control-input" name="domain" value="gmkt" checked="checked"> <label for="gmkt" class="custom-control-label">GMKT</label></dd>
+						<dd><input type="radio" id="iac" class="custom-control-input" name="domain" value="iac"> <label for="iac" class="custom-control-label">IAC</label></dd>
+						<dd><input type="radio" id="ebay" class="custom-control-input" name="domain" value="ebay"> <label for="ebay" class="custom-control-label">EBAY</label></dd>
+						<dd><input type="radio" id="starro" class="custom-control-input" name="domain" value="starro"> <label for="starro" class="custom-control-label"><strong>STARRO</strong></label></dd>
+						<dd class="clear"><input type="radio" id="hanbando" class="custom-control-input" name="domain" value="hanbando"> <label for="hanbando" class="custom-control-label">HANBANDO</label></dd>
+					</dl>
+				</div>
+				<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
+			</form>
+		</div>
+		<div id="contents" class="box__contents">
+			<div class="box__item">
+				<h2>Jira</h2>
+				<pre id="jiraNo"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Jira Number</a></pre>
+			</div>
+			<div class="box__item">
+				<h2 class="select-domain"><span class="text__domain"></span> Pull request</h2>
+				<div id="MergeUrl">
+					<pre class="request-url"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;"></a></pre>
+					<pre class="request-url"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;"></a></pre>
+				</div>
+			</div>
+			<div class="box__item">
+				<h2>PR Template </h2>
+				<div class="box-flex">
+					<div class="cell">
+						<button class="btn btn-primary js-copy-temp">💻 Basic Copy</button>
+						<textarea class="form-control _code" readonly>
+## 🔗 Link
+&lt;!-- jira, wiki 등 관련 링크 --&gt;
+**JIRA** -
+ 
+**WIKI** -
+ 
+**PRD** -
+ 
+<hr/>
+ 
+ 
+## ✅ 변경 타입
+&lt;!-- 해당되는 항목 [x] 체크 --&gt;
+- [ ] 기능 추가 ✨ <br/>
+- [x] UI 수정 🪄  <br/>
+- [ ] 버그 수정 🐛 <br/>
+- [ ] 리팩토링 ♻️  <br/>
+- [ ] 문서 업데이트 필요 📑
+ 
+<hr/>
+ 
+ 
+## 💻 작업 사항
+***Screenshot***
+&lt;!-- 캡처 [이미지 | GIF | 영상] 첨부 --&gt;
+ 
+ 
+***Description***
+&lt;!-- 작업 사항 설명 작성 --&gt;
+ 
+ 
+<hr/>
+ 
+ 
+## ⚡️ 이슈 및 공유 사항
+&lt;!-- 이슈 및 공유 사항 자유롭게 작성 --&gt;
+ 
+ 
+<hr/>
+						</textarea>
+					</div>
+					<div class="cell">
+						<button class="btn btn-danger js-copy-temp">🚨 Hotfix Copy</button>
+						<textarea class="form-control _code" readonly>
+## 🚨 Hotfix
+**JIRA** -
+ 
+**장애 사항** 
+ 
+ 
+**장애 원인**
+ 
+ 
+**수정으로 인해 해결되는 이유**
+						</textarea>
+					</div>
+					<div class="cell">
+						<button class="btn btn-success js-copy-temp">🚀 Release Copy</button>
+						<textarea class="form-control _code" readonly>
+## 🚀 Release
+**JIRA** -
+ 
+**배포 일시** -
+						</textarea>
+					</div>
+				</div>
+			</div>
+			
+			<!--
+			<div class="box__item">
+				<h2>Git Diff</h2>
+				<form name="frm2" class="box__form">
+					<input class="form-control" name="DiffUrl" type="text" placeholder="Commit Hash" value="">
+					<button class="js-button single_trigger btn btn-success">Confirm</button>
+				</form>
+				<pre class="DiffUrl" id="DiffUrl"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Diff URL</a></pre>
+			</div>
+			<div class="box__item">
+				<h2>Test input</h2>
+				<div class="test form-control" contenteditable="true" placeholder="여기에 메시지를 입력하세요"></div>
+			</div>
+			-->
+			
+		</div>
+
+	</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="git.js"></script>
+</html>

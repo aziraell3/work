@@ -1,12 +1,15 @@
 $(document).ready(function(){
 	$('select:not([name=envyzteam-data])').select2();
 	$('.js-copy-temp').on('click', function(){
-		var myTextarea = document.getElementById("PR-Template");
-		window.navigator.clipboard.writeText(myTextarea.value).then(() => {
+		var myTextarea = $(this).siblings('._code');
+		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
 			console.log("복사완료");
 			myTextarea.select();
 		});
 	});
+	if (!$('#header').length) {
+		$('#container').addClass('single-container');
+	}
 
 	var now = new Date();	// 현재 날짜 및 시간
 	var year = now.getFullYear();	// 연도
@@ -22,7 +25,7 @@ $(document).ready(function(){
 	var $selectionDomain = $('input[name=domain]');
 	var isMulti = false;
 	$selectionDomain.on('change', function( e ) {
-		isMulti = $( e.target ).val() == "gmkt" || $( e.target ).val() == "iac" || $( e.target ).val() == "g9";
+		isMulti = $( e.target ).val() == "gmkt" || $( e.target ).val() == "iac";
 		if( !isMulti ) {
 			$device.each( function( idx, item ) {
 				//$(item).prop("checked", false );
@@ -42,57 +45,69 @@ $(document).ready(function(){
 			$jiraSplit = $jira.split('/'),
 			$jiraFilter = $jiraSplit[1].split('-'),
 			$jiraNumber = $jiraFilter[0]+"-"+$jiraFilter[1],
+			$repoUrl = 'http://github.ebaykorea.com/org-publisher/Publish',
 			$server = $("input:radio[name=sever]:checked").val(),
 			$domain = $("input:radio[name=domain]:checked").val(),
 			$device = $("input:radio[name=device]:checked").val();
 
 		if ($(this).hasClass("type_trigger") == true) {
+			if ($server === 'mockup') {
+				$('.select-domain').parent().removeClass('select-dev select-master').addClass('select-mockup').find('.text__domain').text($domain)
+			} else if ($server === 'dev') {
+				$('.select-domain').parent().removeClass('select-mockup select-master').addClass('select-dev').find('.text__domain').text($domain)
+			} else if ($server === 'master' || $server === 'main') {
+				$('.select-domain').parent().removeClass('select-dev select-mockup').addClass('select-master').find('.text__domain').text($domain)
+			}
+
 			if (frm1.branch_no.value == "") {
 				//alert("Branch Name 값을 입력하세요.");
 				$("input[name=branch_no]").focus();
 			} else {
+				if ($server == 'master') {
+					alert('🚨 MASTER 브랜치 입니다. 🚨');
+				}
 				$("#contents .box__item pre a:not('#DiffUrl a')").removeClass("link__desabled");
 				$("#contents .box__item pre a:not('#DiffUrl a')").removeAttr("onclick");
 				$("#jiraNo a").html("https://jira.ebaykorea.com/browse/"+$jiraNumber);
 				$("#jiraNo a").attr("href", "https://jira.ebaykorea.com/browse/"+$jiraNumber);
-			$("#comparingUrl a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+".pc/compare/cf2deae...a4718f5");
-			$("#comparingUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+".pc/compare/cf2deae...a4718f5");
-			//http://github.ebaykorea.com/org-publisher/Publish.GMKT.PC/compare/cf2deae...a4718f5
+				$("#comparingUrl a").html($repoUrl+'.'+$domain+".pc/compare/cf2deae...a4718f5");
+				$("#comparingUrl a").attr("href", $repoUrl+'.'+$domain+".pc/compare/cf2deae...a4718f5");
+				//http://github.ebaykorea.com/org-publisher/Publish.GMKT.PC/compare/cf2deae...a4718f5
 				if ($domain == "ebay" || $domain == "hanbando") {
-					$("#MergeUrl .request-url").eq(0).find("a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
-					$("#MergeUrl .request-url").eq(0).find("a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").html($repoUrl+'.'+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").attr("href", $repoUrl+'.'+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
 					$("#MergeUrl .request-url").eq(1).find("a").html("");
 					$("#MergeUrl .request-url").eq(1).find("a").attr("");
-					$("#BranchUrl a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/tree/"+frm1.branch_no.value);
-					$("#BranchUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/tree/"+frm1.branch_no.value);
-					$("#CompareUrl a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/compare/"+frm1.branch_no.value);
-					$("#CompareUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/compare/"+frm1.branch_no.value);
-					$('#ShortUrl').val('http://github.ebaykorea.com/org-publisher/Publish.'+$domain+'/commit/');
+					$("#BranchUrl a").html($repoUrl+'.'+$domain+"/tree/"+frm1.branch_no.value);
+					$("#BranchUrl a").attr("href", $repoUrl+'.'+$domain+"/tree/"+frm1.branch_no.value);
+					$("#CompareUrl a").html($repoUrl+'.'+$domain+"/compare/"+frm1.branch_no.value);
+					$("#CompareUrl a").attr("href", $repoUrl+'.'+$domain+"/compare/"+frm1.branch_no.value);
+					$('#ShortUrl').val($repoUrl+'.'+$domain+'/commit/');
 				} else if ($domain == "starro") {
 					if ($server == 'master') {
 						$server = 'main';
 					}
-					$("#MergeUrl .request-url").eq(0).find("a").html("http://github.ebaykorea.com/org-publisher/"+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
-					$("#MergeUrl .request-url").eq(0).find("a").attr("href", "http://github.ebaykorea.com/org-publisher/"+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").html($repoUrl+'/'+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").attr("href", $repoUrl+'/'+$domain+"/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
 					$("#MergeUrl .request-url").eq(1).find("a").html("");
 					$("#MergeUrl .request-url").eq(1).find("a").attr("");
-					$("#BranchUrl a").html("http://github.ebaykorea.com/org-publisher/"+$domain+"/tree/"+frm1.branch_no.value);
-					$("#BranchUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/"+$domain+"/tree/"+frm1.branch_no.value);
-					$("#CompareUrl a").html("http://github.ebaykorea.com/org-publisher/"+$domain+"/compare/"+frm1.branch_no.value);
-					$("#CompareUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/"+$domain+"/compare/"+frm1.branch_no.value);
-					$('#ShortUrl').val('http://github.ebaykorea.com/org-publisher/'+$domain+'/commit/');
+					$("#BranchUrl a").html($repoUrl+'/'+$domain+"/tree/"+frm1.branch_no.value);
+					$("#BranchUrl a").attr("href", $repoUrl+'/'+$domain+"/tree/"+frm1.branch_no.value);
+					$("#CompareUrl a").html($repoUrl+'/'+$domain+"/compare/"+frm1.branch_no.value);
+					$("#CompareUrl a").attr("href", $repoUrl+'/'+$domain+"/compare/"+frm1.branch_no.value);
+					$('#ShortUrl').val($repoUrl+'.'+$domain+'/commit/');
 				}else {
-					$("#MergeUrl .request-url").eq(0).find("a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+".pc/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
-					$("#MergeUrl .request-url").eq(0).find("a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+".pc/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
-					$("#MergeUrl .request-url").eq(1).find("a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+".mobile/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
-					$("#MergeUrl .request-url").eq(1).find("a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+".mobile/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").html($repoUrl+'.'+$domain+".pc/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(0).find("a").attr("href", $repoUrl+'.'+$domain+".pc/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(1).find("a").html($repoUrl+'.'+$domain+".mobile/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
+					$("#MergeUrl .request-url").eq(1).find("a").attr("href", $repoUrl+'.'+$domain+".mobile/compare/"+$server+"..."+frm1.branch_no.value+"?expand=1");
 					//$('#ShortUrl').val('http://github.ebaykorea.com/org-publisher/Publish.Ebay/commit/');
 					
-					$("#BranchUrl a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/tree/"+frm1.branch_no.value);
-					$("#BranchUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/tree/"+frm1.branch_no.value);
-					$("#CompareUrl a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/compare/"+frm1.branch_no.value);
-					$("#CompareUrl a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/compare/"+frm1.branch_no.value);
-					$('#ShortUrl').val('http://github.ebaykorea.com/org-publisher/Publish.'+$domain+'.'+$device+'/commit/');
+					$("#BranchUrl a").html($repoUrl+'.'+$domain+"."+$device+"/tree/"+frm1.branch_no.value);
+					$("#BranchUrl a").attr("href", $repoUrl+'.'+$domain+"."+$device+"/tree/"+frm1.branch_no.value);
+					$("#CompareUrl a").html($repoUrl+'.'+$domain+"."+$device+"/compare/"+frm1.branch_no.value);
+					$("#CompareUrl a").attr("href", $repoUrl+'.'+$domain+"."+$device+"/compare/"+frm1.branch_no.value);
+					$('#ShortUrl').val($repoUrl+'.'+$domain+'.'+$device+'/commit/');
 				}
 			}
 		} else if ($(this).hasClass("single_trigger") == true){
@@ -105,13 +120,13 @@ $(document).ready(function(){
 				if ($this.hasClass("DiffUrl") == true) {
 					console.log('DiffUrl');
 					if ($domain == "ebay" || $domain == "hanbando") {
-						$this.find("a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/commit/"+frm2.DiffUrl.value);
-						$this.find(".hide_input").val("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/commit/"+frm2.DiffUrl.value);
-						$this.find("a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"/commit/"+frm2.DiffUrl.value);
+						$this.find("a").html($repoUrl+'.'+$domain+"/commit/"+frm2.DiffUrl.value);
+						$this.find(".hide_input").val($repoUrl+'.'+$domain+"/commit/"+frm2.DiffUrl.value);
+						$this.find("a").attr("href", $repoUrl+'.'+$domain+"/commit/"+frm2.DiffUrl.value);
 					} else {
-						$this.find("a").html("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
-						$this.find(".hide_input").val("http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
-						$this.find("a").attr("href", "http://github.ebaykorea.com/org-publisher/Publish."+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
+						$this.find("a").html($repoUrl+'.'+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
+						$this.find(".hide_input").val($repoUrl+'.'+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
+						$this.find("a").attr("href", $repoUrl+'.'+$domain+"."+$device+"/commit/"+frm2.DiffUrl.value);
 					}
 					$this.next().remove("button");
 					$this.after($copy);
