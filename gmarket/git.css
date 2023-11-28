@@ -129,5 +129,5 @@ input#master:checked ~ .custom-control-label::after{border-color: #28A745;}
 
 
 #container.single-container{padding-top: 50px;}
-#container.single-container .box__option-select dd.clear{margin-bottom: 30px;}
+#container.single-container .box__option-select dd.clear{margin-bottom: 10px;}
 #container.single-container .box__option-select{margin-top: 50px;}
