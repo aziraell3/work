@@ -1,5 +1,12 @@
 $(document).ready(function(){
 	$('select:not([name=envyzteam-data])').select2();
+	$('.js-copy-temp').on('click', function(){
+		var myTextarea = document.getElementById("PR-Template");
+		window.navigator.clipboard.writeText(myTextarea.value).then(() => {
+			console.log("복사완료");
+			myTextarea.select();
+		});
+	});
 
 	var now = new Date();	// 현재 날짜 및 시간
 	var year = now.getFullYear();	// 연도
