@@ -11,13 +11,17 @@ button{display:inline-block;vertical-align:middle;border:0;margin:0;padding:0;bo
 button[disabled]{cursor:not-allowed}
 input.form-control{display:inline-block;vertical-align:middle;width:200px;border-radius:3px !important}
 input.form-control.simple{color: #0056b3;padding: 2px 0 !important;height: calc(1em + 0.95rem + 2px);border: 0;}
-pre{position:relative;display:inline-block;max-width:100%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
+pre{position:relative;display:block;max-width:100%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
+pre span,
 pre a{display:block;width:100%;overflow:hidden;letter-spacing: -0.7px;text-overflow:ellipsis}
+pre span::before,
+pre a::before{content:'- ';}
+pre span + span{margin-top: 5px;}
 .hide, hr{display:none}
-.link__desabled:visited,
-.link__desabled:hover,
-.link__desabled:focus,
-.link__desabled:link{font-size:16px;color:#777;text-decoration:line-through}
+a.link__desabled:visited,
+a.link__desabled:hover,
+a.link__desabled:focus,
+.link__desabled:link{font-size:16px;color:#777;}
 .hide_input{position:absolute;top:0;left:-20px;width:10px;border:0}
 #wrap{height:100%}
 #header{position:absolute;top:0;width:100%;height:180px;padding:15px 0;background-color:#FAFAFA;z-index:100}
@@ -30,10 +34,13 @@ pre a{display:block;width:100%;overflow:hidden;letter-spacing: -0.7px;text-overf
 #container .box__item{margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5}
 #container .box__item:first-child{margin-top:0;padding-top:0;border-top:0}
 #container .box__item .form-control{width:350px}
-#aside{position:absolute;left:0;width:200px;background-color:#FFF}
+#container .box__item pre span{display: block;}
+#aside{position:absolute;left:0;width:220px;background-color:#FFF}
+#aside input.form-control{width: 100%;}
 #aside input.form-control + input.form-control{margin-top:10px}
-#aside .type_trigger{margin-top:10px;width:200px;height:50px}
-#contents{padding:0 10px 0 240px}
+#aside .type_trigger{margin-top:10px;width:100%;height:50px}
+#contents{padding:0 10px 0 250px}
+.page-title{position: fixed;left: 0;width: 100%;font-size: 24px;margin: 10px 0;text-align: center;display: block;}
 .box__option-select{margin-top:20px;overflow:hidden}
 .box__option-select dt{position:relative;padding:10px 0 0;clear:left}
 .box__option-select dt:after{content:'';position:absolute;top:55%;left:0;display:block;width:100%;height:1px;background-color:#E5E5E5}
@@ -97,7 +104,7 @@ padding: 0 8px;
 
 .calculator{padding-top:20px}
 .calculator .inputbox span{position: relative;margin-bottom: 10px;display:flex;justify-content: space-between;}
-.calculator .inputbox span input{margin-top: 0 !important;width: 42%;box-sizing: border-box;}
+#aside .calculator .inputbox span input{margin-top: 0 !important;width: 42%;box-sizing: border-box;}
 .calculator .inputbox span .dd{border-color:#007BFF}
 .calculator .inputbox span .mk{position: absolute;top: 0;left: 50%;width: 16%;height: 100%;transform:translateX(-50%)}
 .calculator .inputbox span .mk button{position: relative;width: 100%;height: 100%;text-align: center;background-color: #fff;font-weight: bold;}
@@ -129,5 +136,3 @@ input#master:checked ~ .custom-control-label::after{border-color: #28A745;}
 
 
 #container.single-container{padding-top: 50px;}
-#container.single-container .box__option-select dd.clear{margin-bottom: 10px;}
-#container.single-container .box__option-select{margin-top: 50px;}

@@ -5,11 +5,11 @@
 <title>업무 편의</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"crossorigin="anonymous">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <link href="git.css" rel="stylesheet" />
 </head>
 <body>
 <div id="wrap">
+	<h1 class="page-title">💡 내가 편할려고 만든~ Temp</h1>
 	<hr>
 
 	<div id="container">
@@ -18,7 +18,7 @@
 			<form name="frm1">
 				<div class="box__input-option">
 					<h3>BRANCH NAME</h3>
-					<input class="form-control" name="branch_no" type="text" placeholder="Branch Name" value="feature/GPP-1234-test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+					<input class="form-control" name="branch_no" type="text" placeholder="ex) feature/GPP-1234/test" value="feature/GPP-1234/test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
 				</div>
 				<div class="box__option-select">
 					<dl>
@@ -39,7 +39,21 @@
 			<div class="calculator">
 				<h3>LINK</h3>
 				<ul class="list__link">
-					<li><a href="#" class="link">ddd</a></li>
+					<li><a href="https://wiki.ebaykorea.com/display/ET/calendars" target="_blank" class="link__button">[업무] calendar</a></li>
+				</ul>
+				<ul class="list__link">
+					<li><a href="https://jira.ebaykorea.com/" target="_blank" class="link__button fav">[업무] jira</a></li>
+					<li><a href="http://github.ebaykorea.com/org-publisher/" target="_blank" class="link__button fav">[작업] github</a></li>
+					<li><a href="http://rms.ebaykorea.com/" target="_blank" class="link__button fav">[배포] RMS</a></li>
+					<li><a href="https://ers.ebaykorea.com/" target="_blank" class="link__button">[요청] ERS</a></li>
+					<li><a href="https://wiki.ebaykorea.com/#all-updates" target="_blank" class="link__button">[위키] wiki</a></li>
+					<li><a href="https://jira.ebaykorea.com/servicedesk/customer/portal/1" target="_blank" class="link__button">[장애] IT Service Desk</a></li>
+				</ul>
+				<ul class="list__link">
+					<li><a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">UX Lab</a></li>
+					<li><a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a></li>
+					<li><a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a></li>
+					<li><a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">WAI-ARIA</a></li>
 				</ul>
 				
 			</div>
@@ -48,6 +62,10 @@
 			<div class="box__item">
 				<h2>Jira</h2>
 				<pre id="jiraNo"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Jira Number</a></pre>
+			</div>
+			<div class="box__item">
+				<h2>Git Comparing (a ~ b)</h2>
+				<pre id="comparingUrl"><input type="text" class="hide_input"><span class="link__desabled" target="_blank">Git Compare URL pc</span><span class="link__desabled" target="_blank">Git Compare URL mobile</span></pre>
 			</div>
 			<div class="box__item">
 				<h2 class="select-domain"><span class="text__domain"></span> Pull request</h2>
@@ -151,6 +169,5 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="git.js"></script>
+<script src="env-work.js"></script>
 </html>

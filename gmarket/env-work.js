@@ -1,5 +1,4 @@
 $(document).ready(function(){
-	$('select:not([name=envyzteam-data])').select2();
 	$('.js-copy-temp').on('click', function(){
 		var myTextarea = $(this).siblings('._code');
 		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
@@ -13,14 +12,6 @@ $(document).ready(function(){
 	if (!$('#header').length) {
 		$('#container').addClass('single-container');
 	}
-
-	var now = new Date();	// 현재 날짜 및 시간
-	var year = now.getFullYear();	// 연도
-	var month = now.getMonth();	// 월
-	$('#env-year').val(year).prop('selected', true);
-	$('#env-month').val(month).prop('selected', true);
-	loadData();
-
 	var $device = $('input[name=device]');
 	var $selectionDomain = $('input[name=domain]');
 	var isMulti = false;
@@ -60,13 +51,12 @@ $(document).ready(function(){
 			} else if ($server === 'master' || $server === 'main') {
 				$('.select-domain').parent().removeClass('select-dev select-mockup').addClass('select-master').find('.text__domain').text($domain)
 			}
-
 			if (frm1.branch_no.value == '') {
 				alert('Branch Name 값을 입력하세요.');
 				$('input[name=branch_no]').focus();
 			} else {
 				if ($server == 'master') {
-					alert('🚨 MASTER 브랜치 입니다. 🚨');
+					alert('🚨 MASTER 브랜치 입니다. \n주의하세요. 🚨');
 				}
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
@@ -79,8 +69,6 @@ $(document).ready(function(){
 					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(1).find('a').html('');
 					$('#MergeUrl .request-url').eq(1).find('a').attr('');
-					$('#BranchUrl a').html($repoUrl+'.'+$domain+'/tree/'+frm1.branch_no.value);
-					$('#BranchUrl a').attr('href', $repoUrl+'.'+$domain+'/tree/'+frm1.branch_no.value);
 					$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'/compare/aaa...bbb');
 					$('#comparingUrl span').eq(1).hide();
 				} else if ($domain == 'starro') {
@@ -91,8 +79,6 @@ $(document).ready(function(){
 					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(1).find('a').html('');
 					$('#MergeUrl .request-url').eq(1).find('a').attr('');
-					$('#BranchUrl a').html($repoUrl+'/'+$domain+'/tree/'+frm1.branch_no.value);
-					$('#BranchUrl a').attr('href', $repoUrl+'/'+$domain+'/tree/'+frm1.branch_no.value);
 					$('#CompareUrl a').html($repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
 					$('#CompareUrl a').attr('href', $repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
 				}else {
@@ -100,9 +86,6 @@ $(document).ready(function(){
 					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(1).find('a').html($repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(1).find('a').attr('href', $repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-					
-					$('#BranchUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
-					$('#BranchUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
 					$('#CompareUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
 					$('#CompareUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
 				}
@@ -153,30 +136,6 @@ $(document).ready(function(){
 	})
 })
 
-function loadData(){
-	var $user = $('#env-user').find('option:selected').val();
-	var $year = $('#env-year').find('option:selected').val();
-	var $month = $('#env-month').find('option:selected').val();
-	var $button = $('#env-button');
-	var $url = ($user == 'envyzteam') 
-		? 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
-		: 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
-	$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
-}
-$('[name=envyzteam-data]').change(function(){
-	loadData();
-})
-function copyUlr() {
-	$('.copy-url').on('click', function(str) {
-		$(this).prev().find('.hide_input').select(); 
-		try { 
-			var successful = document.execCommand('copy');  
-			//alert('클립보드에 주소가 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.'); 
-		} catch (err) { 
-			alert('이 브라우저는 지원하지 않습니다.'); 
-		}
-	})
-}
 function noSpaceForm(obj) { // 공백사용못하게
 	var str_space = /\s/;  // 공백체크
 	if(str_space.exec(obj.value)) { //공백 체크
@@ -194,35 +153,7 @@ $('#selectName').change(function() {
 	$('#Userid').val($id);
 })
 
-function rate() { 
-	var a = parseFloat($('.aa').val()), 
-		b = parseFloat($('.bb').val()),
-		c = parseFloat($('.cc').val()),
-		d = parseFloat($('.dd').val()); 
-	if (isEmpty(a)) { 
-		$('.aa').val((b*c)/d)
-	} else if (isEmpty(b)) { 
-		$('.bb').val((a*d)/c)
-	} else if (isEmpty(c)) { 
-		$('.cc').val((a*d)/b)
-	} else if (isEmpty(d)) { 
-		$('.dd').val((b*c)/a)
-	} else {
-		//alert('셀 하난 비워야지...?');
-		$('.dd').val((b*c)/a)
-	}
-} 
 function isEmpty(str) { 
 	//console.log('isEmpty');
 	return (!str || 0 === str.length); 
 }
-//$('.dd').val((b*c)/a)
-$('.swt').click(function(){
-	var a = parseFloat($('.aa').val()), 
-		b = parseFloat($('.bb').val()),
-		c = parseFloat($('.cc').val()),
-		d = parseFloat($('.dd').val()); 
-	$('.aa').val(b);
-	$('.bb').val(a);
-	rate();
-})
