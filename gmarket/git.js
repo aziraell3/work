@@ -1,5 +1,7 @@
 $(document).ready(function(){
-	$('select:not([name=envyzteam-data])').select2();
+	if ($('select:not([name=envyzteam-data])').length) {
+		$('select:not([name=envyzteam-data])').select2();
+	}
 	$('.js-copy-temp').on('click', function(){
 		var myTextarea = $(this).siblings('._code');
 		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
