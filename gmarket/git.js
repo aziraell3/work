@@ -13,13 +13,11 @@ $(document).ready(function(){
 	if (!$('#header').length) {
 		$('#container').addClass('single-container');
 	}
-
 	var now = new Date();	// 현재 날짜 및 시간
 	var year = now.getFullYear();	// 연도
 	var month = now.getMonth();	// 월
 	$('#env-year').val(year).prop('selected', true);
 	$('#env-month').val(month).prop('selected', true);
-	loadData();
 
 	var $device = $('input[name=device]');
 	var $selectionDomain = $('input[name=domain]');
@@ -54,11 +52,11 @@ $(document).ready(function(){
 
 		if ($(this).hasClass('type_trigger') == true) {
 			if ($server === 'mockup') {
-				$('.select-domain').parent().removeClass('select-dev select-master').addClass('select-mockup').find('.text__domain').text($domain)
+				$('.select-domain').parent().removeClass('select-dev select-master').addClass('select-mockup'+' select-'+$domain).find('.text__domain').text($domain)
 			} else if ($server === 'dev') {
-				$('.select-domain').parent().removeClass('select-mockup select-master').addClass('select-dev').find('.text__domain').text($domain)
+				$('.select-domain').parent().removeClass('select-mockup select-master').addClass('select-dev'+' select-'+$domain).find('.text__domain').text($domain)
 			} else if ($server === 'master' || $server === 'main') {
-				$('.select-domain').parent().removeClass('select-dev select-mockup').addClass('select-master').find('.text__domain').text($domain)
+				$('.select-domain').parent().removeClass('select-dev select-mockup').addClass('select-master'+' select-'+$domain).find('.text__domain').text($domain)
 			}
 
 			if (frm1.branch_no.value == '') {
@@ -66,7 +64,7 @@ $(document).ready(function(){
 				$('input[name=branch_no]').focus();
 			} else {
 				if ($server == 'master') {
-					alert('🚨 MASTER 브랜치 입니다. 🚨');
+					alert('🚨 MASTER or MAIN 브랜치 입니다. 🚨');
 				}
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
@@ -148,11 +146,7 @@ $(document).ready(function(){
 			}
 		}
 	})
-	$('._check, ._check2').on('click', function(){
-		$(this).toggleClass('active')
-	})
 })
-
 function loadData(){
 	var $user = $('#env-user').find('option:selected').val();
 	var $year = $('#env-year').find('option:selected').val();
@@ -166,17 +160,6 @@ function loadData(){
 $('[name=envyzteam-data]').change(function(){
 	loadData();
 })
-function copyUlr() {
-	$('.copy-url').on('click', function(str) {
-		$(this).prev().find('.hide_input').select(); 
-		try { 
-			var successful = document.execCommand('copy');  
-			//alert('클립보드에 주소가 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.'); 
-		} catch (err) { 
-			alert('이 브라우저는 지원하지 않습니다.'); 
-		}
-	})
-}
 function noSpaceForm(obj) { // 공백사용못하게
 	var str_space = /\s/;  // 공백체크
 	if(str_space.exec(obj.value)) { //공백 체크
@@ -189,7 +172,6 @@ function noSpaceForm(obj) { // 공백사용못하게
 $('#selectName').change(function() {
 	var $name = $(this).find('option:selected').text();
 	var $id = $(this).find('option:selected').val();
-
 	$('#UsernameKoTitle').val($name);
 	$('#Userid').val($id);
 })
@@ -226,3 +208,171 @@ $('.swt').click(function(){
 	$('.bb').val(a);
 	rate();
 })
+
+
+
+
+var evzWork = (function(){
+	var method = {};
+	var obj = {};
+	var user = [
+		{display:'show', name:'이광현', id:'kwlee'},
+	];
+	method.init = function(){
+		method.setElement();
+		method.bindEvent();
+		method.loadData();
+		method.copyUlr();
+	};
+	method.setElement = function(){
+		obj.body = $('body');
+		obj.repoUrl = 'http://github.ebaykorea.com/org-publisher/Publish';
+		obj.jira = $('[name=branch_no]').val();
+		obj.DiffUrl = $('[name=DiffUrl]').val();
+		obj.UsernameKo = $('[name=UsernameKo]').val();
+		obj.Username = $('[name=Username]').val();
+
+		//encodeURI()
+		obj.urlStr = window.location.href;
+		obj.url = new URL(obj.urlStr);
+		obj.urlParams = obj.url.searchParams;
+	};
+	method.copyUlr = function(){
+		$('.copy-url').on('click', function(str) {
+			$(this).prev().find('.hide_input').select(); 
+			try { 
+				var successful = document.execCommand('copy');  
+				//alert('클립보드에 주소가 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.'); 
+			} catch (err) { 
+				alert('이 브라우저는 지원하지 않습니다.'); 
+			}
+		})
+	};
+	method.loadData = function(){
+		var $user = $('#env-user').find('option:selected').val();
+		var $year = $('#env-year').find('option:selected').val();
+		var $month = $('#env-month').find('option:selected').val();
+		var $button = $('#env-button');
+		var $url = ($user == 'envyzteam') 
+			? 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
+			: 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
+		$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
+		$('[name=envyzteam-data]').change(function(){
+			method.loadData();
+		})
+	};
+	method.bindEvent = function(){
+		var $selectionDomain = $('input[name=domain]');
+		var isMulti = false;
+		$selectionDomain.on('change', function( e ) {
+			isMulti = $( e.target ).val() == 'gmkt' || $( e.target ).val() == 'iac';
+			if( !isMulti ) {
+				$device.each( function( idx, item ) {
+					//$(item).prop('checked', false );
+					$(item).attr('disabled', 'disabled');
+				});
+			} else {
+				obj.device.each( function( idx, item ) {
+					//$('input[value=pc]').prop('checked', true );
+					$(item).removeAttr('disabled');
+				});
+			}
+		});
+		$('.js-button').on('click', function(e) {
+			e.preventDefault();
+			var $this = $(this).parents('.box__form').next('pre');
+			if (obj.jira !== '') {
+				var $jiraSplit = obj.jira.split('/');
+				var $jiraFilter = $jiraSplit[1].split('-');
+				var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
+			}
+			obj.server = $('input:radio[name=sever]:checked').val();
+			obj.domains = $('input:radio[name=domain]:checked').val();
+			obj.device = $('input[name=device]');
+
+			if ($(this).hasClass('type_trigger') == true) {
+				$('.select-domain').parent().removeClass().addClass('box__item select-'+obj.server+' select-'+obj.domains).find('.text__domain').text(obj.domains);
+
+				if (obj.jira == '') {
+					alert('Branch Name 값을 입력하세요.');
+					$('input[name=branch_no]').focus();
+				} else {
+					if (obj.server == 'master') {
+						alert('🚨 MASTER or MAIN 브랜치 입니다. 🚨');
+					}
+					$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
+					$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
+					$('#jiraNo a').html('https://jira.ebaykorea.com/browse/'+$jiraNumber);
+					$('#jiraNo a').attr('href', 'https://jira.ebaykorea.com/browse/'+$jiraNumber);
+					$('#comparingUrl span').eq(0).show().html(obj.repoUrl+'.'+obj.domains+'.pc/compare/aaa...bbb');
+					$('#comparingUrl span').eq(1).show().html(obj.repoUrl+'.'+obj.domains+'.mobile/compare/aaa...bbb');
+					if (obj.domains == 'ebay' || obj.domains == 'hanbando') {
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'.'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html('');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('');
+						$('#comparingUrl span').eq(0).show().html(obj.repoUrl+'.'+obj.domains+'/compare/aaa...bbb');
+						$('#comparingUrl span').eq(1).hide();
+					} else if (obj.domains == 'starro') {
+						if (obj.server == 'master') {
+							obj.server = 'main';
+						}
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'/'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'/'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html('');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('');
+					}else {
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'.'+obj.domains+'.pc/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.pc/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html(obj.repoUrl+'.'+obj.domains+'.mobile/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.mobile/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						
+					}
+				}
+			} else if ($(this).hasClass('single_trigger') == true){
+				if ($(this).prev().val() == '') {
+					//alert($(this).prev().attr('placeholder')+' 값을 입력하세요.');
+					$(this).prev().focus();
+				} else {
+					$this.find('a').removeClass('link__desabled');
+					$this.find('a').removeAttr('onclick');
+					if ($this.hasClass('DiffUrl') == true) {
+						console.log('DiffUrl');
+						if (obj.domains == 'ebay' || obj.domains == 'hanbando') {
+							$this.find('a').html(obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
+							$this.find('.hide_input').val(obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
+							$this.find('a').attr('href', obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
+						} else {
+							$this.find('a').html(obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
+							$this.find('.hide_input').val(obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
+							$this.find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
+						}
+						$this.next().remove('button');
+						$this.after($copy);
+						$('.copy-url').html('Click to copy');
+						copyUlr();
+					} else if ($(this).hasClass('UsernameKo') == true) {
+						console.log('UsernameKo');
+						window.open('https://jira.ebaykorea.com/issues/?jql=assignee%20in%20('+obj.UsernameKo+')', '_blank'); 
+					} else if ($(this).hasClass('UserId') == true) {
+						console.log('UserId');
+						window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+obj.Username, '_blank'); 
+					} else if ($(this).hasClass('ShortUrl') == true) {
+						console.log('ShortUrl');
+						window.open('http://is.gd/create.php?format=simple&url='+frm3.ShortUrl.value, '_blank'); 
+					} else if ($(this).hasClass('comparingUrls') == true) {
+						console.log('comparingUrl');
+						console.log(obj.domains);
+						console.log($('#comparingType').val());
+						console.log($('#comparingStart').val());
+						console.log($('#comparingEnd').val());
+					}
+				}
+			}
+		})
+	};
+	return{
+		init : method.init,
+	}
+})();
+//evzWork.init();

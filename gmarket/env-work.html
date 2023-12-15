@@ -5,7 +5,169 @@
 <title>업무 편의</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"crossorigin="anonymous">
-<link href="git.css" rel="stylesheet" />
+<!-- <link href="git.css" rel="stylesheet" /> -->
+<style>
+	:root{
+		--color--base: #333;
+		--color--gray: #6C757D;
+		--color--gold: #ffd700;
+		--color--yellow: #FFC107;
+		--color--blue: #3395FE;
+		--color--red: #DC3545;
+		--color--green: #4DA060;
+	}
+	@font-face {
+		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 700;
+		src: local('Gmarket Sans Bold'), local('GmarketSans-Bold'),
+		url('https://script.gmarket.com/fonts/GmarketSansBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+		url('https://script.gmarket.com/fonts/GmarketSansBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	}
+	@font-face {
+		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 500;
+		src: local('Gmarket Sans Medium'), local('GmarketSans-Medium'),
+		url('https://script.gmarket.com/fonts/GmarketSansMedium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+		url('https://script.gmarket.com/fonts/GmarketSansMedium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	}
+	@font-face {
+		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 300;
+		src: local('Gmarket Sans Light'), local('GmarketSans-Light'),
+		url('https://script.gmarket.com/fonts/GmarketSansLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+		url('https://script.gmarket.com/fonts/GmarketSansLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+	}
+
+	*{box-sizing:border-box}
+	html,body{height:100%}
+	h1,h2,h3,h4,h5,h6{font-weight:600}
+	h1{font-size:26px}
+	h2{font-size:20px}
+	h3{font-size:16px}
+	label{margin:0;display:inline-block;vertical-align:middle;}
+	button{display:inline-block;vertical-align:middle;border:0;margin:0;padding:0;border-radius:3px !important}
+	button[disabled]{cursor:not-allowed}
+	input.form-control{display:inline-block;vertical-align:middle;width:200px;border-radius:3px !important;}
+	input.form-control.simple{color: #0056b3;padding: 2px 0 !important;height: calc(1em + 0.95rem + 2px);border: 0;}
+	input.custom-control-input{opacity: 1;appearance:none;z-index: auto;}
+	pre{position:relative;display:block;max-width:100%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
+	pre span,
+	pre a{display:block;width:100%;overflow:hidden;letter-spacing: -0.7px;text-overflow:ellipsis}
+	pre span::before,
+	pre a:not(.link__desabled)::before{content:'- ';}
+	pre span + span{margin-top: 5px;}
+	.hide, hr{display:none}
+	a.link__desabled:visited,
+	a.link__desabled:hover,
+	a.link__desabled:focus,
+	.link__desabled:link{font-size:16px;color:#777;}
+	.link__desabled{display: inline;}
+	.hide_input{position:absolute;top:0;left:-20px;width:10px;border:0}
+	#wrap{height:100%}
+	#header{position:absolute;top:0;width:100%;height:180px;padding:15px 0;background-color:#FAFAFA;z-index:100}
+	#header .box__item{padding:0}
+	#header .header-title{padding-bottom:15px}
+	#header .form-control{width:150px}
+	#header h2 span{font-size:14px}
+	#header h2 span{font-size:14px}
+	#container{position:relative;height:100%;padding:190px 0 50px}
+	#container .box__item{margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5}
+	#container .box__item:first-child{margin-top:0;padding-top:0;border-top:0}
+	#container .box__item .form-control{width:350px}
+	#container .box__item pre span{display: block;}
+	#aside{position:absolute;left:0;width:220px;background-color:#FFF}
+	#aside input.form-control{width: 100%;}
+	#aside input.form-control + input.form-control{margin-top:10px}
+	#aside .type_trigger{margin-top:0px;width:100%;height:50px}
+	#contents{padding:0 10px 0 250px}
+	.page-title{position: fixed;left: 0;width: 100%;font-size: 24px;margin: 10px 0;text-align: center;display: block;}
+	.box__option-select{margin-top:20px;overflow:hidden}
+	.box__option-select dl{display:flex;flex-wrap: wrap;justify-content: space-between;margin-bottom: 0;}
+	.box__option-select dt{position:relative;width: 100%;padding:10px 0 0;clear:left}
+	.box__option-select dt:after{content:'';position:absolute;top:55%;left:0;display:block;width:100%;height:1px;background-color:#E5E5E5}
+	.box__option-select dt h3{position:relative;display:inline-block;padding-right:6px;background-color:#FFF;z-index:10}
+	.box__option-select dd{position: relative;width:calc(50% - 4px);}
+	.box__option-select dd.clear{clear: both;width: 100%;}
+	.box__option-select dd .custom-control-label::before,
+	.box__option-select dd .custom-control-label::after{left: 0;border-radius:50%;}
+	.box__option-select dd .custom-control-label::before{}
+	.box__option-select dd .custom-control-input:checked~.custom-control-label::before{color:#fff;border-color:#007bff;background-color:#007bff}
+	.box__option-select dd .custom-control-input:checked~.custom-control-label::after{width:6px;height:6px;background-color:#fff;border:5px solid #007bff;box-sizing:content-box}
+	.box__option-select dd .custom-control-input:checked:disabled~.custom-control-label::after{background-color:#fff;border:5px solid #B7D6F7}
+	.box__option-select dd label{position:relative;padding-left: 21px;display:block;margin:0;font-size:14px;line-height: 23px;cursor:pointer;}
+	.box__option-select dd input.custom-control-input{position: absolute;top: 0;left: 0;}
+	.box__option-select .type-button dd label{padding: 6px 10px;border: 1px solid #CED4DA;border-radius: 6px;text-align: center;}
+	.box__option-select .type-button dd .custom-control-label{opacity: .4;}
+	.box__option-select .type-button dd .custom-control-label::before,
+	.box__option-select .type-button dd .custom-control-label::after{display: none;}
+	.box__option-select .type-button dd .custom-control-input:checked~.custom-control-label{background-color: var(--color--gray);border-color: var(--color--gray);color: #fff !important;opacity: 1;font-family: verdana;}
+	.box__option-select .type-button dd [value=ebay]:checked~.custom-control-label{background-color: var(--color--yellow);border-color: var(--color--yellow);color: #fff !important;} /* yellow  */
+	.box__option-select .type-button dd #mockup:checked~.custom-control-label{background-color: var(--color--blue);border-color: var(--color--blue);color: #fff !important;} /* blue */
+	.box__option-select .type-button dd [value=iac]:checked~.custom-control-label,
+	.box__option-select .type-button dd #dev:checked~.custom-control-label{background-color: var(--color--red);border-color: var(--color--red);color: #fff !important;} /* red */
+	.box__option-select .type-button dd [value=gmkt]:checked~.custom-control-label,
+	.box__option-select .type-button dd #master:checked~.custom-control-label{background-color: var(--color--green);border-color: var(--color--green);color: #fff !important;} /* green */
+
+	.box__option-select dd input:checked + label{color:#3498DB;font-weight:600}
+	.box__form{display: flex;}
+	.box__form .box__h{}
+	.box__form .box__h .box__cell{display: flex;}
+	.box__form .box__h .box__cell > * + *{margin-left: 4px;}
+	.box__form .box__h .box__cell + .box__cell{margin-top: 4px;}
+	.box__form .box__info{white-space: nowrap;margin-right: 10px;}
+	.box__form .link__button{display: inline-block;vertical-align: middle;border: 1px solid #999;padding: 3px 10px;font-size: 12px;border-radius: 8px;}
+	.box__form .link__button.fav{color: #fff;background-color: #3182F6;border-color: #3182F6;}
+	#header .box__item,
+	#container{width:1200px;margin:0 auto;}
+
+	.select2-container--default .select2-search--dropdown .select2-search__field,
+	.select2-container .select2-selection--single{display: block;width: 100%;height: calc(1.5em + .75rem + 2px);padding: .375rem .75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
+	.select2-search--dropdown{padding:0}
+	.select2-container--default .select2-selection--single .select2-selection__rendered{padding-left:0;color:#495057;line-height:23px}
+	.select2-container--default .select2-search--dropdown .select2-search__field{color:#495057}
+	.select2-container--default .select2-selection--single .select2-selection__arrow{height:95%}
+	.box__cell .select2-container--default .select2-search--dropdown .select2-search__field, 
+	.box__cell .select2-container .select2-selection--single{height: 28px;padding: 0 8px;}
+
+	.test{width:100% !important;height:auto;max-height:100px;overflow-y:auto}
+	.test:empty:before{display:block;content:attr(placeholder)}
+	.test:focus:before{display:none}
+
+	.calculator{padding-top:40px}
+	.calculator .inputbox span{position: relative;margin-bottom: 10px;display:flex;justify-content: space-between;}
+	#aside .calculator .inputbox span input{margin-top: 0 !important;width: 42%;box-sizing: border-box;}
+	.calculator .inputbox span .dd{border-color:#007BFF}
+	.calculator .inputbox span .mk{position: absolute;top: 0;left: 50%;width: 16%;height: 100%;transform:translateX(-50%)}
+	.calculator .inputbox span .mk button{position: relative;width: 100%;height: 100%;text-align: center;background-color: #fff;font-weight: bold;}
+	.calculator .btnbox{width:100%}
+	.calculator .btnbox .btn{width:100%}
+
+	#MergeUrl{min-height: 70px}
+	.box-flex{display: flex;width: 100%;justify-content: space-between;}
+	.box-flex .cell{min-width: 300px}
+	.box-flex .cell + .cell{}
+	.box-flex .cell .btn{width: 100%;margin-bottom: 5px;opacity: .6;}
+	.box-flex .cell .btn:hover,
+	.box-flex .cell .btn:focus{opacity: .9;}
+	.box-flex .cell ._code{width: 100% !important;min-height: 150px;font-size: 14px;line-height: 1.3;resize: none;}
+
+	/* coloring */
+	#container .box__item .select-domain .text__domain{font-family: Tahoma;}
+	#container .box__item .select-domain .text__domain{text-transform: uppercase;}
+	.box__option-select dd input#mockup:checked + label,
+	#container .box__item.select-mockup a{color: var(--color--blue);}
+	#container .box__item.select-mockup .select-domain{}
+	.box__option-select dd input#dev:checked + label,
+	#container .box__item.select-dev a{color: var(--color--red);}
+	#container .box__item.select-dev .select-domain{}
+	.box__option-select dd input#master:checked + label,
+	#container .box__item.select-master a,
+	#container .box__item.select-master .select-domain{color: var(--color--green);}
+	input#mockup:checked + .custom-control-label::after{border-color: var(--color--blue);}
+	input#dev:checked ~ .custom-control-label::after{border-color: var(--color--red);}
+	input#master:checked ~ .custom-control-label::after{border-color: var(--color--green);}
+	#container .box__item.select-gmkt .select-domain{color: var(--color--green);}
+	#container .box__item.select-iac .select-domain{color: var(--color--red);}
+	#container .box__item.select-ebay .select-domain{color: var(--color--yellow);}
+	#container.single-container{padding-top: 50px;}
+</style>
 </head>
 <body>
 <div id="wrap">
@@ -21,7 +183,7 @@
 					<input class="form-control" name="branch_no" type="text" placeholder="ex) feature/GPP-1234/test" value="feature/GPP-1234/test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
 				</div>
 				<div class="box__option-select">
-					<dl>
+					<dl class="type-button">
 						<dt><h3>SERVER</h3></dt>
 						<dd><input type="radio" id="mockup" class="custom-control-input" name="sever" value="mockup" checked="checked"> <label for="mockup" class="custom-control-label">MOCKUP</label></dd>
 						<dd><input type="radio" id="dev" class="custom-control-input" name="sever" value="dev"> <label for="dev" class="custom-control-label">DEV</label></dd>
@@ -32,6 +194,10 @@
 						<dd><input type="radio" id="ebay" class="custom-control-input" name="domain" value="ebay"> <label for="ebay" class="custom-control-label">EBAY</label></dd>
 						<dd><input type="radio" id="starro" class="custom-control-input" name="domain" value="starro"> <label for="starro" class="custom-control-label"><strong>STARRO</strong></label></dd>
 						<dd class="clear"><input type="radio" id="hanbando" class="custom-control-input" name="domain" value="hanbando"> <label for="hanbando" class="custom-control-label">HANBANDO</label></dd>
+						<dd class="hide"><input type="radio" id="g9" class="custom-control-input" name="domain" value="g9"> <label for="g9" class="custom-control-label">G9</label></dd>
+						<dt class="hide"><h3>DEVICE</h3></dt>
+						<dd class="hide"><input type="radio" id="pc" class="custom-control-input" name="device" value="pc" checked="checked"> <label for="pc" class="custom-control-label">PC</label></dd>
+						<dd class="hide"><input type="radio" id="mobile" class="custom-control-input" name="device" value="mobile"> <label for="mobile" class="custom-control-label">MOBILE</label></dd>
 					</dl>
 				</div>
 				<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
@@ -39,10 +205,10 @@
 			<div class="calculator">
 				<h3>LINK</h3>
 				<ul class="list__link">
+					<li><a href="https://jira.ebaykorea.com/" target="_blank" class="link__button fav">[업무] jira</a></li>
 					<li><a href="https://wiki.ebaykorea.com/display/ET/calendars" target="_blank" class="link__button">[업무] calendar</a></li>
 				</ul>
 				<ul class="list__link">
-					<li><a href="https://jira.ebaykorea.com/" target="_blank" class="link__button fav">[업무] jira</a></li>
 					<li><a href="http://github.ebaykorea.com/org-publisher/" target="_blank" class="link__button fav">[작업] github</a></li>
 					<li><a href="http://rms.ebaykorea.com/" target="_blank" class="link__button fav">[배포] RMS</a></li>
 					<li><a href="https://ers.ebaykorea.com/" target="_blank" class="link__button">[요청] ERS</a></li>
@@ -50,10 +216,11 @@
 					<li><a href="https://jira.ebaykorea.com/servicedesk/customer/portal/1" target="_blank" class="link__button">[장애] IT Service Desk</a></li>
 				</ul>
 				<ul class="list__link">
-					<li><a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">UX Lab</a></li>
+					<li><a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">[작업] UX Lab</a></li>
 					<li><a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a></li>
 					<li><a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a></li>
-					<li><a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">WAI-ARIA</a></li>
+					<li><a href="https://nuli.navercorp.com/community/forum" target="_blank" class="link__button">[접근성] NULI</a></li>
+					<li><a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">[접근성] WAI-ARIA</a></li>
 				</ul>
 				
 			</div>
@@ -64,11 +231,11 @@
 				<pre id="jiraNo"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Jira Number</a></pre>
 			</div>
 			<div class="box__item">
-				<h2>Git Comparing (a ~ b)</h2>
+				<h2>Diff Comparing (a ~ b)</h2>
 				<pre id="comparingUrl"><input type="text" class="hide_input"><span class="link__desabled" target="_blank">Git Compare URL pc</span><span class="link__desabled" target="_blank">Git Compare URL mobile</span></pre>
 			</div>
 			<div class="box__item">
-				<h2 class="select-domain"><span class="text__domain"></span> Pull request</h2>
+				<h2 class="select-domain"><span class="text__domain"></span> Pull Request</h2>
 				<div id="MergeUrl">
 					<pre class="request-url"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;"></a></pre>
 					<pre class="request-url"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;"></a></pre>
@@ -77,6 +244,15 @@
 			<div class="box__item">
 				<h2>PR Template </h2>
 				<div class="box-flex">
+					<div class="cell">
+						<button class="btn btn-success js-copy-temp">🚀 Release Copy</button>
+						<textarea class="form-control _code" readonly>
+## 🚀 Release
+**JIRA** -
+ 
+**배포 일시** -
+						</textarea>
+					</div>
 					<div class="cell">
 						<button class="btn btn-primary js-copy-temp">💻 Basic Copy</button>
 						<textarea class="form-control _code" readonly>
@@ -136,32 +312,8 @@
 **수정으로 인해 해결되는 이유**
 						</textarea>
 					</div>
-					<div class="cell">
-						<button class="btn btn-success js-copy-temp">🚀 Release Copy</button>
-						<textarea class="form-control _code" readonly>
-## 🚀 Release
-**JIRA** -
- 
-**배포 일시** -
-						</textarea>
-					</div>
 				</div>
 			</div>
-			
-			<!--
-			<div class="box__item">
-				<h2>Git Diff</h2>
-				<form name="frm2" class="box__form">
-					<input class="form-control" name="DiffUrl" type="text" placeholder="Commit Hash" value="">
-					<button class="js-button single_trigger btn btn-success">Confirm</button>
-				</form>
-				<pre class="DiffUrl" id="DiffUrl"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Diff URL</a></pre>
-			</div>
-			<div class="box__item">
-				<h2>Test input</h2>
-				<div class="test form-control" contenteditable="true" placeholder="여기에 메시지를 입력하세요"></div>
-			</div>
-			-->
 			
 		</div>
 
@@ -169,5 +321,160 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
-<script src="env-work.js"></script>
+<script>
+	$(document).ready(function(){
+		$('.js-copy-temp').on('click', function(){
+			var myTextarea = $(this).siblings('._code');
+			window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
+				console.log('복사완료');
+				myTextarea.select();
+			});
+		});
+		$('textarea').on('click', function(){
+			$(this).select();
+		})
+		if (!$('#header').length) {
+			$('#container').addClass('single-container');
+		}
+		var $device = $('input[name=device]');
+		var $selectionDomain = $('input[name=domain]');
+		var isMulti = false;
+		$selectionDomain.on('change', function( e ) {
+			isMulti = $( e.target ).val() == 'gmkt' || $( e.target ).val() == 'iac';
+			if( !isMulti ) {
+				$device.each( function( idx, item ) {
+					//$(item).prop('checked', false );
+					$(item).attr('disabled', 'disabled');
+				});
+			} else {
+				$device.each( function( idx, item ) {
+					//$('input[value=pc]').prop('checked', true );
+					$(item).removeAttr('disabled');
+				});
+			}
+		});
+		$('.js-button').on('click', function(e) {
+			e.preventDefault();
+			var $this = $(this).parents('.box__form').next('pre');
+			var $jira = frm1.branch_no.value;
+			if ($jira !== '') {
+				var $jiraSplit = $jira.split('/');
+				var $jiraFilter = $jiraSplit[1].split('-');
+				var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
+			}
+			var $repoUrl = 'http://github.ebaykorea.com/org-publisher/Publish';
+			var $server = $('input:radio[name=sever]:checked').val();
+			var $domain = $('input:radio[name=domain]:checked').val();
+			var $device = $('input:radio[name=device]:checked').val();
+
+			if ($(this).hasClass('type_trigger') == true) {
+				$('.select-domain').parent().removeClass().addClass('box__item select-'+$server+' select-'+$domain).find('.text__domain').text($domain);
+				if (frm1.branch_no.value == '') {
+					alert('Branch Name 값을 입력하세요.');
+					$('input[name=branch_no]').focus();
+				} else {
+					if ($server == 'master') {
+						alert('🚨 MASTER 브랜치 입니다. \n주의하세요. 🚨');
+					}
+					$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
+					$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
+					$('#jiraNo a').html('https://jira.ebaykorea.com/browse/'+$jiraNumber);
+					$('#jiraNo a').attr('href', 'https://jira.ebaykorea.com/browse/'+$jiraNumber);
+					$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'.pc/compare/aaa...bbb');
+					$('#comparingUrl span').eq(1).show().html($repoUrl+'.'+$domain+'.mobile/compare/aaa...bbb');
+					if ($domain == 'ebay' || $domain == 'hanbando') {
+						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html('');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('');
+						$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'/compare/aaa...bbb');
+						$('#comparingUrl span').eq(1).hide();
+					} else if ($domain == 'starro') {
+						if ($server == 'master') {
+							$server = 'main';
+						}
+						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html('');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('');
+						$('#CompareUrl a').html($repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
+						$('#CompareUrl a').attr('href', $repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
+					}else {
+						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html($repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('href', $repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#CompareUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
+						$('#CompareUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
+					}
+				}
+			} else if ($(this).hasClass('single_trigger') == true){
+				if ($(this).prev().val() == '') {
+					//alert($(this).prev().attr('placeholder')+' 값을 입력하세요.');
+					$(this).prev().focus();
+				} else {
+					$this.find('a').removeClass('link__desabled');
+					$this.find('a').removeAttr('onclick');
+					if ($this.hasClass('DiffUrl') == true) {
+						console.log('DiffUrl');
+						if ($domain == 'ebay' || $domain == 'hanbando') {
+							$this.find('a').html($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+							$this.find('.hide_input').val($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+							$this.find('a').attr('href', $repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+						} else {
+							$this.find('a').html($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+							$this.find('.hide_input').val($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+							$this.find('a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+						}
+						$this.next().remove('button');
+						$this.after($copy);
+						$('.copy-url').html('Click to copy');
+						copyUlr();
+					} else if ($(this).hasClass('UsernameKo') == true) {
+						console.log('UsernameKo');
+						window.open('https://jira.ebaykorea.com/issues/?jql=assignee%20in%20('+frm3.UsernameKo.value+')', '_blank'); 
+					} else if ($(this).hasClass('UserId') == true) {
+						console.log('UserId');
+						window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+frm3.Username.value, '_blank'); 
+					} else if ($(this).hasClass('ShortUrl') == true) {
+						console.log('ShortUrl');
+						window.open('http://is.gd/create.php?format=simple&url='+frm3.ShortUrl.value, '_blank'); 
+					} else if ($(this).hasClass('comparingUrls') == true) {
+						console.log('comparingUrl');
+						console.log($domain);
+						console.log($('#comparingType').val());
+						console.log($('#comparingStart').val());
+						console.log($('#comparingEnd').val());
+					}
+				}
+			}
+		})
+		$('._check, ._check2').on('click', function(){
+			$(this).toggleClass('active')
+		})
+	})
+
+	function noSpaceForm(obj) { // 공백사용못하게
+		var str_space = /\s/;  // 공백체크
+		if(str_space.exec(obj.value)) { //공백 체크
+			//alert('해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.');
+			obj.focus();
+			obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+			return false;
+		}
+	}
+	$('#selectName').change(function() {
+		var $name = $(this).find('option:selected').text();
+		var $id = $(this).find('option:selected').val();
+
+		$('#UsernameKoTitle').val($name);
+		$('#Userid').val($id);
+	})
+
+	function isEmpty(str) { 
+		//console.log('isEmpty');
+		return (!str || 0 === str.length); 
+	}
+
+</script>
 </html>
