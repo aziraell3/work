@@ -1,7 +1,19 @@
 $(document).ready(function(){
+	var now = new Date();	// 현재 날짜 및 시간
+	var year = now.getFullYear();	// 연도
+	var month = now.getMonth();	// 월
+
+
 	if ($('select:not([name=envyzteam-data])').length) {
 		$('select:not([name=envyzteam-data])').select2();
 	}
+	if ($('[name=envyzteam-data]').length) {
+		$('#env-year').val(year).prop('selected', true);
+		$('#env-month').val(month).prop('selected', true);
+		loadData();
+	}
+
+
 	$('.js-copy-temp').on('click', function(){
 		var myTextarea = $(this).siblings('._code');
 		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
@@ -15,11 +27,6 @@ $(document).ready(function(){
 	if (!$('#header').length) {
 		$('#container').addClass('single-container');
 	}
-	var now = new Date();	// 현재 날짜 및 시간
-	var year = now.getFullYear();	// 연도
-	var month = now.getMonth();	// 월
-	$('#env-year').val(year).prop('selected', true);
-	$('#env-month').val(month).prop('selected', true);
 
 	var $device = $('input[name=device]');
 	var $selectionDomain = $('input[name=domain]');
