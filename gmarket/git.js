@@ -54,7 +54,7 @@ $(document).ready(function(){
 			var $jiraFilter = $jiraSplit[1].split('-');
 			var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
 		}
-		var $repoUrl = 'http://github.ebaykorea.com/org-publisher/Publish';
+		var $repoUrl = 'http://github.gmarket.com/org-publisher/Publish';
 		var $server = $('input:radio[name=sever]:checked').val();
 		var $domain = $('input:radio[name=domain]:checked').val();
 		var $device = $('input:radio[name=device]:checked').val();
@@ -77,8 +77,8 @@ $(document).ready(function(){
 				}
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
-				$('#jiraNo a').html('https://jira.ebaykorea.com/browse/'+$jiraNumber);
-				$('#jiraNo a').attr('href', 'https://jira.ebaykorea.com/browse/'+$jiraNumber);
+				$('#jiraNo a').html('https://jira.gmarket.com/browse/'+$jiraNumber);
+				$('#jiraNo a').attr('href', 'https://jira.gmarket.com/browse/'+$jiraNumber);
 				$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'.pc/compare/aaa...bbb');
 				$('#comparingUrl span').eq(1).show().html($repoUrl+'.'+$domain+'.mobile/compare/aaa...bbb');
 				if ($domain == 'ebay' || $domain == 'hanbando') {
@@ -138,7 +138,7 @@ $(document).ready(function(){
 					copyUlr();
 				} else if ($(this).hasClass('UsernameKo') == true) {
 					console.log('UsernameKo');
-					window.open('https://jira.ebaykorea.com/issues/?jql=assignee%20in%20('+frm3.UsernameKo.value+')', '_blank'); 
+					window.open('https://jira.gmarket.com/issues/?jql=assignee%20in%20('+frm3.UsernameKo.value+')', '_blank'); 
 				} else if ($(this).hasClass('UserId') == true) {
 					console.log('UserId');
 					window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+frm3.Username.value, '_blank'); 
@@ -162,8 +162,8 @@ function loadData(){
 	var $month = $('#env-month').find('option:selected').val();
 	var $button = $('#env-button');
 	var $url = ($user == 'envyzteam') 
-		? 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
-		: 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
+		? 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
+		: 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
 	$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
 }
 $('[name=envyzteam-data]').change(function(){
@@ -235,7 +235,7 @@ var evzWork = (function(){
 	};
 	method.setElement = function(){
 		obj.body = $('body');
-		obj.repoUrl = 'http://github.ebaykorea.com/org-publisher/Publish';
+		obj.repoUrl = 'http://github.gmarket.com/org-publisher/Publish';
 		obj.jira = $('[name=branch_no]').val();
 		obj.DiffUrl = $('[name=DiffUrl]').val();
 		obj.UsernameKo = $('[name=UsernameKo]').val();
@@ -263,8 +263,8 @@ var evzWork = (function(){
 		var $month = $('#env-month').find('option:selected').val();
 		var $button = $('#env-button');
 		var $url = ($user == 'envyzteam') 
-			? 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
-			: 'https://jira.ebaykorea.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
+			? 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
+			: 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
 		$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
 		$('[name=envyzteam-data]').change(function(){
 			method.loadData();
@@ -311,8 +311,8 @@ var evzWork = (function(){
 					}
 					$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
 					$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
-					$('#jiraNo a').html('https://jira.ebaykorea.com/browse/'+$jiraNumber);
-					$('#jiraNo a').attr('href', 'https://jira.ebaykorea.com/browse/'+$jiraNumber);
+					$('#jiraNo a').html('https://jira.gmarket.com/browse/'+$jiraNumber);
+					$('#jiraNo a').attr('href', 'https://jira.gmarket.com/browse/'+$jiraNumber);
 					$('#comparingUrl span').eq(0).show().html(obj.repoUrl+'.'+obj.domains+'.pc/compare/aaa...bbb');
 					$('#comparingUrl span').eq(1).show().html(obj.repoUrl+'.'+obj.domains+'.mobile/compare/aaa...bbb');
 					if (obj.domains == 'ebay' || obj.domains == 'hanbando') {
@@ -362,7 +362,7 @@ var evzWork = (function(){
 						copyUlr();
 					} else if ($(this).hasClass('UsernameKo') == true) {
 						console.log('UsernameKo');
-						window.open('https://jira.ebaykorea.com/issues/?jql=assignee%20in%20('+obj.UsernameKo+')', '_blank'); 
+						window.open('https://jira.gmarket.com/issues/?jql=assignee%20in%20('+obj.UsernameKo+')', '_blank'); 
 					} else if ($(this).hasClass('UserId') == true) {
 						console.log('UserId');
 						window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+obj.Username, '_blank'); 
