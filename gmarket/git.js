@@ -54,7 +54,7 @@ $(document).ready(function(){
 			var $jiraFilter = $jiraSplit[1].split('-');
 			var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
 		}
-		var $repoUrl = 'http://github.gmarket.com/org-publisher/Publish';
+		var $repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
 		var $server = $('input:radio[name=sever]:checked').val();
 		var $domain = $('input:radio[name=domain]:checked').val();
 		var $device = $('input:radio[name=device]:checked').val();
@@ -235,7 +235,7 @@ var evzWork = (function(){
 	};
 	method.setElement = function(){
 		obj.body = $('body');
-		obj.repoUrl = 'http://github.gmarket.com/org-publisher/Publish';
+		obj.repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
 		obj.jira = $('[name=branch_no]').val();
 		obj.DiffUrl = $('[name=DiffUrl]').val();
 		obj.UsernameKo = $('[name=UsernameKo]').val();
