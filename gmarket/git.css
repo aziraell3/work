@@ -139,6 +139,11 @@ a.link__desabled:focus,
 .calculator .btnbox{width:100%}
 .calculator .btnbox .btn{width:100%}
 
+.calc__inputbox{display: flex;align-items: center;}
+.calc__inputbox .mk{display: block;text-align: center;min-width:20px;font-style: normal;}
+.calc__inputbox input{text-align: right;}
+.calc__inputbox input.per{width: 50px;}
+
 #MergeUrl{min-height: 70px}
 .box-flex{display: flex;width: 100%;justify-content: space-between;}
 .box-flex .cell{min-width: 300px}

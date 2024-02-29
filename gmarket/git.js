@@ -218,8 +218,12 @@ $('.swt').click(function(){
 	rate();
 })
 
-
-
+function per(){
+	var base = parseInt($('#calcBase').val());
+	var per = parseInt($('#calcPer').val());
+	var sum = $('#calcSum');
+	sum.val(base + (base * per / 100) );
+}
 
 var evzWork = (function(){
 	var method = {};

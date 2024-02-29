@@ -40,6 +40,7 @@
 
 				<div class="box__h">
 					<div class="box__cell">
+
 						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=332067574" target="_blank" class="link__button fav">[PM] 리소스 현황</a>
 						<a href="https://jira.gmarket.com/" target="_blank" class="link__button fav">jira</a>
 						<a href="http://rms.gmarket.com/" target="_blank" class="link__button fav">RMS</a>
@@ -49,10 +50,15 @@
 					<div class="box__cell">
 						<a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a>
 						<a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a>
-						<a href="https://ers.ebaykorea.com/" target="_blank" class="link__button">ERS</a>
+						<a href="http://testci.gmarket.com/blue/organizations/jenkins/ " target="_blank" class="link__button fav">jenkins</a>
+
+						<a href="http://testci.gmarket.com/blue/organizations/jenkins/script-mockup.ebay.co.kr/activity/ " target="_blank" class="link__button ">ebay MK</a>
+						<a href="http://testci.gmarket.com/blue/organizations/jenkins/script-dev.ebay.co.kr/activity/ " target="_blank" class="link__button ">ebay DEV</a>
+						<a href="http://store.ebaykorea.com/" target="_blank" class="link__button">[App] DEV</a>
+						<!-- <a href="https://ers.ebaykorea.com/" target="_blank" class="link__button">ERS</a>
 						<a href="https://wiki.gmarket.com/#all-updates" target="_blank" class="link__button">wiki</a>
 						<a href="https://jira.gmarket.com/servicedesk/customer/portal/1" target="_blank" class="link__button">IT Service Desk</a>
-						<a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">WAI-ARIA</a>
+						<a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">WAI-ARIA</a> -->
 					</div>
 					<div class="box__cell">
 						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=365047168" target="_blank" class="link__button">GUIDE</a>
@@ -110,6 +116,10 @@
 						<dd><input type="radio" id="ebay" class="custom-control-input" name="domain" value="ebay"> <label for="ebay" class="custom-control-label">EBAY</label></dd>
 						<dd><input type="radio" id="starro" class="custom-control-input" name="domain" value="starro"> <label for="starro" class="custom-control-label"><strong>STARRO</strong></label></dd>
 						<dd class="clear"><input type="radio" id="hanbando" class="custom-control-input" name="domain" value="hanbando"> <label for="hanbando" class="custom-control-label">HANBANDO</label></dd>
+<!--
+						<dd><input type="radio" id="gmkt-mockup" class="custom-control-input" name="domain" value="gmkt-mockup"> <label for="gmkt-mockup" class="custom-control-label">MK G</label></dd>
+						<dd><input type="radio" id="iac-mockup" class="custom-control-input" name="domain" value="iac-mockup"> <label for="iac-mockup" class="custom-control-label">MK A</label></dd>
+ -->
 						<dd class="hide"><input type="radio" id="g9" class="custom-control-input" name="domain" value="g9"> <label for="g9" class="custom-control-label">G9</label></dd>
 						<dt class="hide"><h3>DEVICE</h3></dt>
 						<dd class="hide"><input type="radio" id="pc" class="custom-control-input" name="device" value="pc" checked="checked"> <label for="pc" class="custom-control-label">PC</label></dd>
@@ -134,6 +144,19 @@
 				</div>
 				<div class="btnbox">
 					<button type="button" class="btn btn-secondary" onclick="rate()" class="result">비율 계산하기</button>
+				</div>
+			</div>
+			<div class="calculator">
+				<h3>PER</h3>
+				<div class="calc__inputbox">
+					<input type="text" id="calcBase" class="form-control base" value="2000" placeholder="기준">
+					<em class="mk">x</em>
+					<input type="text" id="calcPer" class="form-control per" value="5" placeholder="%">
+					<em class="mk">=</em>
+					<input type="text" id="calcSum" class="form-control sum" value="" >
+				</div>
+				<div class="btnbox">
+					<button type="button" class="btn btn-secondary" onclick="per();" class="result">계산하기</button>
 				</div>
 			</div>
 		</div>
@@ -163,22 +186,53 @@
 					<div class="cell">
 						<button class="btn btn-success js-copy-temp">🚀 Release Copy</button>
 <textarea class="form-control _code" readonly>
-## 🚀 Release
-**JIRA** -
+## 🚀 Release <br>
+**JIRA** <br>
+- https://jira.gmarket.com/browse/XXX-0000
  
-**배포 일시** -
+**배포 일시**  <br>
+- 2024/02/01 AM:08:30
+
+
+<hr/>
+
+
+## 🔗 Link <br>
+&lt;!-- jira, wiki 등 관련 링크 --&gt;
+- url
+
+<hr/>
+
+
+## 💻 작업 사항 <br>
+***Screenshot*** <br>
+&lt;!-- 캡처 [이미지 | GIF | 영상] 첨부 --&gt;
+
+
+***Description*** <br>
+&lt;!-- 작업 사항 설명 작성 --&gt;
+
+
+<hr/>
+ 
+ 
+## ⚡️ 이슈 및 공유 사항 <br>
+&lt;!-- 이슈 및 공유 사항 자유롭게 작성 --&gt;
 </textarea>
 					</div>
 					<div class="cell">
 						<button class="btn btn-primary js-copy-temp">💻 Basic Copy</button>
 <textarea class="form-control _code" readonly>
-## 🔗 Link
+## 🔗 Link <br>
 &lt;!-- jira, wiki 등 관련 링크 --&gt;
-**JIRA** -
+**JIRA**  <br>
+- https://jira.gmarket.com/browse/XXX-0000
  
-**WIKI** -
+**WIKI**  <br>
+- url
  
-**PRD** -
+**PRD**  <br>
+- url
  
 <hr/>
  
@@ -194,19 +248,19 @@
 <hr/>
  
  
-## 💻 작업 사항
-***Screenshot***
+## 💻 작업 사항 <br>
+***Screenshot*** <br>
 &lt;!-- 캡처 [이미지 | GIF | 영상] 첨부 --&gt;
  
  
-***Description***
+***Description*** <br>
 &lt;!-- 작업 사항 설명 작성 --&gt;
  
  
 <hr/>
  
  
-## ⚡️ 이슈 및 공유 사항
+## ⚡️ 이슈 및 공유 사항 <br>
 &lt;!-- 이슈 및 공유 사항 자유롭게 작성 --&gt;
  
  
@@ -216,16 +270,17 @@
 					<div class="cell">
 						<button class="btn btn-danger js-copy-temp">🚨 Hotfix Copy</button>
 <textarea class="form-control _code" readonly>
-## 🚨 Hotfix
-**JIRA** -
+## 🚨 Hotfix <br>
+**JIRA**  <br>
+- https://jira.gmarket.com/browse/XXX-0000
  
-**장애 사항** 
- 
- 
-**장애 원인**
+**장애 사항**  <br>
  
  
-**수정으로 인해 해결되는 이유**
+**장애 원인** <br>
+ 
+ 
+**수정으로 인해 해결되는 이유** <br>
 </textarea>
 					</div>
 				</div>
