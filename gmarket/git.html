@@ -14,7 +14,7 @@
 		<div class="box__item">
 			<div class="header-title">
 				<h1>
-					<label for="UsernameKoTitle">💡 내가 편할려고 만든~ Temp</label>
+					<label for="UsernameKoTitle">💡 Pull Request Template</label>
 				</h1>
 			</div>
 			<form name="frm3" class="box__form">
@@ -40,7 +40,8 @@
 
 				<div class="box__h">
 					<div class="box__cell">
-
+						<a href="https://gmarket-mobile-app-starro.d3.clouz.io" target="_blank" class="link__button fav">[G][MO] starro </a>
+						<a href="https://gmarket-desktop-app-starro.d3.clouz.io" target="_blank" class="link__button fav">[G][PC] starro </a>
 						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=332067574" target="_blank" class="link__button fav">[PM] 리소스 현황</a>
 						<a href="https://jira.gmarket.com/" target="_blank" class="link__button fav">jira</a>
 						<a href="http://rms.gmarket.com/" target="_blank" class="link__button fav">RMS</a>
@@ -48,6 +49,7 @@
 						<a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">UX Lab</a>
 					</div>
 					<div class="box__cell">
+						
 						<a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a>
 						<a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a>
 						<a href="http://testci.gmarket.com/blue/organizations/jenkins/ " target="_blank" class="link__button fav">jenkins</a>
@@ -103,12 +105,15 @@
 				<div class="box__input-option">
 					<h3>BRANCH NAME</h3>
 					<input class="form-control" name="branch_no" type="text" placeholder="Branch Name" value="feature/GPP-1234-test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+					<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
 				</div>
 				<div class="box__option-select">
+					
 					<dl class="type-button">
 						<dt><h3>SERVER</h3></dt>
 						<dd><input type="radio" id="mockup" class="custom-control-input" name="sever" value="mockup" checked="checked"> <label for="mockup" class="custom-control-label">MOCKUP</label></dd>
 						<dd><input type="radio" id="dev" class="custom-control-input" name="sever" value="dev"> <label for="dev" class="custom-control-label">DEV</label></dd>
+						<dd class="clear"><input type="radio" id="stg" class="custom-control-input" name="sever" value="stg"> <label for="stg" class="custom-control-label">STG</label></dd>
 						<dd class="clear"><input type="radio" id="master" class="custom-control-input" name="sever" value="master"> <label for="master" class="custom-control-label">MASTER (MAIN)</label></dd>
 						<dt><h3>DOMAIN</h3></dt>
 						<dd><input type="radio" id="gmkt" class="custom-control-input" name="domain" value="gmkt" checked="checked"> <label for="gmkt" class="custom-control-label">GMKT</label></dd>
@@ -126,7 +131,7 @@
 						<dd class="hide"><input type="radio" id="mobile" class="custom-control-input" name="device" value="mobile"> <label for="mobile" class="custom-control-label">MOBILE</label></dd>
 					</dl>
 				</div>
-				<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
+				<!-- <button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button> -->
 			</form>
 			<div class="calculator">
 				<h3>ASPECT RATIO</h3>
@@ -161,6 +166,11 @@
 			</div>
 		</div>
 		<div id="contents" class="box__contents">
+			<div class="box__item">
+				<h2>straro link</h2>
+				<pre id="starroHtml"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="https://gmarket-desktop-app-starro.d3.clouz.io">https://gmarket-desktop-app-starro.d3.clouz.io</a></pre>
+				<pre id="starroCss"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">//gmarket-mobile-app-starro.d3.clouz.io/css/tourticket/tourticket.css</a></pre>
+			</div>
 			<div class="box__item">
 				<h2>Jira</h2>
 				<pre id="jiraNo"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Jira Number</a></pre>

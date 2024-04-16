@@ -76,6 +76,7 @@ a.link__desabled:focus,
 #aside input.form-control{width: 100%;}
 #aside input.form-control + input.form-control{margin-top:10px}
 #aside .type_trigger{margin-top:0px;width:100%;height:50px}
+.form-control + .type_trigger{margin-top: 10px !important;}
 #contents{padding:0 10px 0 250px}
 .page-title{position: fixed;left: 0;width: 100%;font-size: 24px;margin: 10px 0;text-align: center;display: block;}
 .box__option-select{margin-top:20px;overflow:hidden}
