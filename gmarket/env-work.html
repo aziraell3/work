@@ -5,180 +5,287 @@
 <title>업무 편의</title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"crossorigin="anonymous">
-<!-- <link href="git.css" rel="stylesheet" /> -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.9/css/select2.min.css" rel="stylesheet" />
 <style>
-	:root{
-		--color--base: #333;
-		--color--gray: #6C757D;
-		--color--gold: #ffd700;
-		--color--yellow: #FFC107;
-		--color--blue: #3395FE;
-		--color--red: #DC3545;
-		--color--green: #4DA060;
-	}
-	@font-face {
-		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 700;
-		src: local('Gmarket Sans Bold'), local('GmarketSans-Bold'),
-		url('https://script.gmarket.com/fonts/GmarketSansBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-		url('https://script.gmarket.com/fonts/GmarketSansBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-	}
-	@font-face {
-		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 500;
-		src: local('Gmarket Sans Medium'), local('GmarketSans-Medium'),
-		url('https://script.gmarket.com/fonts/GmarketSansMedium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-		url('https://script.gmarket.com/fonts/GmarketSansMedium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-	}
-	@font-face {
-		font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 300;
-		src: local('Gmarket Sans Light'), local('GmarketSans-Light'),
-		url('https://script.gmarket.com/fonts/GmarketSansLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
-		url('https://script.gmarket.com/fonts/GmarketSansLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
-	}
+@charset "utf-8";
+:root{
+	--color--base: #333;
+	--color--gray: #6C757D;
+	--color--gold: #ffd700;
+	--color--yellow: #FFC107;
+	--color--blue: #3395FE;
+	--color--red: #DC3545;
+	--color--green: #4DA060;
+}
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 700;
+	src: local('Gmarket Sans Bold'), local('GmarketSans-Bold'),
+	url('https://script.gmarket.com/fonts/GmarketSansBold.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansBold.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 500;
+	src: local('Gmarket Sans Medium'), local('GmarketSans-Medium'),
+	url('https://script.gmarket.com/fonts/GmarketSansMedium.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansMedium.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+@font-face {
+	font-family: 'Gmarket Sans';    font-style: normal;    font-weight: 300;
+	src: local('Gmarket Sans Light'), local('GmarketSans-Light'),
+	url('https://script.gmarket.com/fonts/GmarketSansLight.woff2') format('woff2'), /* Chrome 26+, Opera 23+, Firefox 39+ */
+	url('https://script.gmarket.com/fonts/GmarketSansLight.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
+}
+.for-a11y{position: absolute;width: 1px;height: 1px;margin: -1px;padding: 0;border: 0;clip: rect(0 0 0 0);}
+*{box-sizing:border-box}
+html,body{height:100%}
+h1,h2,h3,h4,h5,h6{font-weight:600}
+h1{font-size:26px}
+h2{font-size:20px}
+h3{font-size:16px}
+label{margin:0;display:inline-block;vertical-align:middle;}
+button{display:inline-block;vertical-align:middle;border:0;margin:0;padding:0;border-radius:3px !important}
+button[disabled]{cursor:not-allowed}
+input.form-control{display:inline-block;vertical-align:middle;width:200px;border-radius:3px !important;}
+input.form-control.simple{color: #0056b3;padding: 2px 0 !important;height: calc(1em + 0.95rem + 2px);border: 0;}
+input.custom-control-input{opacity: 1;appearance:none;z-index: auto;}
+pre{position:relative;display:block;max-width:100%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
+pre:not(._code) span,
+pre a{display:inline-block;vertical-align: middle;overflow:hidden;letter-spacing: -0.7px;text-overflow:ellipsis}
+pre:not(._code) span::before,
+pre a:not(.link__desabled)::before{content:'';display: inline-block;vertical-align: middle;margin: -2px 3px 0;}
+pre span::before{
+	width:18px;height:18px;background: url("data:image/svg+xml;utf8,<svg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M11.25 17C11.25 17.4142 11.5858 17.75 12 17.75C12.4142 17.75 12.75 17.4142 12.75 17H11.25ZM15.25 9.75C15.25 10.1642 15.5858 10.5 16 10.5C16.4142 10.5 16.75 10.1642 16.75 9.75H15.25ZM7.25 9.75C7.25 10.1642 7.58579 10.5 8 10.5C8.41421 10.5 8.75 10.1642 8.75 9.75H7.25ZM15.7071 7.32544L16.2646 6.82371V6.82371L15.7071 7.32544ZM9.5 16.25C9.08579 16.25 8.75 16.5858 8.75 17C8.75 17.4142 9.08579 17.75 9.5 17.75V16.25ZM15 17.75C15.4142 17.75 15.75 17.4142 15.75 17C15.75 16.5858 15.4142 16.25 15 16.25V17.75ZM10 7.75H12V6.25H10V7.75ZM12 7.75H14V6.25H12V7.75ZM12.75 17V7H11.25V17H12.75ZM15.25 9.22222V9.75H16.75V9.22222H15.25ZM7.25 9.22222V9.75H8.75V9.22222H7.25ZM14 7.75C14.4949 7.75 14.7824 7.75196 14.9865 7.78245C15.0783 7.79617 15.121 7.8118 15.1376 7.8194C15.148 7.82415 15.1477 7.82503 15.1496 7.82716L16.2646 6.82371C15.96 6.4853 15.579 6.35432 15.2081 6.29891C14.8676 6.24804 14.4479 6.25 14 6.25V7.75ZM16.75 9.22222C16.75 8.71757 16.7513 8.27109 16.708 7.91294C16.6629 7.54061 16.559 7.15082 16.2646 6.82371L15.1496 7.82716C15.1523 7.83015 15.1609 7.83939 15.1731 7.87221C15.1873 7.91048 15.2048 7.97725 15.2188 8.09313C15.2487 8.34011 15.25 8.67931 15.25 9.22222H16.75ZM10 6.25C9.55208 6.25 9.13244 6.24804 8.79192 6.29891C8.42102 6.35432 8.04 6.4853 7.73542 6.82371L8.85036 7.82716C8.85228 7.82503 8.85204 7.82415 8.86242 7.8194C8.87904 7.8118 8.92168 7.79617 9.01354 7.78245C9.21765 7.75196 9.50511 7.75 10 7.75V6.25ZM8.75 9.22222C8.75 8.67931 8.75129 8.34011 8.78118 8.09313C8.7952 7.97725 8.81273 7.91048 8.8269 7.87221C8.83905 7.83939 8.84767 7.83015 8.85036 7.82716L7.73542 6.82371C7.44103 7.15082 7.3371 7.54061 7.29204 7.91294C7.24871 8.27109 7.25 8.71757 7.25 9.22222H8.75ZM9.5 17.75H15V16.25H9.5V17.75Z' fill='%23212121'/><path d='M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z' stroke='%23212121' stroke-width='1.5'/></svg>") 50% 50% no-repeat;background-size:100% auto;opacity: .6;
+}
+pre a:not(.link__desabled){text-decoration: underline;}
+pre a:not(.link__desabled)::before{
+	width:20px;height:20px;background: url("data:image/svg+xml;utf8,<svg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M11.2716 7.25C11.2716 6.83579 11.6073 6.5 12.0216 6.5H16.75C17.1642 6.5 17.5 6.83579 17.5 7.25V11.9785C17.5 12.3927 17.1642 12.7285 16.75 12.7285C16.3358 12.7285 16 12.3927 16 11.9785V9.06066L10.7803 14.2803C10.4874 14.5732 10.0126 14.5732 9.71967 14.2803C9.42678 13.9874 9.42678 13.5126 9.71967 13.2197L14.9393 8H12.0216C11.6073 8 11.2716 7.66421 11.2716 7.25Z' fill='%23212121'/><path d='M6.15675 5.25C6.57853 3.94437 7.80398 3 9.25 3H17.75C19.5449 3 21 4.45507 21 6.25V14.8382C21 16.1902 20.1745 17.3494 19 17.8392V17.9751C19 19.0247 18.4705 19.82 17.6913 20.3191C16.9414 20.7995 15.9737 21.0045 14.9977 20.9999L14.9963 20.9999L10.9191 20.9952L7 20.9951C5.84332 20.9951 4.83555 20.6327 4.11066 19.9496C3.38287 19.2639 3 18.3103 3 17.25V8.5C3 7.63484 3.21573 6.81725 3.73399 6.20358C4.26793 5.57135 5.04354 5.25 5.95588 5.25H6.15675ZM6 6.75H5.95588C5.41235 6.75 5.08501 6.92865 4.87998 7.17142C4.65927 7.43275 4.5 7.86516 4.5 8.5V17.25C4.5 17.9397 4.74213 18.4837 5.13934 18.8579C5.53944 19.2349 6.15669 19.4951 7 19.4951L10.9191 19.4952L15.0009 19.4999L15.0037 19.4999C15.7919 19.5038 16.4486 19.3338 16.8822 19.0561C17.254 18.8179 17.4641 18.5061 17.4958 18.0882H9.25C7.45508 18.0882 6 16.6332 6 14.8382V6.75ZM9.25 4.5C8.2835 4.5 7.5 5.2835 7.5 6.25V14.8382C7.5 15.8047 8.2835 16.5882 9.25 16.5882H17.75C18.7165 16.5882 19.5 15.8047 19.5 14.8382V6.25C19.5 5.2835 18.7165 4.5 17.75 4.5H9.25Z' fill='%23212121'/></svg>") 50% 50% no-repeat;background-size:100% auto;opacity: .6;
+}
+/* pre + pre{margin-top: -10px;} */
+pre span + span{margin-top: 5px;}
+.hide, hr{display:none}
+a.link__desabled:visited,
+a.link__desabled:hover,
+a.link__desabled:focus,
+.link__desabled:link{font-size:16px;color:#777;}
+.link__desabled{display: inline;}
+.hide_input{position:absolute;top:0;left:-20px;width:10px;border:0}
+#wrap{height:100%}
+#header{width:100%;min-height:180px;padding:15px 0;background-color:#FAFAFA;z-index:100}
+#header .box__item{padding:0}
+#header .header-title{display: flex;align-items: center;justify-content: space-between;padding-bottom:15px}
+#header .form-control{width:150px}
+#header h2 span{font-size:14px}
+#header h2 span{font-size:14px}
+#header .member-info{padding: 0;margin: 0;}
+#header .member-info li + li::before{content:'';width: 1px;height: 18px;margin: 0 16px;background-color: #ddd;}
+#header .member-info li{padding: 0;margin: 0;display: flex;align-items: center;font-size: 12px;}
+#header .member-info li span{font-weight: bold;}
+#header .member-info li .user-name{font-size: 14px;}
+#header .member-info li .user-email{font-weight: normal;}
+#header .member-info li .corp-number{color: #1978DD;}
+#header .member-info li .pc-ip{color: #dc3545;}
+#header .member-info li span+span{margin-left: 6px;}
+#header .member-info li span+span::before{content:':';margin-right: 6px;color: #222;}
+#container{position:relative;height:100%;padding:20px 0 50px}
+#container .box__item{margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5}
+#container .box__item:first-child{margin-top:0;padding-top:0;border-top:0}
+#container .box__item .form-control{width:350px}
+#container .box__item pre:not(._code) span{display: block;}
+#aside{position:absolute;left:0;width:220px;background-color:#FFF}
+#aside input.form-control{width: 100%;}
+#aside input.form-control + input.form-control{margin-top:10px}
+#aside .type_trigger{margin-top:0px;width:100%;height:50px}
+.form-control + .type_trigger{margin-top: 10px !important;}
+.custom-control-input:disabled~.custom-control-label{background-color: #ddd;}
+#contents{padding:0 10px 0 250px}
+.page-title{position: fixed;left: 0;width: 100%;font-size: 24px;margin: 10px 0;text-align: center;display: block;}
+.box__option-select{margin-top:20px;overflow:hidden}
+.box__option-select dl{display:flex;flex-wrap: wrap;justify-content: space-between;margin-bottom: 0;}
+.box__option-select dt{position:relative;width: 100%;padding:10px 0 0;clear:left}
+.box__option-select dt:after{content:'';position:absolute;top:55%;left:0;display:block;width:100%;height:1px;background-color:#E5E5E5}
+.box__option-select dt h3{position:relative;display:inline-block;padding-right:6px;background-color:#FFF;z-index:10}
+.box__option-select dd{position: relative;width:calc(50% - 4px);}
+.box__option-select dd.clear{clear: both;width: 100%;}
+.box__option-select dd .custom-control-label::before,
+.box__option-select dd .custom-control-label::after{left: 0;border-radius:50%;}
+.box__option-select dd .custom-control-label::before{}
+.box__option-select dd .custom-control-input:checked~.custom-control-label::before{color:#fff;border-color:#007bff;background-color:#007bff}
+.box__option-select dd .custom-control-input:checked~.custom-control-label::after{width:6px;height:6px;background-color:#fff;border:5px solid #007bff;box-sizing:content-box}
+.box__option-select dd .custom-control-input:checked:disabled~.custom-control-label::after{background-color:#fff;border:5px solid #B7D6F7}
+.box__option-select dd label{position:relative;padding-left: 21px;display:block;margin:0;font-size:14px;line-height: 23px;cursor:pointer;}
+.box__option-select dd input.custom-control-input{position: absolute;top: 0;left: 0;}
+.box__option-select .type-button dd label{padding: 6px 10px;border: 1px solid #CED4DA;border-radius: 6px;text-align: center;}
+.box__option-select .type-button dd .custom-control-label{opacity: .4;}
+.box__option-select .type-button dd .custom-control-label::before,
+.box__option-select .type-button dd .custom-control-label::after{display: none;}
+.box__option-select .type-button dd .custom-control-input:checked~.custom-control-label{background-color: var(--color--gray);border-color: var(--color--gray);color: #fff !important;opacity: 1;font-family: verdana;}
+.box__option-select .type-button dd [value=ebay]:checked~.custom-control-label{background-color: var(--color--yellow);border-color: var(--color--yellow);color: #fff !important;} /* yellow  */
+.box__option-select .type-button dd #mockup:checked~.custom-control-label{background-color: var(--color--blue);border-color: var(--color--blue);color: #fff !important;} /* blue */
+.box__option-select .type-button dd [value=iac]:checked~.custom-control-label,
+.box__option-select .type-button dd #dev:checked~.custom-control-label{background-color: var(--color--red);border-color: var(--color--red);color: #fff !important;} /* red */
+.box__option-select .type-button dd [value=gmkt]:checked~.custom-control-label,
+.box__option-select .type-button dd #master:checked~.custom-control-label{background-color: var(--color--green);border-color: var(--color--green);color: #fff !important;} /* green */
 
-	*{box-sizing:border-box}
-	html,body{height:100%}
-	h1,h2,h3,h4,h5,h6{font-weight:600}
-	h1{font-size:26px}
-	h2{font-size:20px}
-	h3{font-size:16px}
-	label{margin:0;display:inline-block;vertical-align:middle;}
-	button{display:inline-block;vertical-align:middle;border:0;margin:0;padding:0;border-radius:3px !important}
-	button[disabled]{cursor:not-allowed}
-	input.form-control{display:inline-block;vertical-align:middle;width:200px;border-radius:3px !important;}
-	input.form-control.simple{color: #0056b3;padding: 2px 0 !important;height: calc(1em + 0.95rem + 2px);border: 0;}
-	input.custom-control-input{opacity: 1;appearance:none;z-index: auto;}
-	pre{position:relative;display:block;max-width:100%;vertical-align:middle;margin:0;padding:5px;font-size:16px}
-	pre span,
-	pre a{display:block;width:100%;overflow:hidden;letter-spacing: -0.7px;text-overflow:ellipsis}
-	pre span::before,
-	pre a:not(.link__desabled)::before{content:'';display: inline-block;vertical-align: middle;margin: -2px 3px 0;}
-	pre span::before{
-		width:18px;height:18px;background: url("data:image/svg+xml;utf8,<svg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M11.25 17C11.25 17.4142 11.5858 17.75 12 17.75C12.4142 17.75 12.75 17.4142 12.75 17H11.25ZM15.25 9.75C15.25 10.1642 15.5858 10.5 16 10.5C16.4142 10.5 16.75 10.1642 16.75 9.75H15.25ZM7.25 9.75C7.25 10.1642 7.58579 10.5 8 10.5C8.41421 10.5 8.75 10.1642 8.75 9.75H7.25ZM15.7071 7.32544L16.2646 6.82371V6.82371L15.7071 7.32544ZM9.5 16.25C9.08579 16.25 8.75 16.5858 8.75 17C8.75 17.4142 9.08579 17.75 9.5 17.75V16.25ZM15 17.75C15.4142 17.75 15.75 17.4142 15.75 17C15.75 16.5858 15.4142 16.25 15 16.25V17.75ZM10 7.75H12V6.25H10V7.75ZM12 7.75H14V6.25H12V7.75ZM12.75 17V7H11.25V17H12.75ZM15.25 9.22222V9.75H16.75V9.22222H15.25ZM7.25 9.22222V9.75H8.75V9.22222H7.25ZM14 7.75C14.4949 7.75 14.7824 7.75196 14.9865 7.78245C15.0783 7.79617 15.121 7.8118 15.1376 7.8194C15.148 7.82415 15.1477 7.82503 15.1496 7.82716L16.2646 6.82371C15.96 6.4853 15.579 6.35432 15.2081 6.29891C14.8676 6.24804 14.4479 6.25 14 6.25V7.75ZM16.75 9.22222C16.75 8.71757 16.7513 8.27109 16.708 7.91294C16.6629 7.54061 16.559 7.15082 16.2646 6.82371L15.1496 7.82716C15.1523 7.83015 15.1609 7.83939 15.1731 7.87221C15.1873 7.91048 15.2048 7.97725 15.2188 8.09313C15.2487 8.34011 15.25 8.67931 15.25 9.22222H16.75ZM10 6.25C9.55208 6.25 9.13244 6.24804 8.79192 6.29891C8.42102 6.35432 8.04 6.4853 7.73542 6.82371L8.85036 7.82716C8.85228 7.82503 8.85204 7.82415 8.86242 7.8194C8.87904 7.8118 8.92168 7.79617 9.01354 7.78245C9.21765 7.75196 9.50511 7.75 10 7.75V6.25ZM8.75 9.22222C8.75 8.67931 8.75129 8.34011 8.78118 8.09313C8.7952 7.97725 8.81273 7.91048 8.8269 7.87221C8.83905 7.83939 8.84767 7.83015 8.85036 7.82716L7.73542 6.82371C7.44103 7.15082 7.3371 7.54061 7.29204 7.91294C7.24871 8.27109 7.25 8.71757 7.25 9.22222H8.75ZM9.5 17.75H15V16.25H9.5V17.75Z' fill='%23212121'/><path d='M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z' stroke='%23212121' stroke-width='1.5'/></svg>") 50% 50% no-repeat;background-size:100% auto;opacity: .6;
-	}
-	pre a:not(.link__desabled){text-decoration: underline;}
-	pre a:not(.link__desabled)::before{
-		width:20px;height:20px;background: url("data:image/svg+xml;utf8,<svg width='800px' height='800px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'><path d='M11.2716 7.25C11.2716 6.83579 11.6073 6.5 12.0216 6.5H16.75C17.1642 6.5 17.5 6.83579 17.5 7.25V11.9785C17.5 12.3927 17.1642 12.7285 16.75 12.7285C16.3358 12.7285 16 12.3927 16 11.9785V9.06066L10.7803 14.2803C10.4874 14.5732 10.0126 14.5732 9.71967 14.2803C9.42678 13.9874 9.42678 13.5126 9.71967 13.2197L14.9393 8H12.0216C11.6073 8 11.2716 7.66421 11.2716 7.25Z' fill='%23212121'/><path d='M6.15675 5.25C6.57853 3.94437 7.80398 3 9.25 3H17.75C19.5449 3 21 4.45507 21 6.25V14.8382C21 16.1902 20.1745 17.3494 19 17.8392V17.9751C19 19.0247 18.4705 19.82 17.6913 20.3191C16.9414 20.7995 15.9737 21.0045 14.9977 20.9999L14.9963 20.9999L10.9191 20.9952L7 20.9951C5.84332 20.9951 4.83555 20.6327 4.11066 19.9496C3.38287 19.2639 3 18.3103 3 17.25V8.5C3 7.63484 3.21573 6.81725 3.73399 6.20358C4.26793 5.57135 5.04354 5.25 5.95588 5.25H6.15675ZM6 6.75H5.95588C5.41235 6.75 5.08501 6.92865 4.87998 7.17142C4.65927 7.43275 4.5 7.86516 4.5 8.5V17.25C4.5 17.9397 4.74213 18.4837 5.13934 18.8579C5.53944 19.2349 6.15669 19.4951 7 19.4951L10.9191 19.4952L15.0009 19.4999L15.0037 19.4999C15.7919 19.5038 16.4486 19.3338 16.8822 19.0561C17.254 18.8179 17.4641 18.5061 17.4958 18.0882H9.25C7.45508 18.0882 6 16.6332 6 14.8382V6.75ZM9.25 4.5C8.2835 4.5 7.5 5.2835 7.5 6.25V14.8382C7.5 15.8047 8.2835 16.5882 9.25 16.5882H17.75C18.7165 16.5882 19.5 15.8047 19.5 14.8382V6.25C19.5 5.2835 18.7165 4.5 17.75 4.5H9.25Z' fill='%23212121'/></svg>") 50% 50% no-repeat;background-size:100% auto;opacity: .6;
-	}
-	pre span + span{margin-top: 5px;}
-	.hide, hr{display:none}
-	a.link__desabled:visited,
-	a.link__desabled:hover,
-	a.link__desabled:focus,
-	.link__desabled:link{font-size:16px;color:#777;}
-	.link__desabled{display: inline;}
-	.hide_input{position:absolute;top:0;left:-20px;width:10px;border:0}
-	#wrap{height:100%}
-	#header{position:absolute;top:0;width:100%;height:180px;padding:15px 0;background-color:#FAFAFA;z-index:100}
-	#header .box__item{padding:0}
-	#header .header-title{padding-bottom:15px}
-	#header .form-control{width:150px}
-	#header h2 span{font-size:14px}
-	#header h2 span{font-size:14px}
-	#container{position:relative;height:100%;padding:190px 0 50px}
-	#container .box__item{margin-top:20px;padding-top:20px;border-top:1px solid #E5E5E5}
-	#container .box__item:first-child{margin-top:0;padding-top:0;border-top:0}
-	#container .box__item .form-control{width:350px}
-	#container .box__item pre span{display: block;}
-	#aside{position:absolute;left:0;width:220px;background-color:#FFF}
-	#aside input.form-control{width: 100%;}
-	#aside input.form-control + input.form-control{margin-top:10px}
-	#aside .type_trigger{margin-top:0px;width:100%;height:50px}
-	#contents{padding:0 10px 0 250px}
-	.page-title{position: fixed;left: 0;width: 100%;font-size: 24px;margin: 10px 0;text-align: center;display: block;}
-	.box__option-select{margin-top:20px;overflow:hidden}
-	.box__option-select dl{display:flex;flex-wrap: wrap;justify-content: space-between;margin-bottom: 0;}
-	.box__option-select dt{position:relative;width: 100%;padding:10px 0 0;clear:left}
-	.box__option-select dt:after{content:'';position:absolute;top:55%;left:0;display:block;width:100%;height:1px;background-color:#E5E5E5}
-	.box__option-select dt h3{position:relative;display:inline-block;padding-right:6px;background-color:#FFF;z-index:10}
-	.box__option-select dd{position: relative;width:calc(50% - 4px);}
-	.box__option-select dd.clear{clear: both;width: 100%;}
-	.box__option-select dd .custom-control-label::before,
-	.box__option-select dd .custom-control-label::after{left: 0;border-radius:50%;}
-	.box__option-select dd .custom-control-label::before{}
-	.box__option-select dd .custom-control-input:checked~.custom-control-label::before{color:#fff;border-color:#007bff;background-color:#007bff}
-	.box__option-select dd .custom-control-input:checked~.custom-control-label::after{width:6px;height:6px;background-color:#fff;border:5px solid #007bff;box-sizing:content-box}
-	.box__option-select dd .custom-control-input:checked:disabled~.custom-control-label::after{background-color:#fff;border:5px solid #B7D6F7}
-	.box__option-select dd label{position:relative;padding-left: 21px;display:block;margin:0;font-size:14px;line-height: 23px;cursor:pointer;}
-	.box__option-select dd input.custom-control-input{position: absolute;top: 0;left: 0;}
-	.box__option-select .type-button dd label{padding: 6px 10px;border: 1px solid #CED4DA;border-radius: 6px;text-align: center;}
-	.box__option-select .type-button dd .custom-control-label{opacity: .4;}
-	.box__option-select .type-button dd .custom-control-label::before,
-	.box__option-select .type-button dd .custom-control-label::after{display: none;}
-	.box__option-select .type-button dd .custom-control-input:checked~.custom-control-label{background-color: var(--color--gray);border-color: var(--color--gray);color: #fff !important;opacity: 1;font-family: verdana;}
-	.box__option-select .type-button dd [value=ebay]:checked~.custom-control-label{background-color: var(--color--yellow);border-color: var(--color--yellow);color: #fff !important;} /* yellow  */
-	.box__option-select .type-button dd #mockup:checked~.custom-control-label{background-color: var(--color--blue);border-color: var(--color--blue);color: #fff !important;} /* blue */
-	.box__option-select .type-button dd [value=iac]:checked~.custom-control-label,
-	.box__option-select .type-button dd #dev:checked~.custom-control-label{background-color: var(--color--red);border-color: var(--color--red);color: #fff !important;} /* red */
-	.box__option-select .type-button dd [value=gmkt]:checked~.custom-control-label,
-	.box__option-select .type-button dd #master:checked~.custom-control-label{background-color: var(--color--green);border-color: var(--color--green);color: #fff !important;} /* green */
+.box__option-select dd input:checked + label{color:#3498DB;font-weight:600}
+.box__form{display: flex;}
+.box__form .box__h{}
+.box__form .box__h .box__cell{display: flex;}
+.box__form .box__h .box__cell > * + *{margin-left: 4px;}
+.box__form .box__h .box__cell + .box__cell{margin-top: 10px;}
+.box__form .box__info{white-space: nowrap;margin-right: 10px;}
+.box__form .link__button{display: inline-block;vertical-align: middle;border: 1px solid #999;padding: 3px 10px;font-size: 12px;border-radius: 8px;}
+.box__form .link__button.fav{color: #fff;background-color: #3182F6;border-color: #3182F6;}
+#header .box__item,
+#container{width:1200px;margin:0 auto;}
 
-	.box__option-select dd input:checked + label{color:#3498DB;font-weight:600}
-	.box__form{display: flex;}
-	.box__form .box__h{}
-	.box__form .box__h .box__cell{display: flex;}
-	.box__form .box__h .box__cell > * + *{margin-left: 4px;}
-	.box__form .box__h .box__cell + .box__cell{margin-top: 4px;}
-	.box__form .box__info{white-space: nowrap;margin-right: 10px;}
-	.box__form .link__button{display: inline-block;vertical-align: middle;border: 1px solid #999;padding: 3px 10px;font-size: 12px;border-radius: 8px;}
-	.box__form .link__button.fav{color: #fff;background-color: #3182F6;border-color: #3182F6;}
-	#header .box__item,
-	#container{width:1200px;margin:0 auto;}
+.select2-container--default .select2-search--dropdown .select2-search__field,
+.select2-container .select2-selection--single{display: block;width: 100%;height: calc(1.5em + .75rem + 2px);padding: .375rem .75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
+.select2-search--dropdown{padding:0}
+.select2-container--default .select2-selection--single .select2-selection__rendered{padding-left:0;color:#495057;line-height:23px}
+.select2-container--default .select2-search--dropdown .select2-search__field{color:#495057}
+.select2-container--default .select2-selection--single .select2-selection__arrow{height:95%}
+.box__cell .select2-container--default .select2-search--dropdown .select2-search__field, 
+.box__cell .select2-container .select2-selection--single{height: 28px;padding: 0 8px;}
 
-	.select2-container--default .select2-search--dropdown .select2-search__field,
-	.select2-container .select2-selection--single{display: block;width: 100%;height: calc(1.5em + .75rem + 2px);padding: .375rem .75rem;font-size: 1rem;font-weight: 400;line-height: 1.5;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;border-radius: .25rem;transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;}
-	.select2-search--dropdown{padding:0}
-	.select2-container--default .select2-selection--single .select2-selection__rendered{padding-left:0;color:#495057;line-height:23px}
-	.select2-container--default .select2-search--dropdown .select2-search__field{color:#495057}
-	.select2-container--default .select2-selection--single .select2-selection__arrow{height:95%}
-	.box__cell .select2-container--default .select2-search--dropdown .select2-search__field, 
-	.box__cell .select2-container .select2-selection--single{height: 28px;padding: 0 8px;}
+.test{width:100% !important;height:auto;max-height:100px;overflow-y:auto}
+.test:empty:before{display:block;content:attr(placeholder)}
+.test:focus:before{display:none}
 
-	.test{width:100% !important;height:auto;max-height:100px;overflow-y:auto}
-	.test:empty:before{display:block;content:attr(placeholder)}
-	.test:focus:before{display:none}
+.calculator{padding-top:40px}
+.calculator .inputbox span{position: relative;margin-bottom: 10px;display:flex;justify-content: space-between;}
+#aside .calculator .inputbox span input{margin-top: 0 !important;width: 42%;box-sizing: border-box;}
+.calculator .inputbox span .dd{border-color:#007BFF}
+.calculator .inputbox span .mk{position: absolute;top: 0;left: 50%;width: 16%;height: 100%;transform:translateX(-50%)}
+.calculator .inputbox span .mk button{position: relative;width: 100%;height: 100%;text-align: center;background-color: #fff;font-weight: bold;}
+.calculator .btnbox{width:100%}
+.calculator .btnbox .btn{width:100%}
 
-	.calculator{padding-top:40px}
-	.calculator .inputbox span{position: relative;margin-bottom: 10px;display:flex;justify-content: space-between;}
-	#aside .calculator .inputbox span input{margin-top: 0 !important;width: 42%;box-sizing: border-box;}
-	.calculator .inputbox span .dd{border-color:#007BFF}
-	.calculator .inputbox span .mk{position: absolute;top: 0;left: 50%;width: 16%;height: 100%;transform:translateX(-50%)}
-	.calculator .inputbox span .mk button{position: relative;width: 100%;height: 100%;text-align: center;background-color: #fff;font-weight: bold;}
-	.calculator .btnbox{width:100%}
-	.calculator .btnbox .btn{width:100%}
+.calc__inputbox{display: flex;align-items: center;}
+.calc__inputbox .mk{display: block;text-align: center;min-width:20px;font-style: normal;}
+.calc__inputbox input{text-align: right;}
+.calc__inputbox input.per{width: 50px;}
 
-	#MergeUrl{min-height: 70px}
-	.box-flex{display: flex;width: 100%;justify-content: space-between;}
-	.box-flex .cell{min-width: 300px}
-	.box-flex .cell + .cell{}
-	.box-flex .cell .btn{width: 100%;margin-bottom: 5px;opacity: .6;}
-	.box-flex .cell .btn:hover,
-	.box-flex .cell .btn:focus{opacity: .9;}
-	.box-flex .cell ._code{width: 100% !important;min-height: 150px;font-size: 14px;line-height: 1.3;resize: none;}
+#MergeUrl{min-height: 70px}
+.box-flex{display: flex;width: 100%;justify-content: space-between;}
+.box-flex .cell{min-width: 300px;width: 33%;}
+.box-flex .cell + .cell{}
+.box-flex .cell .btn{width: 100%;margin-bottom: 5px;opacity: .6;}
+.box-flex .cell .btn:hover,
+.box-flex .cell .btn:focus{opacity: .9;}
+.box-flex .cell ._code{width: 100% !important;min-height: 150px;font-size: 12px;line-height: 1.3;resize: none;overflow: hidden auto;}
 
-	/* coloring */
-	#container .box__item .select-domain .text__domain{font-family: Tahoma;}
-	#container .box__item .select-domain .text__domain{text-transform: uppercase;}
-	.box__option-select dd input#mockup:checked + label,
-	#container .box__item.select-mockup a{color: var(--color--blue);}
-	#container .box__item.select-mockup .select-domain{}
-	.box__option-select dd input#dev:checked + label,
-	#container .box__item.select-dev a{color: var(--color--red);}
-	#container .box__item.select-dev .select-domain{}
-	.box__option-select dd input#master:checked + label,
-	#container .box__item.select-master a,
-	#container .box__item.select-master .select-domain{color: var(--color--green);}
-	input#mockup:checked + .custom-control-label::after{border-color: var(--color--blue);}
-	input#dev:checked ~ .custom-control-label::after{border-color: var(--color--red);}
-	input#master:checked ~ .custom-control-label::after{border-color: var(--color--green);}
-	#container .box__item.select-gmkt .select-domain{color: var(--color--green);}
-	#container .box__item.select-iac .select-domain{color: var(--color--red);}
-	#container .box__item.select-ebay .select-domain{color: var(--color--yellow);}
-	#container.single-container{padding-top: 50px;}
+/* coloring */
+#container .box__item .select-domain .text__domain{font-family: Tahoma;}
+#container .box__item .select-domain .text__domain{text-transform: uppercase;}
+.box__option-select dd input#mockup:checked + label,
+#container .box__item.select-mockup a{color: var(--color--blue);}
+#container .box__item.select-mockup .select-domain{}
+.box__option-select dd input#dev:checked + label,
+#container .box__item.select-dev a{color: var(--color--red);}
+#container .box__item.select-dev .select-domain{}
+.box__option-select dd input#master:checked + label,
+#container .box__item.select-master a,
+#container .box__item.select-master .select-domain{color: var(--color--green);}
+input#mockup:checked + .custom-control-label::after{border-color: var(--color--blue);}
+input#dev:checked ~ .custom-control-label::after{border-color: var(--color--red);}
+input#master:checked ~ .custom-control-label::after{border-color: var(--color--green);}
+#container .box__item.select-gmkt .select-domain{color: var(--color--green);}
+#container .box__item.select-iac .select-domain{color: var(--color--red);}
+#container .box__item.select-ebay .select-domain{color: var(--color--yellow);}
+#container.single-container{padding-top: 50px;}
 </style>
 </head>
 <body>
 <div id="wrap">
-	<h1 class="page-title">💡 내가 편할려고 만든~ Temp</h1>
+	<div id="header">
+		<div class="box__item">
+			<div class="header-title">
+				<h1>
+					<label for="UsernameKoTitle">Template</label>
+				</h1>
+			</div>
+			<form name="frm3" class="box__form">
+				<div class="box__h">
+					<div class="box__cell">
+						<ul class="member-info">
+							<li>
+								<a href="https://www.ssgedu.com/lpe/main.do" target="_blank"><span class="user-name">보안교육 링크</span></a>
+							</li>
+							<li>
+								<span class="user-name">김태중 <span class="user-email">(envyz711@gepplus.co.kr)</span></span>
+								<span class="corp-number" title="사번">920100711</span>
+								<span class="pc-ip">192.168.98.172</span>
+							</li>
+							<li>
+								<span class="user-name">유혁 <span class="user-email">(envyz2236@gepplus.co.kr)</span></span>
+								<span class="corp-number" title="사번">920702236</span>
+								<span class="pc-ip">192.168.98.75</span>
+							</li>
+							<li>
+								<span class="user-name">정윤진 <span class="user-email">(envyz2238@gepplus.co.kr)</span></span>
+								<span class="corp-number" title="사번">920702238</span>
+								<span class="pc-ip">192.168.98.63</span>
+							</li>
+						</ul>
+					</div>
+					<div class="box__cell">
+						링크&nbsp;&nbsp;
+						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=282682320" target="_blank" class="link__button fav">근처 맛집</a>
+						<a href="https://jira.gmarket.com/" target="_blank" class="link__button fav">커뮤니케이션 jira</a>
+						<a href="http://rms.gmarket.com/" target="_blank" class="link__button fav">배포 RMS</a>
+						<a href="https://github.gmarket.com/org-publisher/" target="_blank" class="link__button fav">저장소 github</a>
+						<a href="https://wiki.gmarket.com/display/GIT/eBayKorea+Git+Branching+Model+v2.0#eBayKoreaGitBranchingModelv2.0-%EC%B0%B8%EA%B3%A0" target="_blank" class="link__button fav">가이드 Git Branching Model</a>
+						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=135864491" target="_blank" class="link__button fav">가이드 Coding Conventions (MARKUP GUIDE)</a>
+						
+					</div>
+					<div class="box__cell">
+						링크&nbsp;&nbsp;
+						<a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">인덱스 UX Lab</a>
+						<a href="https://wiki.gmarket.com/display/UEE/Starro+Index" target="_blank" class="link__button fav">starro index</a>
+						<a href="https://wiki.gmarket.com/display/ET/calendars" target="_blank" class="link__button">Team Calendars</a>
+						<a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a>
+						<a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a>
+						<!-- <a href="http://testci.gmarket.com/blue/organizations/jenkins/ " target="_blank" class="link__button fav">jenkins</a>
+						<a href="http://testci.gmarket.com/blue/organizations/jenkins/script-mockup.ebay.co.kr/activity/ " target="_blank" class="link__button ">ebay MK</a>
+						<a href="http://testci.gmarket.com/blue/organizations/jenkins/script-dev.ebay.co.kr/activity/ " target="_blank" class="link__button ">ebay DEV</a> -->
+						<a href="http://store.gmarket.com/" target="_blank" class="link__button">[App] DEV down</a>
+					</div>
+					<div class="box__cell">
+						<a href="https://wiki.gmarket.com/pages/viewpage.action?pageId=365047168" target="_blank" class="link__button">GUIDE</a>
+						<select name="envyzteam-data" id="env-user" style="width:120px">
+							<option value="envyzteam" selected>엔비즈팀</option>
+							<option value="envyz711">김태중</option>
+							<option value="envyz2236">유혁</option>
+							<option value="envyz2238">정윤진</option>
+							<!-- <option value="envyz710">정소영 (920100710)</option> -->
+						</select>
+						<select name="envyzteam-data" id="env-year" style="width:80px">
+							<option value="2023">2023</option>
+							<option value="2024">2024</option>
+							<option value="2025">2025</option>
+							<option value="2026">2026</option>
+						</select>
+						<select name="envyzteam-data" id="env-month" style="width:60px">
+							<option value="1">01</option>
+							<option value="2">02</option>
+							<option value="3">03</option>
+							<option value="4">04</option>
+							<option value="5">05</option>
+							<option value="6">06</option>
+							<option value="7">07</option>
+							<option value="8">08</option>
+							<option value="9">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<a href="#" id="env-button" target="_blank" class="link__button fav">버튼</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
 	<hr>
 
 	<div id="container">
@@ -187,57 +294,46 @@
 			<form name="frm1">
 				<div class="box__input-option">
 					<h3>BRANCH NAME</h3>
-					<input class="form-control" name="branch_no" type="text" placeholder="ex) feature/GPP-1234/test" value="feature/GPP-1234/test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+					<input class="form-control" name="branch_no" type="text" placeholder="Branch Name" value="feature/GPP-1234-test" onclick="this.select()" onkeyup="noSpaceForm(this);" onchange="noSpaceForm(this);">
+					<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
 				</div>
 				<div class="box__option-select">
+					
 					<dl class="type-button">
 						<dt><h3>SERVER</h3></dt>
 						<dd><input type="radio" id="mockup" class="custom-control-input" name="sever" value="mockup" checked="checked"> <label for="mockup" class="custom-control-label">MOCKUP</label></dd>
 						<dd><input type="radio" id="dev" class="custom-control-input" name="sever" value="dev"> <label for="dev" class="custom-control-label">DEV</label></dd>
-						<dd class="clear"><input type="radio" id="master" class="custom-control-input" name="sever" value="master"> <label for="master" class="custom-control-label">MASTER (MAIN)</label></dd>
+						<dd class="clear"><input type="radio" id="stg" class="custom-control-input" name="sever" value="stg"> <label for="stg" class="custom-control-label">STG</label></dd>
+						<dd class="clear"><input type="radio" id="master" class="custom-control-input" name="sever" value="master"> <label for="master" class="custom-control-label">MASTER</label></dd>
 						<dt><h3>DOMAIN</h3></dt>
 						<dd><input type="radio" id="gmkt" class="custom-control-input" name="domain" value="gmkt" checked="checked"> <label for="gmkt" class="custom-control-label">GMKT</label></dd>
 						<dd><input type="radio" id="iac" class="custom-control-input" name="domain" value="iac"> <label for="iac" class="custom-control-label">IAC</label></dd>
-						<dd><input type="radio" id="ebay" class="custom-control-input" name="domain" value="ebay"> <label for="ebay" class="custom-control-label">EBAY</label></dd>
-						<dd><input type="radio" id="starro" class="custom-control-input" name="domain" value="starro"> <label for="starro" class="custom-control-label"><strong>STARRO</strong></label></dd>
-						<dd class="clear"><input type="radio" id="hanbando" class="custom-control-input" name="domain" value="hanbando"> <label for="hanbando" class="custom-control-label">HANBANDO</label></dd>
+						<dd class="clear"><input type="radio" id="starro" class="custom-control-input" name="domain" value="starro"> <label for="starro" class="custom-control-label"><strong>STARRO</strong></label></dd>
+						<dd class="clear"><input type="radio" id="ebay" class="custom-control-input" name="domain" value="ebay"> <label for="ebay" class="custom-control-label">EBAY</label></dd>
+						<!-- 
+						<dd><input type="radio" id="hanbando" class="custom-control-input" name="domain" value="hanbando"> <label for="hanbando" class="custom-control-label">HANBANDO</label></dd>
 						<dd class="hide"><input type="radio" id="g9" class="custom-control-input" name="domain" value="g9"> <label for="g9" class="custom-control-label">G9</label></dd>
 						<dt class="hide"><h3>DEVICE</h3></dt>
 						<dd class="hide"><input type="radio" id="pc" class="custom-control-input" name="device" value="pc" checked="checked"> <label for="pc" class="custom-control-label">PC</label></dd>
 						<dd class="hide"><input type="radio" id="mobile" class="custom-control-input" name="device" value="mobile"> <label for="mobile" class="custom-control-label">MOBILE</label></dd>
+						-->
 					</dl>
 				</div>
-				<button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button>
+				<!-- <button class="js-button type_trigger btn btn-warning">OPTION CONFIRM</button> -->
 			</form>
-			<div class="calculator">
-				<h3>LINK</h3>
-				<ul class="list__link">
-					<li><a href="https://jira.gmarket.com/" target="_blank" class="link__button fav">[업무] jira</a></li>
-					<li><a href="https://wiki.gmarket.com/display/ET/calendars" target="_blank" class="link__button">[업무] calendar</a></li>
-				</ul>
-				<ul class="list__link">
-					<li><a href="https://github.gmarket.com/org-publisher/" target="_blank" class="link__button fav">[작업] github</a></li>
-					<li><a href="http://rms.gmarket.com/" target="_blank" class="link__button fav">[배포] RMS</a></li>
-					<li><a href="https://ers.ebaykorea.com/" target="_blank" class="link__button">[요청] ERS</a></li>
-					<li><a href="https://wiki.gmarket.com/#all-updates" target="_blank" class="link__button">[위키] wiki</a></li>
-					<li><a href="https://jira.gmarket.com/servicedesk/customer/portal/1" target="_blank" class="link__button">[장애] IT Service Desk</a></li>
-					<li><a href="http://store.ebaykorea.com/" target="_blank" class="link__button">[App] DEV</a></li>
-				</ul>
-				<ul class="list__link">
-					<li><a href="https://uxlab.ebaykorea.com/Coding/Index" target="_blank" class="link__button">[작업] UX Lab</a></li>
-					<li><a href="https://fnp-dev.gmarket.co.kr/mobile-layout/mockups" target="_blank" class="link__button">[MO] header</a></li>
-					<li><a href="https://fnp-dev.gmarket.co.kr/desktop-layout/mockups" target="_blank" class="link__button">[PC] header</a></li>
-					<li><a href="https://nuli.navercorp.com/community/forum" target="_blank" class="link__button">[접근성] NULI</a></li>
-					<li><a href="https://github.com/lezhin/accessibility/blob/master/aria/README.md#%EB%A0%88%EC%A7%84-wai-aria-%EA%B0%80%EC%9D%B4%EB%93%9C%EB%9D%BC%EC%9D%B8" target="_blank" class="link__button">[접근성] WAI-ARIA</a></li>
-				</ul>
-				
-			</div>
 		</div>
 		<div id="contents" class="box__contents">
+			<div class="box__item">
+				<h2>Starro Link Sample</h2>
+				<pre id="starroCss">G/A css : <input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="https://script-dev.gmarket.co.kr/starro/desktop/css/checkout/checkout.css">//script-dev.gmarket.co.kr/starro/desktop/css/checkout/checkout.css</a>
+G/A image : <input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="https://script-dev.gmarket.co.kr/starro/desktop/images/sprite/anna/sprite.svg">//script-dev.gmarket.co.kr/starro/desktop/images/single/checkout/aaa.svg</a>
+my-smilepay : <input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="https://script-dev.gmarket.com/starro/css/signup/signup.css">//script-dev.gmarket.com/starro/css/signup/signup.css</a></pre>
+			</div>
 			<div class="box__item">
 				<h2>Jira</h2>
 				<pre id="jiraNo"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Jira Number</a></pre>
 			</div>
+			
 			<div class="box__item">
 				<h2 class="select-domain"><span class="text__domain"></span> Pull Request</h2>
 				<div id="MergeUrl">
@@ -245,83 +341,125 @@
 					<pre class="request-url"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;"></a></pre>
 				</div>
 			</div>
+			
 			<div class="box__item">
 				<h2>Diff Comparing (a ~ b)</h2>
-				<pre id="comparingUrl"><input type="text" class="hide_input"><span class="link__desabled" target="_blank">Git Compare URL pc</span><span class="link__desabled" target="_blank">Git Compare URL mobile</span></pre>
+				<pre id="comparingUrl"><input type="text" class="hide_input"><span class="link__desabled" target="_blank">Git Compare URL</span><span class="link__desabled" target="_blank">Git Compare URL</span></pre>
 			</div>
+
+
 			<div class="box__item">
 				<h2>PR Template </h2>
 				<div class="box-flex">
 					<div class="cell">
 						<button class="btn btn-success js-copy-temp">🚀 Release Copy</button>
-						<textarea class="form-control _code" readonly>
-## 🚀 Release
-**JIRA** -
+<textarea class="textarea-dummuy for-a11y"></textarea>
+<pre class="form-control _code">
+## 🚀 Release &lt;br&gt;
+**JIRA** &lt;br&gt;
+- https://jira.gmarket.com/browse/XXX-0000
  
-**배포 일시** -
-						</textarea>
+**배포 일시**  &lt;br&gt;
+- <span id="textToday">2024/00/00</span> AM:08:30
+
+
+&lt;hr/&gt;
+
+
+## 🔗 Link &lt;br&gt;
+&lt;!-- jira, wiki 등 관련 링크 --&gt;
+- url
+
+&lt;hr/&gt;
+
+
+## 💻 작업 사항 &lt;br&gt;
+***Description*** &lt;br&gt;
+&lt;!-- 작업 사항 설명 작성 --&gt;
+
+</pre>
 					</div>
 					<div class="cell">
 						<button class="btn btn-primary js-copy-temp">💻 Basic Copy</button>
-						<textarea class="form-control _code" readonly>
-## 🔗 Link
+<textarea class="textarea-dummuy for-a11y"></textarea>
+<pre class="form-control _code">
+## 🔗 Link &lt;br&gt;
 &lt;!-- jira, wiki 등 관련 링크 --&gt;
-**JIRA** -
+**JIRA**  &lt;br&gt;
+- https://jira.gmarket.com/browse/XXX-0000
  
-**WIKI** -
+**WIKI**  &lt;br&gt;
+- url
  
-**PRD** -
+**PRD**  &lt;br&gt;
+- url
  
-<hr/>
+&lt;hr&gt;
  
  
 ## ✅ 변경 타입
 &lt;!-- 해당되는 항목 [x] 체크 --&gt;
-- [ ] 기능 추가 ✨ <br/>
-- [x] UI 수정 🪄  <br/>
-- [ ] 버그 수정 🐛 <br/>
-- [ ] 리팩토링 ♻️  <br/>
+- [ ] 기능 추가 ✨ &lt;br&gt;
+- [x] UI 수정 🪄  &lt;br&gt;
+- [ ] 버그 수정 🐛 &lt;br&gt;
+- [ ] 리팩토링 ♻️  &lt;br&gt;
 - [ ] 문서 업데이트 필요 📑
  
-<hr/>
+&lt;hr&gt;
  
  
-## 💻 작업 사항
-***Screenshot***
+## 💻 작업 사항 &lt;br&gt;
+***Screenshot*** &lt;br&gt;
 &lt;!-- 캡처 [이미지 | GIF | 영상] 첨부 --&gt;
  
  
-***Description***
+***Description*** &lt;br&gt;
 &lt;!-- 작업 사항 설명 작성 --&gt;
  
+&lt;hr&gt;
  
-<hr/>
  
- 
-## ⚡️ 이슈 및 공유 사항
+## ⚡️ 이슈 및 공유 사항 &lt;br&gt;
 &lt;!-- 이슈 및 공유 사항 자유롭게 작성 --&gt;
  
  
-<hr/>
-						</textarea>
+&lt;hr&gt;
+</pre>
 					</div>
 					<div class="cell">
 						<button class="btn btn-danger js-copy-temp">🚨 Hotfix Copy</button>
-						<textarea class="form-control _code" readonly>
-## 🚨 Hotfix
-**JIRA** -
+<textarea class="textarea-dummuy for-a11y"></textarea>
+<pre class="form-control _code">
+## 🚨 Hotfix &lt;br&gt;
+**JIRA**  &lt;br&gt;
+- https://jira.gmarket.com/browse/XXX-0000
  
-**장애 사항** 
+**장애 사항**  &lt;br&gt;
  
  
-**장애 원인**
+**장애 원인** &lt;br&gt;
  
  
-**수정으로 인해 해결되는 이유**
-						</textarea>
+**수정으로 인해 해결되는 이유** &lt;br&gt;
+</pre>
 					</div>
 				</div>
 			</div>
+			
+			<!--
+			<div class="box__item">
+				<h2>Git Diff</h2>
+				<form name="frm2" class="box__form">
+					<input class="form-control" name="DiffUrl" type="text" placeholder="Commit Hash" value="">
+					<button class="js-button single_trigger btn btn-success">Confirm</button>
+				</form>
+				<pre class="DiffUrl" id="DiffUrl"><input type="text" class="hide_input"><a class="link__desabled" target="_blank" href="#" onclick="return false;">Diff URL</a></pre>
+			</div>
+			<div class="box__item">
+				<h2>Test input</h2>
+				<div class="test form-control" contenteditable="true" placeholder="여기에 메시지를 입력하세요"></div>
+			</div>
+			-->
 			
 		</div>
 
@@ -329,22 +467,312 @@
 </div>
 </body>
 <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
-	$(document).ready(function(){
-		$('.js-copy-temp').on('click', function(){
-			var myTextarea = $(this).siblings('._code');
-			window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
-				console.log('복사완료');
-				myTextarea.select();
-			});
+$(document).ready(function(){
+	var now = new Date();	// 현재 날짜 및 시간
+	var year = now.getFullYear();	// 연도
+	var month = now.getMonth() + 1;	// 월
+	var date = now.getDate() + 1;	// 일
+
+
+	if ($('select:not([name=envyzteam-data])').length) {
+		$('select:not([name=envyzteam-data])').select2();
+	}
+	if ($('[name=envyzteam-data]').length) {
+		$('#env-year').val(year).prop('selected', true);
+		$('#env-month').val(month).prop('selected', true);
+		$('#textToday').text(year+'/'+month+'/'+date).removeAttr('id');
+		//$('#textToday').unwrap();
+		loadData();
+	}
+
+
+	$('.js-copy-temp').on('click', function(){
+		/*
+		var myTextarea = $(this).siblings('._code');
+		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
+			console.log('복사완료');
+			myTextarea.select();
 		});
-		$('textarea').on('click', function(){
-			$(this).select();
-		})
-		if (!$('#header').length) {
-			$('#container').addClass('single-container');
+		*/
+		const copyText = $(this).siblings('._code').html();
+		const textArea = $(this).siblings('.textarea-dummuy');
+		//const textArea = document.createElement('textarea');
+		textArea.html(copyText);
+		//document.body.append(textArea);
+		textArea.select();
+		document.execCommand("copy");
+	});
+	$('textarea').on('click', function(){
+		$(this).select();
+	})
+	if (!$('#header').length) {
+		$('#container').addClass('single-container');
+	}
+
+	var $device = $('input[name=device]');
+	var $selectionDomain = $('input[name=domain]');
+	var isMulti = false;
+	$selectionDomain.on('change', function( e ) {
+		isMulti = $( e.target ).val() == 'gmkt' || $( e.target ).val() == 'iac';
+		if( !isMulti ) {
+			$device.each( function( idx, item ) {
+				//$(item).prop('checked', false );
+				$(item).attr('disabled', true);
+				$('input#mockup').prop({'disabled':false, 'checked': true})
+				$('input#dev').prop({'checked': false})
+			});
+		} else {
+			$device.each( function( idx, item ) {
+				//$('input[value=pc]').prop('checked', true );
+				$(item).attr('disabled', false);
+				$('input#mockup').prop({'disabled':false, 'checked': true})
+				$('input#dev').prop({'checked': false})
+				
+			});
+		} 
+		if ($( e.target ).val() == 'starro') {
+			console.log('starro')
+			$('input#mockup').prop({'disabled':true, 'checked': false})
+			$('input#dev').prop({'checked': true})
+			$('input#master').siblings('label').text('MAIN')
+		} else {
+			$('input#mockup').prop({'disabled':false, 'checked': true})
+			$('input#master').siblings('label').text('MASTER')
 		}
-		var $device = $('input[name=device]');
+	});
+	$('.js-button').on('click', function(e) {
+		e.preventDefault();
+		var $this = $(this).parents('.box__form').next('pre');
+		var $jira = frm1.branch_no.value;
+		if ($jira !== '') {
+			var $jiraSplit = $jira.split('/');
+			var $jiraFilter = $jiraSplit[1].split('-');
+			var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
+		}
+		var $repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
+		var $repoUrlStarro = 'https://github.gmarket.com/org-publisher';
+		var $server = $('input:radio[name=sever]:checked').val();
+		var $domain = $('input:radio[name=domain]:checked').val();
+		var $device = $('input:radio[name=device]:checked').val();
+
+		if ($(this).hasClass('type_trigger') == true) {
+			if ($server === 'mockup') {
+				$('.select-domain').parent().removeClass('select-dev select-master').addClass('select-mockup'+' select-'+$domain).find('.text__domain').text($domain)
+			} else if ($server === 'dev') {
+				$('.select-domain').parent().removeClass('select-mockup select-master').addClass('select-dev'+' select-'+$domain).find('.text__domain').text($domain)
+			} else if ($server === 'master' || $server === 'main') {
+				$('.select-domain').parent().removeClass('select-dev select-mockup').addClass('select-master'+' select-'+$domain).find('.text__domain').text($domain)
+			}
+
+			if (frm1.branch_no.value == '') {
+				alert('Branch Name 값을 입력하세요.');
+				$('input[name=branch_no]').focus();
+			} else {
+				if ($server == 'master') {
+					alert('🚨 MASTER or MAIN 브랜치 입니다. 🚨');
+				}
+				$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
+				$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
+				$('#jiraNo a').html('https://jira.gmarket.com/browse/'+$jiraNumber);
+				$('#jiraNo a').attr('href', 'https://jira.gmarket.com/browse/'+$jiraNumber);
+				$('#comparingUrl span').eq(0).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.pc/commit/579e93c');
+				$('#comparingUrl span').eq(1).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.mobile/compare/50b2de1...adf25d3');
+				if ($domain == 'ebay' || $domain == 'hanbando') {
+					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(1).find('a').html('');
+					$('#MergeUrl .request-url').eq(1).find('a').attr('');
+					$('#BranchUrl a').html($repoUrl+'.'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#BranchUrl a').attr('href', $repoUrl+'.'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'/compare/aaa...bbb');
+					$('#comparingUrl span').eq(1).hide();
+				} else if ($domain == 'starro') {
+					if ($server == 'master') {
+						$server = 'main';
+					}
+					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrlStarro+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrlStarro+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(1).find('a').html('');
+					$('#MergeUrl .request-url').eq(1).find('a').attr('');
+					$('#BranchUrl a').html($repoUrlStarro+'/'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#BranchUrl a').attr('href', $repoUrlStarro+'/'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#comparingUrl span').eq(0).show().html($repoUrlStarro+'/'+$domain+'/commit/579e93c');
+					$('#comparingUrl span').eq(1).show().html($repoUrlStarro+'/'+$domain+'/compare/50b2de1...adf25d3');
+				}else {
+					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(1).find('a').html($repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(1).find('a').attr('href', $repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					
+					$('#BranchUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
+					$('#BranchUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
+					$('#comparingUrl span').eq(0).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.pc/commit/579e93c');
+					$('#comparingUrl span').eq(1).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.mobile/compare/50b2de1...adf25d3');
+				}
+			}
+		} else if ($(this).hasClass('single_trigger') == true){
+			if ($(this).prev().val() == '') {
+				//alert($(this).prev().attr('placeholder')+' 값을 입력하세요.');
+				$(this).prev().focus();
+			} else {
+				$this.find('a').removeClass('link__desabled');
+				$this.find('a').removeAttr('onclick');
+				if ($this.hasClass('DiffUrl') == true) {
+					console.log('DiffUrl');
+					if ($domain == 'ebay' || $domain == 'hanbando') {
+						$this.find('a').html($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+						$this.find('.hide_input').val($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+						$this.find('a').attr('href', $repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+					} else {
+						$this.find('a').html($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+						$this.find('.hide_input').val($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+						$this.find('a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+					}
+					$this.next().remove('button');
+					$this.after($copy);
+					$('.copy-url').html('Click to copy');
+					copyUlr();
+				} else if ($(this).hasClass('UsernameKo') == true) {
+					console.log('UsernameKo');
+					window.open('https://jira.gmarket.com/issues/?jql=assignee%20in%20('+frm3.UsernameKo.value+')', '_blank'); 
+				} else if ($(this).hasClass('UserId') == true) {
+					console.log('UserId');
+					window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+frm3.Username.value, '_blank'); 
+				} else if ($(this).hasClass('ShortUrl') == true) {
+					console.log('ShortUrl');
+					window.open('http://is.gd/create.php?format=simple&url='+frm3.ShortUrl.value, '_blank'); 
+				} else if ($(this).hasClass('comparingUrls') == true) {
+					console.log('comparingUrl');
+					console.log($domain);
+					console.log($('#comparingType').val());
+					console.log($('#comparingStart').val());
+					console.log($('#comparingEnd').val());
+				}
+			}
+		}
+	})
+})
+function loadData(){
+	var $user = $('#env-user').find('option:selected').val();
+	var $year = $('#env-year').find('option:selected').val();
+	var $month = $('#env-month').find('option:selected').text();
+	var $button = $('#env-button');
+	var $url = ($user == 'envyzteam') 
+		? 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
+		: 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
+	$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
+}
+$('[name=envyzteam-data]').change(function(){
+	loadData();
+})
+function noSpaceForm(obj) { // 공백사용못하게
+	var str_space = /\s/;  // 공백체크
+	if(str_space.exec(obj.value)) { //공백 체크
+		//alert('해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.');
+		obj.focus();
+		obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
+		return false;
+	}
+}
+$('#selectName').change(function() {
+	var $name = $(this).find('option:selected').text();
+	var $id = $(this).find('option:selected').val();
+	$('#UsernameKoTitle').val($name);
+	$('#Userid').val($id);
+})
+
+function rate() { 
+	var a = parseFloat($('.aa').val()), 
+		b = parseFloat($('.bb').val()),
+		c = parseFloat($('.cc').val()),
+		d = parseFloat($('.dd').val()); 
+	if (isEmpty(a)) { 
+		$('.aa').val((b*c)/d)
+	} else if (isEmpty(b)) { 
+		$('.bb').val((a*d)/c)
+	} else if (isEmpty(c)) { 
+		$('.cc').val((a*d)/b)
+	} else if (isEmpty(d)) { 
+		$('.dd').val((b*c)/a)
+	} else {
+		//alert('셀 하난 비워야지...?');
+		$('.dd').val((b*c)/a)
+	}
+} 
+function isEmpty(str) { 
+	//console.log('isEmpty');
+	return (!str || 0 === str.length); 
+}
+//$('.dd').val((b*c)/a)
+$('.swt').click(function(){
+	var a = parseFloat($('.aa').val()), 
+		b = parseFloat($('.bb').val()),
+		c = parseFloat($('.cc').val()),
+		d = parseFloat($('.dd').val()); 
+	$('.aa').val(b);
+	$('.bb').val(a);
+	rate();
+})
+
+function per(){
+	var base = parseInt($('#calcBase').val());
+	var per = parseInt($('#calcPer').val());
+	var sum = $('#calcSum');
+	sum.val(base + (base * per / 100) );
+}
+
+var evzWork = (function(){
+	var method = {};
+	var obj = {};
+	var user = [
+		{display:'show', name:'이광현', id:'kwlee'},
+	];
+	method.init = function(){
+		method.setElement();
+		method.bindEvent();
+		method.loadData();
+		method.copyUlr();
+	};
+	method.setElement = function(){
+		obj.body = $('body');
+		obj.repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
+		obj.jira = $('[name=branch_no]').val();
+		obj.DiffUrl = $('[name=DiffUrl]').val();
+		obj.UsernameKo = $('[name=UsernameKo]').val();
+		obj.Username = $('[name=Username]').val();
+
+		//encodeURI()
+		obj.urlStr = window.location.href;
+		obj.url = new URL(obj.urlStr);
+		obj.urlParams = obj.url.searchParams;
+	};
+	method.copyUlr = function(){
+		$('.copy-url').on('click', function(str) {
+			$(this).prev().find('.hide_input').select(); 
+			try { 
+				var successful = document.execCommand('copy');  
+				//alert('클립보드에 주소가 복사되었습니다. Ctrl + V 로 붙여넣기 하세요.'); 
+			} catch (err) { 
+				alert('이 브라우저는 지원하지 않습니다.'); 
+			}
+		})
+	};
+	method.loadData = function(){
+		var $user = $('#env-user').find('option:selected').val();
+		var $year = $('#env-year').find('option:selected').val();
+		var $month = $('#env-month').find('option:selected').val();
+		var $button = $('#env-button');
+		var $url = ($user == 'envyzteam') 
+			? 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
+			: 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20AND%20assignee%20in%20('+$user+')%20ORDER%20BY%20labels%20ASC%2C%20Key%20DESC'
+		$button.attr('href', $url).text($('#env-user').find('option:selected').text() +' '+ $year + $month)
+		$('[name=envyzteam-data]').change(function(){
+			method.loadData();
+		})
+	};
+	method.bindEvent = function(){
 		var $selectionDomain = $('input[name=domain]');
 		var isMulti = false;
 		$selectionDomain.on('change', function( e ) {
@@ -355,7 +783,7 @@
 					$(item).attr('disabled', 'disabled');
 				});
 			} else {
-				$device.each( function( idx, item ) {
+				obj.device.each( function( idx, item ) {
 					//$('input[value=pc]').prop('checked', true );
 					$(item).removeAttr('disabled');
 				});
@@ -364,56 +792,52 @@
 		$('.js-button').on('click', function(e) {
 			e.preventDefault();
 			var $this = $(this).parents('.box__form').next('pre');
-			var $jira = frm1.branch_no.value;
-			if ($jira !== '') {
-				var $jiraSplit = $jira.split('/');
+			if (obj.jira !== '') {
+				var $jiraSplit = obj.jira.split('/');
 				var $jiraFilter = $jiraSplit[1].split('-');
 				var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
 			}
-			var $repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
-			var $server = $('input:radio[name=sever]:checked').val();
-			var $domain = $('input:radio[name=domain]:checked').val();
-			var $device = $('input:radio[name=device]:checked').val();
+			obj.server = $('input:radio[name=sever]:checked').val();
+			obj.domains = $('input:radio[name=domain]:checked').val();
+			obj.device = $('input[name=device]');
 
 			if ($(this).hasClass('type_trigger') == true) {
-				$('.select-domain').parent().removeClass().addClass('box__item select-'+$server+' select-'+$domain).find('.text__domain').text($domain);
-				if (frm1.branch_no.value == '') {
+				$('.select-domain').parent().removeClass().addClass('box__item select-'+obj.server+' select-'+obj.domains).find('.text__domain').text(obj.domains);
+
+				if (obj.jira == '') {
 					alert('Branch Name 값을 입력하세요.');
 					$('input[name=branch_no]').focus();
 				} else {
-					if ($server == 'master') {
-						alert('🚨 MASTER 브랜치 입니다. \n주의하세요. 🚨');
+					if (obj.server == 'master') {
+						alert('🚨 MASTER or MAIN 브랜치 입니다. 🚨');
 					}
 					$('#contents .box__item pre a:not(#DiffUrl a)').removeClass('link__desabled');
 					$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
 					$('#jiraNo a').html('https://jira.gmarket.com/browse/'+$jiraNumber);
 					$('#jiraNo a').attr('href', 'https://jira.gmarket.com/browse/'+$jiraNumber);
-					$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'.pc/compare/aaa...bbb');
-					$('#comparingUrl span').eq(1).show().html($repoUrl+'.'+$domain+'.mobile/compare/aaa...bbb');
-					if ($domain == 'ebay' || $domain == 'hanbando') {
-						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#comparingUrl span').eq(0).show().html(obj.repoUrl+'.'+obj.domains+'.pc/compare/aaa...bbb');
+					$('#comparingUrl span').eq(1).show().html(obj.repoUrl+'.'+obj.domains+'.mobile/compare/aaa...bbb');
+					if (obj.domains == 'ebay' || obj.domains == 'hanbando') {
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'.'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
 						$('#MergeUrl .request-url').eq(1).find('a').html('');
 						$('#MergeUrl .request-url').eq(1).find('a').attr('');
-						$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'/compare/aaa...bbb');
+						$('#comparingUrl span').eq(0).show().html(obj.repoUrl+'.'+obj.domains+'/compare/aaa...bbb');
 						$('#comparingUrl span').eq(1).hide();
-					} else if ($domain == 'starro') {
-						if ($server == 'master') {
-							$server = 'main';
+					} else if (obj.domains == 'starro') {
+						if (obj.server == 'master') {
+							obj.server = 'main';
 						}
-						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'/'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'/'+obj.domains+'/compare/'+obj.server+'...'+obj.jira+'?expand=1');
 						$('#MergeUrl .request-url').eq(1).find('a').html('');
 						$('#MergeUrl .request-url').eq(1).find('a').attr('');
-						$('#CompareUrl a').html($repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
-						$('#CompareUrl a').attr('href', $repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
 					}else {
-						$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#MergeUrl .request-url').eq(1).find('a').html($repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#MergeUrl .request-url').eq(1).find('a').attr('href', $repoUrl+'.'+$domain+'.mobile/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-						$('#CompareUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
-						$('#CompareUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
+						$('#MergeUrl .request-url').eq(0).find('a').html(obj.repoUrl+'.'+obj.domains+'.pc/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(0).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.pc/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').html(obj.repoUrl+'.'+obj.domains+'.mobile/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						$('#MergeUrl .request-url').eq(1).find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.mobile/compare/'+obj.server+'...'+obj.jira+'?expand=1');
+						
 					}
 				}
 			} else if ($(this).hasClass('single_trigger') == true){
@@ -425,14 +849,14 @@
 					$this.find('a').removeAttr('onclick');
 					if ($this.hasClass('DiffUrl') == true) {
 						console.log('DiffUrl');
-						if ($domain == 'ebay' || $domain == 'hanbando') {
-							$this.find('a').html($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
-							$this.find('.hide_input').val($repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
-							$this.find('a').attr('href', $repoUrl+'.'+$domain+'/commit/'+frm2.DiffUrl.value);
+						if (obj.domains == 'ebay' || obj.domains == 'hanbando') {
+							$this.find('a').html(obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
+							$this.find('.hide_input').val(obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
+							$this.find('a').attr('href', obj.repoUrl+'.'+obj.domains+'/commit/'+obj.DiffUrl);
 						} else {
-							$this.find('a').html($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
-							$this.find('.hide_input').val($repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
-							$this.find('a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/commit/'+frm2.DiffUrl.value);
+							$this.find('a').html(obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
+							$this.find('.hide_input').val(obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
+							$this.find('a').attr('href', obj.repoUrl+'.'+obj.domains+'.'+obj.device+'/commit/'+obj.DiffUrl);
 						}
 						$this.next().remove('button');
 						$this.after($copy);
@@ -440,16 +864,16 @@
 						copyUlr();
 					} else if ($(this).hasClass('UsernameKo') == true) {
 						console.log('UsernameKo');
-						window.open('https://jira.gmarket.com/issues/?jql=assignee%20in%20('+frm3.UsernameKo.value+')', '_blank'); 
+						window.open('https://jira.gmarket.com/issues/?jql=assignee%20in%20('+obj.UsernameKo+')', '_blank'); 
 					} else if ($(this).hasClass('UserId') == true) {
 						console.log('UserId');
-						window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+frm3.Username.value, '_blank'); 
+						window.open('http://ebase.gmarket.com/my/pages/Person.aspx?accountname=gmarket\\'+obj.Username, '_blank'); 
 					} else if ($(this).hasClass('ShortUrl') == true) {
 						console.log('ShortUrl');
 						window.open('http://is.gd/create.php?format=simple&url='+frm3.ShortUrl.value, '_blank'); 
 					} else if ($(this).hasClass('comparingUrls') == true) {
 						console.log('comparingUrl');
-						console.log($domain);
+						console.log(obj.domains);
 						console.log($('#comparingType').val());
 						console.log($('#comparingStart').val());
 						console.log($('#comparingEnd').val());
@@ -457,32 +881,11 @@
 				}
 			}
 		})
-		$('._check, ._check2').on('click', function(){
-			$(this).toggleClass('active')
-		})
-	})
-
-	function noSpaceForm(obj) { // 공백사용못하게
-		var str_space = /\s/;  // 공백체크
-		if(str_space.exec(obj.value)) { //공백 체크
-			//alert('해당 항목에는 공백을 사용할수 없습니다.\n\n공백은 자동적으로 제거 됩니다.');
-			obj.focus();
-			obj.value = obj.value.replace(/\s| /gi,''); // 공백제거
-			return false;
-		}
+	};
+	return{
+		init : method.init,
 	}
-	$('#selectName').change(function() {
-		var $name = $(this).find('option:selected').text();
-		var $id = $(this).find('option:selected').val();
-
-		$('#UsernameKoTitle').val($name);
-		$('#Userid').val($id);
-	})
-
-	function isEmpty(str) { 
-		//console.log('isEmpty');
-		return (!str || 0 === str.length); 
-	}
-
+})();
+//evzWork.init();
 </script>
 </html>
