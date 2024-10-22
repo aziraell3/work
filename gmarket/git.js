@@ -1,7 +1,8 @@
 $(document).ready(function(){
 	var now = new Date();	// 현재 날짜 및 시간
 	var year = now.getFullYear();	// 연도
-	var month = now.getMonth();	// 월
+	var month = now.getMonth() + 1;	// 월
+	var date = now.getDate() + 1;	// 일
 
 
 	if ($('select:not([name=envyzteam-data])').length) {
@@ -10,16 +11,27 @@ $(document).ready(function(){
 	if ($('[name=envyzteam-data]').length) {
 		$('#env-year').val(year).prop('selected', true);
 		$('#env-month').val(month).prop('selected', true);
+		$('#textToday').text(year+'/'+month+'/'+date).removeAttr('id');
+		//$('#textToday').unwrap();
 		loadData();
 	}
 
 
 	$('.js-copy-temp').on('click', function(){
+		/*
 		var myTextarea = $(this).siblings('._code');
 		window.navigator.clipboard.writeText(myTextarea.val()).then(() => {
 			console.log('복사완료');
 			myTextarea.select();
 		});
+		*/
+		const copyText = $(this).siblings('._code').html();
+		const textArea = $(this).siblings('.textarea-dummuy');
+		//const textArea = document.createElement('textarea');
+		textArea.html(copyText);
+		//document.body.append(textArea);
+		textArea.select();
+		document.execCommand("copy");
 	});
 	$('textarea').on('click', function(){
 		$(this).select();
@@ -36,13 +48,24 @@ $(document).ready(function(){
 		if( !isMulti ) {
 			$device.each( function( idx, item ) {
 				//$(item).prop('checked', false );
-				$(item).attr('disabled', 'disabled');
+				$(item).attr('disabled', true);
+				$('input#mockup').prop({'disabled':false, 'checked': true})
+				$('input#dev').prop({'checked': false})
 			});
 		} else {
 			$device.each( function( idx, item ) {
 				//$('input[value=pc]').prop('checked', true );
-				$(item).removeAttr('disabled');
+				$(item).attr('disabled', false);
+				$('input#mockup').prop({'disabled':false, 'checked': true})
+				$('input#dev').prop({'checked': false})
 			});
+		} 
+		if ($( e.target ).val() == 'starro') {
+			console.log('starro')
+			$('input#mockup').prop({'disabled':true, 'checked': false})
+			$('input#dev').prop({'checked': true})
+		} else {
+			$('input#mockup').prop({'disabled':false})
 		}
 	});
 	$('.js-button').on('click', function(e) {
@@ -55,6 +78,7 @@ $(document).ready(function(){
 			var $jiraNumber = $jiraFilter[0]+'-'+$jiraFilter[1];
 		}
 		var $repoUrl = 'https://github.gmarket.com/org-publisher/Publish';
+		var $repoUrlStarro = 'https://github.gmarket.com/org-publisher';
 		var $server = $('input:radio[name=sever]:checked').val();
 		var $domain = $('input:radio[name=domain]:checked').val();
 		var $device = $('input:radio[name=device]:checked').val();
@@ -79,8 +103,8 @@ $(document).ready(function(){
 				$('#contents .box__item pre a:not(#DiffUrl a)').removeAttr('onclick');
 				$('#jiraNo a').html('https://jira.gmarket.com/browse/'+$jiraNumber);
 				$('#jiraNo a').attr('href', 'https://jira.gmarket.com/browse/'+$jiraNumber);
-				$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+$domain+'.pc/compare/aaa...bbb');
-				$('#comparingUrl span').eq(1).show().html($repoUrl+'.'+$domain+'.mobile/compare/aaa...bbb');
+				$('#comparingUrl span').eq(0).show().html($repoUrl+'.'+'publish.'+$domain+'.pc/compare/aaa...bbb');
+				$('#comparingUrl span').eq(1).show().html($repoUrl+'.'+'publish.'+$domain+'.mobile/compare/aaa...bbb');
 				if ($domain == 'ebay' || $domain == 'hanbando') {
 					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
@@ -94,14 +118,14 @@ $(document).ready(function(){
 					if ($server == 'master') {
 						$server = 'main';
 					}
-					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
-					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrlStarro+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
+					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrlStarro+'/'+$domain+'/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(1).find('a').html('');
 					$('#MergeUrl .request-url').eq(1).find('a').attr('');
-					$('#BranchUrl a').html($repoUrl+'/'+$domain+'/tree/'+frm1.branch_no.value);
-					$('#BranchUrl a').attr('href', $repoUrl+'/'+$domain+'/tree/'+frm1.branch_no.value);
-					$('#CompareUrl a').html($repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
-					$('#CompareUrl a').attr('href', $repoUrl+'/'+$domain+'/compare/'+frm1.branch_no.value);
+					$('#BranchUrl a').html($repoUrlStarro+'/'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#BranchUrl a').attr('href', $repoUrlStarro+'/'+$domain+'/tree/'+frm1.branch_no.value);
+					$('#comparingUrl span').eq(0).show().html($repoUrlStarro+'/'+$domain+'/commit/579e93c');
+					$('#comparingUrl span').eq(1).show().html($repoUrlStarro+'/'+$domain+'/compare/50b2de1...adf25d3');
 				}else {
 					$('#MergeUrl .request-url').eq(0).find('a').html($repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
 					$('#MergeUrl .request-url').eq(0).find('a').attr('href', $repoUrl+'.'+$domain+'.pc/compare/'+$server+'...'+frm1.branch_no.value+'?expand=1');
@@ -110,8 +134,8 @@ $(document).ready(function(){
 					
 					$('#BranchUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
 					$('#BranchUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/tree/'+frm1.branch_no.value);
-					$('#CompareUrl a').html($repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
-					$('#CompareUrl a').attr('href', $repoUrl+'.'+$domain+'.'+$device+'/compare/'+frm1.branch_no.value);
+					$('#comparingUrl span').eq(0).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.pc/commit/579e93c');
+					$('#comparingUrl span').eq(1).show().html($repoUrlStarro+'/'+'publish.'+$domain+'.mobile/compare/50b2de1...adf25d3');
 				}
 			}
 		} else if ($(this).hasClass('single_trigger') == true){
@@ -159,7 +183,7 @@ $(document).ready(function(){
 function loadData(){
 	var $user = $('#env-user').find('option:selected').val();
 	var $year = $('#env-year').find('option:selected').val();
-	var $month = $('#env-month').find('option:selected').val();
+	var $month = $('#env-month').find('option:selected').text();
 	var $button = $('#env-button');
 	var $url = ($user == 'envyzteam') 
 		? 'https://jira.gmarket.com/issues/?filter=35561&jql=issuetype%20in%20(BC%2C%20DR%2C%20Sub-Task%2C%20Task)%20AND%20labels%20in%20(od-envyz)%20AND%20labels%20in%20('+$year+$month+')%20ORDER%20BY%20assignee%20DESC%2C%20Key%20ASC' 
